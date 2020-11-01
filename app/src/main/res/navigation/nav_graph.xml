@@ -6,16 +6,57 @@
     app:startDestination="@id/mainFragment">
     <fragment
         android:id="@+id/mainFragment"
-        android:name="hu.bme.aut.android.swipeajob.MainFragment"
+        android:name="hu.bme.aut.android.swipeajob.Fragments.MainActivityFragments.MainFragment"
         android:label="fragment_main"
         tools:layout="@layout/fragment_main">
         <action
             android:id="@+id/action_mainFragment_to_registrationFragment"
-            app:destination="@id/registrationFragment" />
+            app:destination="@id/registrationFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:launchSingleTop="false"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
+            app:popUpToInclusive="true" />
+        <action
+            android:id="@+id/action_mainFragment_to_jobSwiperActivity"
+            app:destination="@id/jobSwiperActivity"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:launchSingleTop="false"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit" />
+        <action
+            android:id="@+id/action_mainFragment_to_forgottenPasswordFragment"
+            app:destination="@id/forgottenPasswordFragment" />
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
-        android:name="hu.bme.aut.android.swipeajob.RegistrationFragment"
+        android:name="hu.bme.aut.android.swipeajob.Fragments.MainActivityFragments.RegistrationFragment"
         android:label="RegistrationFragment"
-        tools:layout="@layout/fragment_registration"/>
+        tools:layout="@layout/fragment_registration">
+        <action
+            android:id="@+id/action_registrationFragment_to_mainFragment"
+            app:destination="@id/mainFragment"
+            app:enterAnim="@android:anim/slide_in_left"
+            app:exitAnim="@android:anim/slide_out_right"
+            app:popEnterAnim="@anim/fragment_fade_enter"
+            app:popExitAnim="@anim/fragment_fade_exit"
+            app:popUpTo="@id/registrationFragment"
+            app:popUpToInclusive="true" />
+    </fragment>
+    <activity
+        android:id="@+id/jobSwiperActivity"
+        android:name="hu.bme.aut.android.swipeajob.Activities.JobSwiperActivity"
+        android:label="activity_job_swiper"
+        tools:layout="@layout/activity_job_swiper" />
+    <fragment
+        android:id="@+id/forgottenPasswordFragment"
+        android:name="hu.bme.aut.android.swipeajob.Fragments.MainActivityFragments.ForgottenPasswordFragment"
+        android:label="fragment_forgotten_password"
+        tools:layout="@layout/fragment_forgotten_password" >
+        <action
+            android:id="@+id/action_forgottenPasswordFragment_to_mainFragment"
+            app:destination="@id/mainFragment" />
+    </fragment>
 </navigation>

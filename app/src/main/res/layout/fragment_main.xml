@@ -13,7 +13,7 @@
         android:gravity="center"
         android:padding="20dp"
         android:text="@string/swipeajob_title"
-        android:textSize="20sp"
+        android:textSize="@dimen/main_fragment_button_text_size"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
@@ -65,31 +65,52 @@
     </com.google.android.material.textfield.TextInputLayout>
 
 
-    <com.dd.CircularProgressButton
+    <com.dd.processbutton.iml.ActionProcessButton
         android:id="@+id/loginButton"
-        android:layout_width="wrap_content"
+        app:pb_colorComplete="@color/green_complete"
+        app:pb_colorError="@color/red_error"
+        app:pb_colorNormal="@color/purple_500"
+        app:pb_colorPressed="@color/purple_200"
+        app:pb_colorProgress="@color/red_progress"
+        app:pb_textComplete="@string/button_success"
+        app:pb_textError="@string/button_error"
+        app:pb_textProgress="@string/button_logging_in"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_Button"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:cpb_textComplete="@string/button_success"
-        app:cpb_textError="@string/button_error"
-        app:cpb_textIdle="@string/button_login"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/password_EditText" />
+        android:text="@string/button_login"
+        android:textColor="@android:color/white"
+        android:textSize="@dimen/main_fragment_button_text_size"
 
-    <com.dd.CircularProgressButton
-        android:id="@+id/registerButton"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textColor="@color/white"
-        android:layout_margin="@dimen/margin_Button"
-        android:textSize="18sp"
-        app:cpb_textComplete="@string/button_success"
-        app:cpb_textError="@string/button_error"
-        app:cpb_textIdle="@string/button_register"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/password_EditText" />
+
+
+
+    <Button
+        android:id="@+id/registerButton"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_Button"
+        android:text="@string/button_register"
+        android:textColor="@color/white"
+        android:textSize="@dimen/main_fragment_button_text_size"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/loginButton" />
+
+    <Button
+        android:id="@+id/forgottenPasswordButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_Button"
+        android:text="@string/button_forgot_password"
+        android:textColor="@color/white"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>

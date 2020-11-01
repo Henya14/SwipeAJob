@@ -2,4 +2,6 @@
 <resources>
     <dimen name="paddingEditText">20dp</dimen>
     <dimen name="margin_Button">20dp</dimen>
+    <dimen name="main_fragment_button_text_size">18sp</dimen>
+    <dimen name="fab_margin">16dp</dimen>
 </resources>
