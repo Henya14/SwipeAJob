@@ -1,14 +1,20 @@
 package hu.bme.aut.android.swipeajob.Fragments.MainActivityFragments
 
+import android.content.Intent
+import android.opengl.Visibility
 import android.os.Bundle
+import android.os.Debug
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.dd.processbutton.iml.ActionProcessButton
+import hu.bme.aut.android.swipeajob.Activities.JobSwiperActivity
 
 import hu.bme.aut.android.swipeajob.R
+import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlin.concurrent.thread
 
@@ -35,9 +41,16 @@ class MainFragment: Fragment() {
 
 
     fun loginButtonOnClick(v: View) {
-        registerButton.isEnabled = false;
-        loginButton.isEnabled = false
-        forgottenPasswordButton.isEnabled = false;
+        requireActivity().runOnUiThread {
+
+
+            registerButton.isEnabled = false
+            forgottenPasswordButton.isEnabled = false
+            emailInputField.isEnabled = false
+            loginButton.isEnabled = false
+            password_EditText.isEnabled = false
+
+        }
         thread {
             while (loginButton.progress < 100) {
                 activity?.runOnUiThread {
@@ -46,13 +59,13 @@ class MainFragment: Fragment() {
                 Thread.sleep(10)
 
             }
-            val action = MainFragmentDirections.actionMainFragmentToJobSwiperActivity()
-            findNavController().navigate(action)
-            activity?.runOnUiThread {
-                registerButton.isEnabled = true;
-                loginButton.isEnabled = true
-                forgottenPasswordButton.isEnabled = true;
-            }
+
+
+
+            val intent = Intent(requireActivity(), JobSwiperActivity::class.java)
+            startActivity(intent)
+
+            requireActivity().finish()
         }
 
 

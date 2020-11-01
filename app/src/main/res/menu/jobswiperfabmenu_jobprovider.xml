@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/action_modify_data"
+        android:icon="@drawable/baseline_settings_black_18dp"
+        android:title="Modify User Data" />
+    <item
+        android:id="@+id/action_remove_job"
+        android:icon="@drawable/baseline_delete_black_18dp"
+        android:title="Remove a Job" />
+    <item
+        android:id="@+id/action_post_new_job"
+        android:icon="@drawable/baseline_add_black_18dp"
+        android:title="Post New Job"/>
+
+
+</menu>
