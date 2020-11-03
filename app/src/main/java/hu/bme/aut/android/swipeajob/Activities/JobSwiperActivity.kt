@@ -29,11 +29,7 @@ class JobSwiperActivity : AppCompatActivity() {
         pager.registerOnPageChangeCallback(TabLayoutOnPageChangeCallbackForSpeedDial(fab))
 
         TabLayoutMediator(tab_layout, pager) { tab, position ->
-            tab.text = when (position) {
-                0 -> JobSwiperFragment.PAGE_TITLE
-                1 -> JobSwiperJobMatchesListFragment.PAGE_TITLE
-                else -> JobSwiperFragment.PAGE_TITLE
-            }
+            tab.text = JobSwiperFragmentPagerAdapter.getTabTextByPosition(position)
         }.attach()
 
         pager.isUserInputEnabled = false

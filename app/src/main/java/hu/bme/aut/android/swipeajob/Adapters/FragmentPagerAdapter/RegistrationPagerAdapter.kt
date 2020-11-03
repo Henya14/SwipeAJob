@@ -8,26 +8,26 @@ import hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments.JobSwip
 import hu.bme.aut.android.swipeajob.Fragments.RegistrationFragments.JobProviderRegistrationFragment
 import hu.bme.aut.android.swipeajob.Fragments.RegistrationFragments.JobSearcherRegistrationFragment
 
-class JobSwiperFragmentPagerAdapter(fm: FragmentActivity) :  FragmentStateAdapter(fm)
-{
-    companion object{
+class RegistrationPagerAdapter(fm: FragmentActivity) :  FragmentStateAdapter(fm) {
+    companion object {
         const val NUM_PAGES = 2
 
         fun getTabTextByPosition(position: Int): String = when (position) {
-            0 -> JobSwiperFragment.PAGE_TITLE
-            1 -> JobSwiperJobMatchesListFragment.PAGE_TITLE
-            else -> JobSwiperFragment.PAGE_TITLE
+            0 -> JobSearcherRegistrationFragment.PAGE_TITLE
+            1 -> JobProviderRegistrationFragment.PAGE_TITLE
+            else -> JobSearcherRegistrationFragment.PAGE_TITLE
         }
-
     }
 
-    override fun getItemCount(): Int  = NUM_PAGES
+    override fun getItemCount(): Int = NUM_PAGES
 
-    override fun createFragment(position: Int): Fragment = when(position) {
-        0 -> JobSwiperFragment()
-        1 -> JobSwiperJobMatchesListFragment()
-        else ->  JobSwiperFragment()
+    override fun createFragment(position: Int): Fragment = when (position) {
+        0 -> JobSearcherRegistrationFragment()
+        1 -> JobProviderRegistrationFragment()
+        else -> JobSearcherRegistrationFragment()
     }
+
+
 
 
 }
