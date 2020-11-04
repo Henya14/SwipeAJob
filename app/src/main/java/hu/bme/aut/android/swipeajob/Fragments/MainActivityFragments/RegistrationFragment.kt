@@ -15,6 +15,8 @@ import hu.bme.aut.android.swipeajob.Adapters.FragmentPagerAdapter.RegistrationPa
 import hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments.JobSwiperFragment
 import hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments.JobSwiperJobMatchesListFragment
 import hu.bme.aut.android.swipeajob.R
+import kotlinx.android.synthetic.main.activity_job_swiper.*
+import kotlinx.android.synthetic.main.fragment_main.view.*
 import kotlinx.android.synthetic.main.fragment_registration.*
 
 class RegistrationFragment: Fragment()
@@ -32,7 +34,7 @@ class RegistrationFragment: Fragment()
         super.onViewCreated(view, savedInstanceState)
 
         pager_registration.adapter = RegistrationPagerAdapter(requireActivity())
-
+        requireActivity().title = getString(R.string.registration_appbar_text)
         TabLayoutMediator(tab_layout_registration, pager_registration){tab, position ->
             tab.text = RegistrationPagerAdapter.getTabTextByPosition(position)
         }.attach()

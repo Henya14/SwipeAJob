@@ -32,4 +32,8 @@
     <string name="add_education">Add Education</string>
     <string name="add_experience">Add Experience</string>
     <string name="add_skill">Add Skill</string>
+    <string name="register">Register</string>
+    <string name="registration_appbar_text">Registration</string>
+    <string name="forgotten_password_fragment_title">Retrieve Password</string>
+    <string name="submit">Submit</string>
 </resources>

@@ -21,5 +21,6 @@ class ForgottenPasswordFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().title = getString(R.string.forgotten_password_fragment_title)
     }
 }

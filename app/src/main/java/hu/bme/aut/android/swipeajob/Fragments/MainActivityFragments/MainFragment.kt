@@ -30,6 +30,7 @@ class MainFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        requireActivity().title = getString(R.string.app_name)
         loginButton.setMode(ActionProcessButton.Mode.PROGRESS)
         loginButton.progress = 0
         loginButton.setOnClickListener(::loginButtonOnClick)
