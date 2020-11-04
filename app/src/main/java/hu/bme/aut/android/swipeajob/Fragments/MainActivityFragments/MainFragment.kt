@@ -41,16 +41,15 @@ class MainFragment: Fragment() {
 
 
     fun loginButtonOnClick(v: View) {
-        requireActivity().runOnUiThread {
 
-
+            greyLoadingScreen.visibility = View.VISIBLE
             registerButton.isEnabled = false
             forgottenPasswordButton.isEnabled = false
             emailInputField.isEnabled = false
             loginButton.isEnabled = false
             password_EditText.isEnabled = false
 
-        }
+
         thread {
             while (loginButton.progress < 100) {
                 activity?.runOnUiThread {
@@ -72,6 +71,7 @@ class MainFragment: Fragment() {
     }
 
     fun registerButtonOnClick(v: View) {
+        greyLoadingScreen.visibility = View.VISIBLE
         val action = MainFragmentDirections.actionMainFragmentToRegistrationFragment()
         findNavController().navigate(action)
     }

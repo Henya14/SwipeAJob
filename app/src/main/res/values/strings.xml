@@ -25,4 +25,11 @@
     <string name="title_activity_job_swiper__job_provider">JobSwiperActivity_JobProvider</string>
     <string name="username">Username</string>
     <string name="company_name">Company Name</string>
+    <string name="full_name">Full Name</string>
+    <string name="education">Education:</string>
+    <string name="skills">Skills:</string>
+    <string name="experience">Experience:</string>
+    <string name="add_education">Add Education</string>
+    <string name="add_experience">Add Experience</string>
+    <string name="add_skill">Add Skill</string>
 </resources>

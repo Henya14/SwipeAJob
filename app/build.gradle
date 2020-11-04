@@ -38,17 +38,17 @@ dependencies {
     implementation 'androidx.core:core-ktx:1.3.2'
     implementation 'androidx.appcompat:appcompat:1.2.0'
     implementation 'com.google.android.material:material:1.2.1'
-    implementation 'androidx.constraintlayout:constraintlayout:2.0.2'
+    implementation 'androidx.constraintlayout:constraintlayout:2.0.4'
     implementation 'androidx.legacy:legacy-support-v4:1.0.0'
     implementation fileTree(dir: 'C:\\Users\\Henrik\\AndroidStudioProjects\\SwipeAJob\\CardStackView-master\\CardStackView-master\\gradle\\wrapper', include: ['*.aar', '*.jar'], exclude: [])
-    testImplementation 'junit:junit:4.+'
+    testImplementation 'junit:junit:4.13.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.2'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
 
     //support L
-    implementation 'androidx.recyclerview:recyclerview:1.0.0'
+    implementation 'androidx.recyclerview:recyclerview:1.1.0'
     implementation 'androidx.cardview:cardview:1.0.0'
-    implementation 'com.google.android.material:material:1.0.0'
+    implementation 'com.google.android.material:material:1.2.1'
 
     def nav_version = "2.3.1"
 
@@ -76,13 +76,13 @@ dependencies {
     // View
     implementation 'com.makeramen:roundedimageview:2.3.0'
 
-    implementation "com.google.android.material:material:1.1.0-beta01"
+    implementation 'com.google.android.material:material:1.3.0-alpha03'
 
     //Floating Action Button Speeddial
-    compile 'io.github.yavski:fab-speed-dial:1.0.6'
+    implementation 'io.github.yavski:fab-speed-dial:1.0.6'
 
     //IntlPhoneInput
-    compile 'net.rimoto:intlphoneinput:1.0.1'
+    implementation 'net.rimoto:intlphoneinput:1.0.1'
 
     //ImagePicker
     implementation 'com.github.dhaval2404:imagepicker:1.7.5'

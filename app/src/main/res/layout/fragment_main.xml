@@ -114,6 +114,16 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <View
+        android:id="@+id/greyLoadingScreen"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:elevation="20dp"
+        android:background="@color/grey"
+        android:alpha="0.5"
+        android:visibility="invisible"
+        />
+
     
 
 
