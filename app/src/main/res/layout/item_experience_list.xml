@@ -7,7 +7,7 @@
 
 
     <TextView
-        android:id="@+id/graduationYearTextView"
+        android:id="@+id/startEndTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_recycler_view_items"
@@ -26,11 +26,11 @@
         android:text="Comapny Name"
         android:textSize="@dimen/recycler_view_item_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/graduationYearTextView"
+        app:layout_constraintStart_toEndOf="@+id/startEndTextView"
         app:layout_constraintTop_toTopOf="parent" />
 
     <ImageButton
-        android:id="@+id/ExperienceItemRemoveButton"
+        android:id="@+id/experienceItemRemoveButton"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="50dp"
         android:layout_height="50dp"

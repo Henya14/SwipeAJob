@@ -1,7 +1,7 @@
 package hu.bme.aut.android.swipeajob.Adapters.CardStackViewAdapter
 
 import androidx.recyclerview.widget.DiffUtil
-import hu.bme.aut.android.swipeajob.Data.Spot
+import hu.bme.aut.android.swipeajob.Data.JobSwiperData.Spot
 
 class SpotDiffCallback(
     private val old: List<Spot>,

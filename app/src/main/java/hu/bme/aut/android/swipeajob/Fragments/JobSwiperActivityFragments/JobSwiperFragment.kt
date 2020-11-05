@@ -15,7 +15,7 @@ import androidx.recyclerview.widget.DiffUtil
 import com.yuyakaido.android.cardstackview.*
 import hu.bme.aut.android.swipeajob.Adapters.CardStackViewAdapter.CardStackAdapter
 import hu.bme.aut.android.swipeajob.Adapters.CardStackViewAdapter.SpotDiffCallback
-import hu.bme.aut.android.swipeajob.Data.Spot
+import hu.bme.aut.android.swipeajob.Data.JobSwiperData.Spot
 import hu.bme.aut.android.swipeajob.R
 import kotlinx.android.synthetic.main.fragment_job_swiper.*
 

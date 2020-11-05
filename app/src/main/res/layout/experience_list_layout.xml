@@ -11,7 +11,6 @@
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_registration_text_view"
         android:text="@string/experience"
-        android:textSize="20sp"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -33,7 +32,8 @@
         android:layout_marginTop="@dimen/margin_recycler_view_items"
         android:text="@string/start_end_year"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/addExperienceButton" />
+        app:layout_constraintTop_toBottomOf="@id/addExperienceButton"
+        android:textSize="@dimen/recycler_view_item_text_size"/>
 
     <TextView
         android:id="@+id/companyNameLabel"
@@ -42,7 +42,8 @@
         android:layout_margin="@dimen/margin_recycler_view_items"
         android:text="@string/comapny_name"
         app:layout_constraintStart_toEndOf="@+id/startEndLabel"
-        app:layout_constraintTop_toBottomOf="@+id/addExperienceButton" />
+        app:layout_constraintTop_toBottomOf="@+id/addExperienceButton"
+        android:textSize="@dimen/recycler_view_item_text_size"/>
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/experienceRecyclerView"

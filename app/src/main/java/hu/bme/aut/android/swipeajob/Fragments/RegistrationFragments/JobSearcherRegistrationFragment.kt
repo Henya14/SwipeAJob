@@ -10,9 +10,14 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import com.github.dhaval2404.imagepicker.ImagePicker
+import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.EducationRecyclerViewAdapter
+import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.ExperienceRecyclerViewAdapter
+import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.SkillsRecyclerViewAdapter
 import hu.bme.aut.android.swipeajob.R
-import kotlinx.android.synthetic.main.fragment_jobsearcher_registration.*
+import kotlinx.android.synthetic.main.education_list_layout.*
+import kotlinx.android.synthetic.main.experience_list_layout.*
 import kotlinx.android.synthetic.main.registration_fragment_common_layout.*
+import kotlinx.android.synthetic.main.skills_list_layout.*
 import java.io.File
 
 
@@ -35,6 +40,14 @@ class JobSearcherRegistrationFragment : Fragment() {
                 .maxResultSize(1080, 1080)
                 .start()
         }
+
+        educationRecyclerView.adapter = EducationRecyclerViewAdapter()
+
+        experienceRecyclerView.adapter = ExperienceRecyclerViewAdapter()
+
+        skillsRecyclerView.adapter = SkillsRecyclerViewAdapter()
+
+
 
 
 

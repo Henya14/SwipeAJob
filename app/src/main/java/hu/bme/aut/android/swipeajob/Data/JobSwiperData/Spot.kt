@@ -1,4 +1,4 @@
-package hu.bme.aut.android.swipeajob.Data
+package hu.bme.aut.android.swipeajob.Data.JobSwiperData
 
 data class Spot(
     val id: Long = counter++,
