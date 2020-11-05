@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.dhaval2404.imagepicker.ImagePicker
 import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.EducationRecyclerViewAdapter
 import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.ExperienceRecyclerViewAdapter
@@ -41,12 +42,17 @@ class JobSearcherRegistrationFragment : Fragment() {
                 .start()
         }
 
+
+        educationRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         educationRecyclerView.adapter = EducationRecyclerViewAdapter()
 
-        experienceRecyclerView.adapter = ExperienceRecyclerViewAdapter()
 
+        educationRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        educationRecyclerView.adapter = ExperienceRecyclerViewAdapter()
+
+
+        skillsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         skillsRecyclerView.adapter = SkillsRecyclerViewAdapter()
-
 
 
 

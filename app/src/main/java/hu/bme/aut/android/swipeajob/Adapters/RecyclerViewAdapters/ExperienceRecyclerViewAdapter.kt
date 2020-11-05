@@ -6,9 +6,7 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.EducationItem
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.ExperienceItem
-import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.SkillItem
 import hu.bme.aut.android.swipeajob.R
 
 class ExperienceRecyclerViewAdapter : RecyclerView.Adapter<ExperienceRecyclerViewAdapter.ExperienceViewHolder>() {
