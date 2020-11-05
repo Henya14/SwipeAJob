@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import com.github.dhaval2404.imagepicker.ImagePicker
 import hu.bme.aut.android.swipeajob.R
+import kotlinx.android.synthetic.main.fragment_jobsearcher_registration.*
 import kotlinx.android.synthetic.main.registration_fragment_common_layout.*
 import java.io.File
 
@@ -34,6 +35,8 @@ class JobSearcherRegistrationFragment : Fragment() {
                 .maxResultSize(1080, 1080)
                 .start()
         }
+
+
 
     }
 

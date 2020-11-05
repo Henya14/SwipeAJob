@@ -48,86 +48,39 @@
             </com.google.android.material.textfield.TextInputLayout>
 
 
-            <TextView
-                android:id="@+id/educationTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/education"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/fullNameInputField" />
-
-            <Button
-                android:id="@+id/addEducationButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <include
+                android:id="@+id/educationListLayout"
+                layout="@layout/education_list_layout"
                 app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/fullNameInputField"
-                android:text="@string/add_education"/>
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/educationRecyclerView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+            <include
+                android:id="@+id/experienceListLayout"
+                layout="@layout/experience_list_layout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addEducationButton"/>
+                app:layout_constraintTop_toBottomOf="@+id/educationListLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-            <TextView
-                android:id="@+id/experienceTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/experience"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/educationRecyclerView" />
+            <include
 
-
-
-            <Button
-                android:id="@+id/addExperienceButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/educationRecyclerView"
-                android:text="@string/add_experience"/>
-
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/experienceRecyclerView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
+                layout="@layout/skills_list_layout"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addExperienceButton">
+                app:layout_constraintTop_toBottomOf="@+id/experienceListLayout"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"/>
 
-            </androidx.recyclerview.widget.RecyclerView>
 
-            <TextView
-                android:id="@+id/skillsTextView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="@string/skills"
-                android:textSize="20sp"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/experienceRecyclerView" />
 
-            <Button
-                android:id="@+id/addSkillButton"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/experienceRecyclerView"
-                android:text="@string/add_skill"/>
 
-            <androidx.recyclerview.widget.RecyclerView
-                android:id="@+id/skillsRecyclerView"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                app:layout_constraintEnd_toEndOf="parent"
-                app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/addSkillButton">
 
-            </androidx.recyclerview.widget.RecyclerView>
+
+
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
