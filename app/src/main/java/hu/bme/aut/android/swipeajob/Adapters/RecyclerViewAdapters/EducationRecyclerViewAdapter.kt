@@ -31,21 +31,40 @@ class EducationRecyclerViewAdapter : RecyclerView.Adapter<EducationRecyclerViewA
     override fun getItemCount(): Int  = items.size
 
 
+
     inner class EducationViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView)
     {
         val graduationYear: TextView
         val schoolName: TextView
-        val delteButton: ImageButton
+        val deleteButton: ImageButton
         var item: EducationItem? = null
         init {
 
             graduationYear = itemView.findViewById(R.id.graduationYearTextView)
             schoolName = itemView.findViewById(R.id.schoolNameTextView)
-            delteButton = itemView.findViewById(R.id.educationItemRemoveButton)
+            deleteButton = itemView.findViewById(R.id.educationItemRemoveButton)
+            deleteButton.setOnClickListener{
+                item?.let {
+                    removeItem(it)
+                    //TODO: onItemDeleted
+                }
+            }
 
         }
 
 
+    }
+
+    fun addItem(item: EducationItem)
+    {
+        items.add(item)
+        notifyItemInserted(items.size - 1)
+    }
+
+    fun removeItem(item: EducationItem) {
+        val itemIdx: Int = items.indexOf(item)
+        items.remove(item)
+        notifyItemRemoved(itemIdx)
     }
 
 

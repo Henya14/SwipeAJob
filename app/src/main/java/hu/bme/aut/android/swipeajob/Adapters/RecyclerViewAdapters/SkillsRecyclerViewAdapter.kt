@@ -32,17 +32,35 @@ class SkillsRecyclerViewAdapter : RecyclerView.Adapter<SkillsRecyclerViewAdapter
     inner class SkillsViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView)
     {
         val skillText: TextView
-        val delteButton: ImageButton
+        val deleteButton: ImageButton
         var item: SkillItem? = null
         init {
 
             skillText = itemView.findViewById(R.id.skillTextView)
-            delteButton = itemView.findViewById(R.id.skillItemRemoveButton)
+            deleteButton = itemView.findViewById(R.id.skillItemRemoveButton)
+            deleteButton.setOnClickListener{
+                item?.let {
+                    removeItem(it)
+                }
+            }
 
         }
 
 
     }
+
+    fun addItem(item: SkillItem)
+    {
+        items.add(item)
+        notifyItemInserted(items.size - 1)
+    }
+
+    fun removeItem(item: SkillItem) {
+        val itemIdx: Int = items.indexOf(item)
+        items.remove(item)
+        notifyItemRemoved(itemIdx)
+    }
+
 }
 
 

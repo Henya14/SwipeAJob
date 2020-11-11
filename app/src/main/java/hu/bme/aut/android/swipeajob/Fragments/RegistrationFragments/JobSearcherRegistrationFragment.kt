@@ -14,16 +14,30 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.EducationRecyclerViewAdapter
 import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.ExperienceRecyclerViewAdapter
 import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.SkillsRecyclerViewAdapter
+import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.EducationItem
+import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.ExperienceItem
+import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.SkillItem
+import hu.bme.aut.android.swipeajob.Fragments.RegistrationFragments.DialogFragments.NewEducationItemDialogFragment
+import hu.bme.aut.android.swipeajob.Fragments.RegistrationFragments.DialogFragments.NewExperienceItemDialogFragment
+import hu.bme.aut.android.swipeajob.Fragments.RegistrationFragments.DialogFragments.NewSkillsItemDialogFragment
 import hu.bme.aut.android.swipeajob.R
 import kotlinx.android.synthetic.main.education_list_layout.*
 import kotlinx.android.synthetic.main.experience_list_layout.*
 import kotlinx.android.synthetic.main.registration_fragment_common_layout.*
 import kotlinx.android.synthetic.main.skills_list_layout.*
 import java.io.File
+import kotlin.concurrent.thread
 
 
-class JobSearcherRegistrationFragment : Fragment() {
+class JobSearcherRegistrationFragment : Fragment(),
+    NewEducationItemDialogFragment.NewEducationItemDialogListener,
+    NewExperienceItemDialogFragment.NewExperienceItemDialogListener,
+    NewSkillsItemDialogFragment.NewSkillsItemDialogListener{
 
+
+    private lateinit var educationRecyclerViewAdapter: EducationRecyclerViewAdapter
+    private lateinit var experienceRecyclerViewAdapter: ExperienceRecyclerViewAdapter
+    private lateinit var skillsRecyclerViewAdapter: SkillsRecyclerViewAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -43,20 +57,31 @@ class JobSearcherRegistrationFragment : Fragment() {
         }
 
 
+        initAddButtonOnClickListeners()
+        initRecyclerViews()
+
+
+
+    }
+
+    private fun initAddButtonOnClickListeners() {
+        addEducationButton.setOnClickListener { NewEducationItemDialogFragment(this).show(requireActivity().supportFragmentManager, NewEducationItemDialogFragment.TAG) }
+        addExperienceButton.setOnClickListener { NewExperienceItemDialogFragment(this).show(requireActivity().supportFragmentManager, NewExperienceItemDialogFragment.TAG) }
+        addSkillButton.setOnClickListener{NewSkillsItemDialogFragment(this).show(requireActivity().supportFragmentManager, NewSkillsItemDialogFragment.TAG)}
+    }
+
+    private fun initRecyclerViews() {
+        educationRecyclerViewAdapter = EducationRecyclerViewAdapter()
         educationRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        educationRecyclerView.adapter = EducationRecyclerViewAdapter()
+        educationRecyclerView.adapter = educationRecyclerViewAdapter
 
+        experienceRecyclerViewAdapter = ExperienceRecyclerViewAdapter()
+        experienceRecyclerView.layoutManager = LinearLayoutManager(requireContext())
+        experienceRecyclerView.adapter = experienceRecyclerViewAdapter
 
-        educationRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        educationRecyclerView.adapter = ExperienceRecyclerViewAdapter()
-
-
+        skillsRecyclerViewAdapter = SkillsRecyclerViewAdapter()
         skillsRecyclerView.layoutManager = LinearLayoutManager(requireContext())
-        skillsRecyclerView.adapter = SkillsRecyclerViewAdapter()
-
-
-
-
+        skillsRecyclerView.adapter = skillsRecyclerViewAdapter
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
@@ -83,6 +108,19 @@ class JobSearcherRegistrationFragment : Fragment() {
 
     companion object{
         const val PAGE_TITLE = "Job Searcher"
+    }
+
+    override fun onEducationItemCreated(newItem: EducationItem) {
+
+        educationRecyclerViewAdapter.addItem(newItem)
+    }
+
+    override fun onExperienceItemCreated(newItem: ExperienceItem) {
+        experienceRecyclerViewAdapter.addItem(newItem)
+    }
+
+    override fun onSkillItemCreated(newItem: SkillItem) {
+       skillsRecyclerViewAdapter.addItem(newItem)
     }
 
 

@@ -10,4 +10,6 @@
     <dimen name="recycler_view_item_text_size">20sp</dimen>
     <dimen name="margin_recycler_view">20dp</dimen>
     <dimen name="recycler_view_first_label_margin_start">20dp</dimen>
+    <dimen name="app_padding">20dp</dimen>
+    <dimen name="app_margin">20dp</dimen>
 </resources>

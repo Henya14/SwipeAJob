@@ -34,17 +34,35 @@ class ExperienceRecyclerViewAdapter : RecyclerView.Adapter<ExperienceRecyclerVie
     {
         val startEndText: TextView
         val companyName: TextView
-        val delteButton: ImageButton
+        val deleteButton: ImageButton
         var item: ExperienceItem? = null
         init {
 
             startEndText = itemView.findViewById(R.id.startEndTextView)
             companyName = itemView.findViewById(R.id.companyNameTextView)
-            delteButton = itemView.findViewById(R.id.experienceItemRemoveButton)
+            deleteButton = itemView.findViewById(R.id.experienceItemRemoveButton)
+            deleteButton.setOnClickListener{
+                item?.let {
+                    removeItem(it)
+                    //TODO: onItemDeleted
+                }
+            }
 
         }
 
 
     }
+    fun addItem(item: ExperienceItem)
+    {
+        items.add(item)
+        notifyItemInserted(items.size - 1)
+    }
+
+    fun removeItem(item: ExperienceItem) {
+        val itemIdx: Int = items.indexOf(item)
+        items.remove(item)
+        notifyItemRemoved(itemIdx)
+    }
+
 
 }
