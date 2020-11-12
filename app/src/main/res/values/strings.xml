@@ -48,4 +48,9 @@
     <string name="ok_text">Ok</string>
     <string name="add_new_experience_item">Add New Experience Item</string>
     <string name="add_new_skill_item">Add New Skill Item</string>
+    <string name="phoneNumberValidationText">Please Enter a Valid Phone Number</string>
+    <string name="username_input_error">Please Enter Your Username!</string>
+    <string name="password_input_error">Please Choose a Password!</string>
+    <string name="full_name_input_error">Please Enter Your Full Name!</string>
+    <string name="company_name_input_error">Please Enter Your Company\'s Name</string>
 </resources>

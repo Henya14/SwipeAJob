@@ -13,14 +13,13 @@
     android:layout_height="match_parent">
 
 
-
-
         <TextView
             android:id="@+id/companyNameTextView"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:padding="@dimen/app_padding"
             android:text="@string/comapny_name"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
 
@@ -42,15 +41,14 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/app_padding"
             android:text="@string/starting_date"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@id/companyNameEditText" />
 
-        <DatePicker
+        <NumberPicker
             android:id="@+id/startingYearPicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:calendarViewShown="false"
-            android:datePickerMode="spinner"
             android:padding="@dimen/app_padding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
@@ -63,15 +61,14 @@
             android:layout_height="wrap_content"
             android:padding="@dimen/app_padding"
             android:text="@string/ending_date"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/startingYearPicker" />
 
-        <DatePicker
+        <NumberPicker
             android:id="@+id/endingYearPicker"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:calendarViewShown="false"
-            android:datePickerMode="spinner"
             android:padding="@dimen/app_padding"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"

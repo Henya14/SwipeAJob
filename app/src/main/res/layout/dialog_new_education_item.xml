@@ -11,6 +11,7 @@
         android:layout_height="wrap_content"
         android:padding="@dimen/app_padding"
         android:text="@string/school_s_name"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
@@ -27,22 +28,20 @@
         />
 
     <TextView
-        android:padding="@dimen/app_padding"
         android:id="@+id/textView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:padding="@dimen/app_padding"
         android:text="@string/graduation_date"
+        app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@id/schoolNameEditText" />
 
-    <DatePicker
+    <NumberPicker
         android:id="@+id/graduationYearPicker"
-
         android:padding="@dimen/app_padding"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:calendarViewShown="false"
-        android:datePickerMode="spinner"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/textView"

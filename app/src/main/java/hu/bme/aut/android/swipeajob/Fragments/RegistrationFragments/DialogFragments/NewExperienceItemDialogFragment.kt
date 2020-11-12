@@ -5,9 +5,10 @@ import android.app.Dialog
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.DatePicker
 import android.widget.EditText
+import android.widget.NumberPicker
 import androidx.fragment.app.DialogFragment
+import hu.bme.aut.android.swipeajob.Constants.Consts
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.ExperienceItem
 import hu.bme.aut.android.swipeajob.R
 
@@ -19,8 +20,8 @@ class NewExperienceItemDialogFragment(val listener: NewExperienceItemDialogListe
     }
 
     private lateinit var companyNameEditText: EditText
-    private lateinit var startingYearPicker: DatePicker
-    private lateinit var endingYearPicker: DatePicker
+    private lateinit var startingYearPicker: NumberPicker
+    private lateinit var endingYearPicker: NumberPicker
 
     override fun onCreateDialog(savedInstanceState: Bundle?): Dialog {
         return AlertDialog.Builder(requireContext())
@@ -40,8 +41,8 @@ class NewExperienceItemDialogFragment(val listener: NewExperienceItemDialogListe
 
     private fun getExperienceItem(): ExperienceItem = ExperienceItem(
         null,
-        startYear = startingYearPicker.year,
-        endYear = endingYearPicker.year,
+        startYear = startingYearPicker.value,
+        endYear = endingYearPicker.value,
         companyName = companyNameEditText.text.toString()
     )
 
@@ -52,8 +53,19 @@ class NewExperienceItemDialogFragment(val listener: NewExperienceItemDialogListe
             .inflate(R.layout.dialog_new_experience_item, null)
 
         companyNameEditText = contentView.findViewById(R.id.companyNameEditText)
+
         startingYearPicker = contentView.findViewById(R.id.startingYearPicker)
+        startingYearPicker.minValue = Consts.YEAR_PICKER_MIN_VALUE
+        startingYearPicker.maxValue = Consts.YEAR_PICKER_MAX_VALUE
+        startingYearPicker.value = Consts.YEAR_PICKER_INITIAL_VALUE
+        startingYearPicker.wrapSelectorWheel = false
+
         endingYearPicker = contentView.findViewById(R.id.endingYearPicker)
+        endingYearPicker.minValue = Consts.YEAR_PICKER_MIN_VALUE
+        endingYearPicker.maxValue = Consts.YEAR_PICKER_MAX_VALUE
+        endingYearPicker.value = Consts.YEAR_PICKER_INITIAL_VALUE
+        endingYearPicker.wrapSelectorWheel = false
+
         return contentView
     }
 

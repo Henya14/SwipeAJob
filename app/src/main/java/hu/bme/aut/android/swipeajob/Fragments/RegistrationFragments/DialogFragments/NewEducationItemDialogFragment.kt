@@ -8,12 +8,15 @@ import android.view.LayoutInflater
 import android.view.View
 import android.widget.DatePicker
 import android.widget.EditText
+import android.widget.NumberPicker
 import androidx.fragment.app.DialogFragment
+import hu.bme.aut.android.swipeajob.Constants.Consts
 
 
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.EducationItem
 import hu.bme.aut.android.swipeajob.R
 import java.lang.RuntimeException
+import java.util.*
 
 class NewEducationItemDialogFragment(val listener: NewEducationItemDialogListener): DialogFragment()
 {
@@ -23,7 +26,7 @@ class NewEducationItemDialogFragment(val listener: NewEducationItemDialogListene
         fun onEducationItemCreated(newItem: EducationItem)
     }
 
-    private lateinit var graduationYearDatePicker : DatePicker
+    private lateinit var graduationYear : NumberPicker
     private lateinit var nameEditText : EditText
 
 
@@ -49,7 +52,7 @@ class NewEducationItemDialogFragment(val listener: NewEducationItemDialogListene
 
     private fun getEducationItem(): EducationItem = EducationItem(
         null,
-        graduationYearDatePicker.year,
+        graduationYear.value,
         nameEditText.text.toString()
     )
     private fun getContentView(): View {
@@ -57,7 +60,12 @@ class NewEducationItemDialogFragment(val listener: NewEducationItemDialogListene
         val contentView = LayoutInflater
             .from(context)
             .inflate(R.layout.dialog_new_education_item, null)
-        graduationYearDatePicker = contentView.findViewById(R.id.graduationYearPicker)
+        graduationYear = contentView.findViewById(R.id.graduationYearPicker)
+        graduationYear.minValue = Consts.YEAR_PICKER_MIN_VALUE
+        graduationYear.maxValue = Consts.YEAR_PICKER_MAX_VALUE
+        graduationYear.value = Consts.YEAR_PICKER_INITIAL_VALUE
+        graduationYear.wrapSelectorWheel = false
+
         nameEditText = contentView.findViewById(R.id.schoolNameEditText)
 
         return contentView

@@ -11,6 +11,7 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.android.material.snackbar.Snackbar
 import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.EducationRecyclerViewAdapter
 import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.ExperienceRecyclerViewAdapter
 import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.SkillsRecyclerViewAdapter
@@ -23,10 +24,10 @@ import hu.bme.aut.android.swipeajob.Fragments.RegistrationFragments.DialogFragme
 import hu.bme.aut.android.swipeajob.R
 import kotlinx.android.synthetic.main.education_list_layout.*
 import kotlinx.android.synthetic.main.experience_list_layout.*
+import kotlinx.android.synthetic.main.fragment_job_searcher_registration.*
 import kotlinx.android.synthetic.main.registration_fragment_common_layout.*
 import kotlinx.android.synthetic.main.skills_list_layout.*
 import java.io.File
-import kotlin.concurrent.thread
 
 
 class JobSearcherRegistrationFragment : Fragment(),
@@ -43,7 +44,7 @@ class JobSearcherRegistrationFragment : Fragment(),
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_jobsearcher_registration, container, false)
+        return inflater.inflate(R.layout.fragment_job_searcher_registration, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,6 +58,8 @@ class JobSearcherRegistrationFragment : Fragment(),
         }
 
 
+
+        registerButton.setOnClickListener(::registerButtonOnClick)
         initAddButtonOnClickListeners()
         initRecyclerViews()
 
@@ -123,5 +126,47 @@ class JobSearcherRegistrationFragment : Fragment(),
        skillsRecyclerViewAdapter.addItem(newItem)
     }
 
+
+    fun registerButtonOnClick(v : View)
+    {
+        if(validateInput())
+            registerNewJobSearcher()
+    }
+
+    private fun registerNewJobSearcher() {
+        TODO("Not yet implemented")
+    }
+
+    private fun validateInput(): Boolean
+    {
+
+        if(userNameInputField.editText!!.text!!.isEmpty()) {
+            userNameInputField.requestFocus()
+            userNameInputField.error = getString(R.string.username_input_error)
+            return false
+        }
+
+        else if(passwordInputField.editText!!.text!!.isEmpty())
+        {
+            passwordInputField.requestFocus()
+            passwordInputField.error = getString(R.string.password_input_error)
+            return false
+        }
+
+        else if(!phoneNumberInput.isValid)
+        {
+            phoneNumberInput.requestFocus()
+            Snackbar.make(requireView(), getString(R.string.phoneNumberValidationText), Snackbar.LENGTH_LONG).show()
+            return false
+        }
+
+        else if(fullNameInputField.editText!!.text!!.isEmpty())
+        {
+            fullNameInputField.requestFocus()
+            fullNameInputField.error = getString(R.string.full_name_input_error)
+            return false
+        }
+        return true
+    }
 
 }

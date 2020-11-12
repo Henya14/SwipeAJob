@@ -2,7 +2,6 @@ package hu.bme.aut.android.swipeajob.Fragments.RegistrationFragments
 
 import android.app.Activity
 import android.content.Intent
-import android.icu.number.Scale
 import android.os.Bundle
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
@@ -11,7 +10,10 @@ import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
 import com.github.dhaval2404.imagepicker.ImagePicker
+import com.google.android.material.snackbar.Snackbar
 import hu.bme.aut.android.swipeajob.R
+import kotlinx.android.synthetic.main.fragment_job_provider_registration.*
+import kotlinx.android.synthetic.main.fragment_job_searcher_registration.registerButton
 import kotlinx.android.synthetic.main.registration_fragment_common_layout.*
 import java.io.File
 
@@ -41,6 +43,51 @@ class JobProviderRegistrationFragment : Fragment() {
                 .start()
         }
 
+
+        registerButton.setOnClickListener(::registerButtonOnClick)
+    }
+
+
+    fun registerButtonOnClick(view: View) {
+        if(validateInput())
+            registerNewJobProvider()
+    }
+
+    private fun registerNewJobProvider() {
+        TODO("Not yet implemented")
+    }
+
+    private fun validateInput(): Boolean {
+
+        if(userNameInputField.editText!!.text!!.isEmpty()) {
+            userNameInputField.requestFocus()
+            userNameInputField.error = getString(R.string.username_input_error)
+            return false
+        }
+
+        else if(passwordInputField.editText!!.text!!.isEmpty())
+        {
+            passwordInputField.requestFocus()
+            passwordInputField.error = getString(R.string.password_input_error)
+            return false
+        }
+
+        else if(!phoneNumberInput.isValid)
+        {
+            phoneNumberInput.requestFocus()
+            Snackbar.make(requireView(), getString(R.string.phoneNumberValidationText), Snackbar.LENGTH_LONG).show()
+            return false
+        }
+
+        else if(comapnyNameInputField.editText!!.text!!.isEmpty())
+        {
+            comapnyNameInputField.requestFocus()
+            comapnyNameInputField.error = getString(R.string.company_name_input_error)
+            return false
+        }
+
+
+        return true
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
