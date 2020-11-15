@@ -14,7 +14,6 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
 import hu.bme.aut.android.swipeajob.Data.Entities.JobProvider
 import hu.bme.aut.android.swipeajob.Fragments.MainActivityFragments.RegistrationFragmentDirections
-import hu.bme.aut.android.swipeajob.Globals.Database
 import hu.bme.aut.android.swipeajob.R
 import kotlinx.android.synthetic.main.fragment_job_provider_registration.*
 import kotlinx.android.synthetic.main.fragment_job_searcher_registration.registerButton
@@ -79,6 +78,7 @@ class JobProviderRegistrationFragment : Fragment() {
 
     private fun validateInput(): Boolean {
 
+        // TODO ide kéne egy ellenőrzés, hogy a user nem foglalt-e
         if(userNameInputField.editText!!.text!!.isEmpty()) {
             userNameInputField.requestFocus()
             userNameInputField.error = getString(R.string.username_input_error)

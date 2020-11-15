@@ -3,7 +3,6 @@ package hu.bme.aut.android.swipeajob.Fragments.RegistrationFragments
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
-import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
@@ -12,11 +11,13 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.room.Database
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
 import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.EducationRecyclerViewAdapter
 import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.ExperienceRecyclerViewAdapter
 import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.SkillsRecyclerViewAdapter
+import hu.bme.aut.android.swipeajob.Data.Datebase.AppDatabase
 import hu.bme.aut.android.swipeajob.Data.Entities.JobSearcher
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.EducationItem
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.ExperienceItem
@@ -25,7 +26,6 @@ import hu.bme.aut.android.swipeajob.Fragments.MainActivityFragments.Registration
 import hu.bme.aut.android.swipeajob.Fragments.RegistrationFragments.DialogFragments.NewEducationItemDialogFragment
 import hu.bme.aut.android.swipeajob.Fragments.RegistrationFragments.DialogFragments.NewExperienceItemDialogFragment
 import hu.bme.aut.android.swipeajob.Fragments.RegistrationFragments.DialogFragments.NewSkillsItemDialogFragment
-import hu.bme.aut.android.swipeajob.Globals.Database
 import hu.bme.aut.android.swipeajob.R
 import kotlinx.android.synthetic.main.education_list_layout.*
 import kotlinx.android.synthetic.main.experience_list_layout.*
@@ -152,21 +152,21 @@ class JobSearcherRegistrationFragment : Fragment(),
 
 
             //TODO ez threadbe es vissza a fomenube esetleg egy snackbar, hogy sikeres reg plusz loading icon
-            val jobsearcherId = Database.db.jobsearcherDao().insert(js)
+            val jobsearcherId =  AppDatabase.getInstance(requireContext()).jobsearcherDao().insert(js)
 
             for (edi in educationRecyclerViewAdapter.items) {
                 edi.jobsearcherId = jobsearcherId
-                Database.db.educationitemDao().insert(edi)
+                AppDatabase.getInstance(requireContext()).educationitemDao().insert(edi)
             }
 
             for (exi in experienceRecyclerViewAdapter.items) {
                 exi.jobsearcherId = jobsearcherId
-                Database.db.experienceitemDao().insert(exi)
+                AppDatabase.getInstance(requireContext()).experienceitemDao().insert(exi)
             }
 
             for (si in skillsRecyclerViewAdapter.items) {
                 si.jobsearcherId = jobsearcherId
-                Database.db.skillitemDao().insert(si)
+                AppDatabase.getInstance(requireContext()).skillitemDao().insert(si)
             }
 
             Snackbar.make(requireView(), getString(R.string.successfull_registeration), Snackbar.LENGTH_LONG).show()

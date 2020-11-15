@@ -1,10 +1,7 @@
 package hu.bme.aut.android.swipeajob.Fragments.MainActivityFragments
 
 import android.content.Intent
-import android.opengl.Visibility
 import android.os.Bundle
-import android.os.Debug
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,9 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.dd.processbutton.iml.ActionProcessButton
 import hu.bme.aut.android.swipeajob.Activities.JobSwiperActivity
-
 import hu.bme.aut.android.swipeajob.R
-import kotlinx.android.synthetic.main.activity_main.*
 import kotlinx.android.synthetic.main.fragment_main.*
 import kotlin.concurrent.thread
 
@@ -42,6 +37,7 @@ class MainFragment: Fragment() {
 
 
     fun loginButtonOnClick(v: View) {
+        
 
             greyLoadingScreen.visibility = View.VISIBLE
             registerButton.isEnabled = false
@@ -72,6 +68,7 @@ class MainFragment: Fragment() {
     }
 
     fun registerButtonOnClick(v: View) {
+        loadingProgressBar.visibility = View.VISIBLE
         greyLoadingScreen.visibility = View.VISIBLE
         val action = MainFragmentDirections.actionMainFragmentToRegistrationFragment()
         findNavController().navigate(action)

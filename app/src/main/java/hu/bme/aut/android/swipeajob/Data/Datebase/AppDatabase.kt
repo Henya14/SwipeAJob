@@ -1,6 +1,8 @@
 package hu.bme.aut.android.swipeajob.Data.Datebase
 
+import android.content.Context
 import androidx.room.Database
+import androidx.room.Room
 import androidx.room.RoomDatabase
 import hu.bme.aut.android.swipeajob.Data.Dao.*
 import hu.bme.aut.android.swipeajob.Data.Entities.JobProvider
@@ -21,5 +23,25 @@ abstract class AppDatabase : RoomDatabase()
     abstract fun skillitemDao(): SkillItemDao
 
 
+    companion object{
+        private var INSTANCE : AppDatabase? = null
+
+        fun getInstance(context :Context): AppDatabase
+        {
+            if(INSTANCE == null)
+            {
+                INSTANCE = Room.databaseBuilder(
+                    context.applicationContext,
+                    AppDatabase::class.java, "jobswiperdb").build()
+            }
+
+            return INSTANCE!!
+        }
+
+        fun destroyInstance()
+        {
+            INSTANCE = null
+        }
+    }
 
 }
