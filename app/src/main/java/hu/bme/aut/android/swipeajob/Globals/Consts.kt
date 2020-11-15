@@ -1,4 +1,4 @@
-package hu.bme.aut.android.swipeajob.Constants
+package hu.bme.aut.android.swipeajob.Globals
 
 import java.util.Calendar
 

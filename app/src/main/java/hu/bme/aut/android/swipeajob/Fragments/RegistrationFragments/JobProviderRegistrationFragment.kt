@@ -9,13 +9,18 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
+import hu.bme.aut.android.swipeajob.Data.Entities.JobProvider
+import hu.bme.aut.android.swipeajob.Fragments.MainActivityFragments.RegistrationFragmentDirections
+import hu.bme.aut.android.swipeajob.Globals.Database
 import hu.bme.aut.android.swipeajob.R
 import kotlinx.android.synthetic.main.fragment_job_provider_registration.*
 import kotlinx.android.synthetic.main.fragment_job_searcher_registration.registerButton
 import kotlinx.android.synthetic.main.registration_fragment_common_layout.*
 import java.io.File
+import kotlin.concurrent.thread
 
 class JobProviderRegistrationFragment : Fragment() {
 
@@ -54,7 +59,22 @@ class JobProviderRegistrationFragment : Fragment() {
     }
 
     private fun registerNewJobProvider() {
-        TODO("Not yet implemented")
+
+        val jp = JobProvider(id = null,
+        userName = userNameInputField.editText!!.text.toString(),
+        password = passwordInputField.editText!!.text.toString(),
+        phoneNumber = phoneNumberInput.number,
+        companyname = comapnyNameInputField.editText!!.text.toString())
+
+        thread {
+
+            Database.db.jobproviderDao().insert(jp)
+            Snackbar.make(requireView(), getString(R.string.successfull_registeration), Snackbar.LENGTH_LONG).show()
+
+            val direction = RegistrationFragmentDirections.actionRegistrationFragmentToMainFragment()
+            findNavController().navigate(direction)
+        }
+
     }
 
     private fun validateInput(): Boolean {

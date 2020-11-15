@@ -36,7 +36,8 @@ class NewSkillsItemDialogFragment(val listener: NewSkillsItemDialogListener): Di
     private fun isValid() = skillNameEditText.text.isNotEmpty()
 
     private fun getSkillItem(): SkillItem = SkillItem(
-        null,
+        skillId = null,
+        jobsearcherId = null,
         skillName = skillNameEditText.text.toString()
     )
 

@@ -8,7 +8,7 @@ import android.view.View
 import android.widget.EditText
 import android.widget.NumberPicker
 import androidx.fragment.app.DialogFragment
-import hu.bme.aut.android.swipeajob.Constants.Consts
+import hu.bme.aut.android.swipeajob.Globals.Consts
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.ExperienceItem
 import hu.bme.aut.android.swipeajob.R
 
@@ -40,7 +40,8 @@ class NewExperienceItemDialogFragment(val listener: NewExperienceItemDialogListe
     private fun isValid() = companyNameEditText.text.isNotEmpty()
 
     private fun getExperienceItem(): ExperienceItem = ExperienceItem(
-        null,
+        experienceId = null,
+        jobsearcherId = null,
         startYear = startingYearPicker.value,
         endYear = endingYearPicker.value,
         companyName = companyNameEditText.text.toString()

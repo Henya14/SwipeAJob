@@ -11,7 +11,7 @@ import hu.bme.aut.android.swipeajob.R
 
 class ExperienceRecyclerViewAdapter : RecyclerView.Adapter<ExperienceRecyclerViewAdapter.ExperienceViewHolder>() {
 
-    private val items = mutableListOf<ExperienceItem>()
+    val items = mutableListOf<ExperienceItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExperienceViewHolder {
         val itemView :View = LayoutInflater

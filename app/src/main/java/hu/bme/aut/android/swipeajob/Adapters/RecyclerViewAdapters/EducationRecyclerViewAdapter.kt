@@ -11,7 +11,7 @@ import hu.bme.aut.android.swipeajob.R
 
 class EducationRecyclerViewAdapter : RecyclerView.Adapter<EducationRecyclerViewAdapter.EducationViewHolder>() {
 
-    private val items = mutableListOf<EducationItem>()
+    val items = mutableListOf<EducationItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EducationViewHolder {
         val itemView :View = LayoutInflater

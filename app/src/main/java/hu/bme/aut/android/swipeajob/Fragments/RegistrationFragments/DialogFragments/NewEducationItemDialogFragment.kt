@@ -2,21 +2,17 @@ package hu.bme.aut.android.swipeajob.Fragments.RegistrationFragments.DialogFragm
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.content.Context
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
-import android.widget.DatePicker
 import android.widget.EditText
 import android.widget.NumberPicker
 import androidx.fragment.app.DialogFragment
-import hu.bme.aut.android.swipeajob.Constants.Consts
+import hu.bme.aut.android.swipeajob.Globals.Consts
 
 
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.EducationItem
 import hu.bme.aut.android.swipeajob.R
-import java.lang.RuntimeException
-import java.util.*
 
 class NewEducationItemDialogFragment(val listener: NewEducationItemDialogListener): DialogFragment()
 {
@@ -51,9 +47,10 @@ class NewEducationItemDialogFragment(val listener: NewEducationItemDialogListene
     private fun isValid() = nameEditText.text.isNotEmpty()
 
     private fun getEducationItem(): EducationItem = EducationItem(
-        null,
-        graduationYear.value,
-        nameEditText.text.toString()
+        educationId = null,
+        jobsearcherId = null,
+        graduationYear = graduationYear.value,
+        schoolName = nameEditText.text.toString()
     )
     private fun getContentView(): View {
 

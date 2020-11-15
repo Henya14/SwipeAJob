@@ -3,24 +3,29 @@ package hu.bme.aut.android.swipeajob.Fragments.RegistrationFragments
 import android.app.Activity
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.Toast
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
 import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.EducationRecyclerViewAdapter
 import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.ExperienceRecyclerViewAdapter
 import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.SkillsRecyclerViewAdapter
+import hu.bme.aut.android.swipeajob.Data.Entities.JobSearcher
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.EducationItem
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.ExperienceItem
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.SkillItem
+import hu.bme.aut.android.swipeajob.Fragments.MainActivityFragments.RegistrationFragmentDirections
 import hu.bme.aut.android.swipeajob.Fragments.RegistrationFragments.DialogFragments.NewEducationItemDialogFragment
 import hu.bme.aut.android.swipeajob.Fragments.RegistrationFragments.DialogFragments.NewExperienceItemDialogFragment
 import hu.bme.aut.android.swipeajob.Fragments.RegistrationFragments.DialogFragments.NewSkillsItemDialogFragment
+import hu.bme.aut.android.swipeajob.Globals.Database
 import hu.bme.aut.android.swipeajob.R
 import kotlinx.android.synthetic.main.education_list_layout.*
 import kotlinx.android.synthetic.main.experience_list_layout.*
@@ -28,6 +33,7 @@ import kotlinx.android.synthetic.main.fragment_job_searcher_registration.*
 import kotlinx.android.synthetic.main.registration_fragment_common_layout.*
 import kotlinx.android.synthetic.main.skills_list_layout.*
 import java.io.File
+import kotlin.concurrent.thread
 
 
 class JobSearcherRegistrationFragment : Fragment(),
@@ -134,7 +140,40 @@ class JobSearcherRegistrationFragment : Fragment(),
     }
 
     private fun registerNewJobSearcher() {
-        TODO("Not yet implemented")
+
+        val js  = JobSearcher(
+            jobsearcherId = null,
+            userName = userNameInputField.editText!!.text.toString(),
+            password = passwordInputField.editText!!.text.toString(),
+            phoneNumber = phoneNumberInput.number,
+            fullname = fullNameInputField.editText!!.text.toString()
+        )
+        thread {
+
+
+            //TODO ez threadbe es vissza a fomenube esetleg egy snackbar, hogy sikeres reg plusz loading icon
+            val jobsearcherId = Database.db.jobsearcherDao().insert(js)
+
+            for (edi in educationRecyclerViewAdapter.items) {
+                edi.jobsearcherId = jobsearcherId
+                Database.db.educationitemDao().insert(edi)
+            }
+
+            for (exi in experienceRecyclerViewAdapter.items) {
+                exi.jobsearcherId = jobsearcherId
+                Database.db.experienceitemDao().insert(exi)
+            }
+
+            for (si in skillsRecyclerViewAdapter.items) {
+                si.jobsearcherId = jobsearcherId
+                Database.db.skillitemDao().insert(si)
+            }
+
+            Snackbar.make(requireView(), getString(R.string.successfull_registeration), Snackbar.LENGTH_LONG).show()
+
+            val direction = RegistrationFragmentDirections.actionRegistrationFragmentToMainFragment()
+            findNavController().navigate(direction)
+        }
     }
 
     private fun validateInput(): Boolean

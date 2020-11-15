@@ -53,4 +53,5 @@
     <string name="password_input_error">Please Choose a Password!</string>
     <string name="full_name_input_error">Please Enter Your Full Name!</string>
     <string name="company_name_input_error">Please Enter Your Company\'s Name</string>
+    <string name="successfull_registeration">User Successfully Registered</string>
 </resources>
