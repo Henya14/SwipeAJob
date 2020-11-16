@@ -5,7 +5,6 @@ import androidx.room.Delete
 import androidx.room.Insert
 import androidx.room.Query
 import hu.bme.aut.android.swipeajob.Data.Entities.JobProvider
-import hu.bme.aut.android.swipeajob.Data.Entities.JobSearcher
 
 @Dao
 interface JobProviderDao{
@@ -18,4 +17,7 @@ interface JobProviderDao{
 
     @Delete
     fun delete(jobProvider: JobProvider)
+
+    @Query("SELECT * FROM jobprovider WHERE user_name = :username")
+    fun getAllJobProvidersWithUsername(username: String): List<JobProvider>
 }

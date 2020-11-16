@@ -37,12 +37,11 @@ class MainFragment: Fragment() {
 
 
     fun loginButtonOnClick(v: View) {
-        
 
-            greyLoadingScreen.visibility = View.VISIBLE
+
             registerButton.isEnabled = false
             forgottenPasswordButton.isEnabled = false
-            emailInputField.isEnabled = false
+            userNameInputField.isEnabled = false
             loginButton.isEnabled = false
             password_EditText.isEnabled = false
 

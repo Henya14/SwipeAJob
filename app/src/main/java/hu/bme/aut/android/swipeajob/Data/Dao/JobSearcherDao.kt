@@ -19,4 +19,7 @@ interface JobSearcherDao{
     @Transaction
     @Query("SELECT * FROM jobsearcher")
     fun getJobSearcherWithEmbeddedClases() : List<JobSearcherWithEmbeddedClasses>
+
+    @Query("SELECT * FROM jobsearcher WHERE user_name = :username")
+    fun getAllJobSearchersWithUsername(username: String): List<JobSearcher>
 }

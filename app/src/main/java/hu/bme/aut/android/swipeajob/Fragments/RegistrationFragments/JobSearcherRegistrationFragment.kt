@@ -135,8 +135,10 @@ class JobSearcherRegistrationFragment : Fragment(),
 
     fun registerButtonOnClick(v : View)
     {
+        registerButton.isEnabled = false
         if(validateInput())
             registerNewJobSearcher()
+        registerButton.isEnabled = true
     }
 
     private fun registerNewJobSearcher() {
@@ -179,33 +181,64 @@ class JobSearcherRegistrationFragment : Fragment(),
     private fun validateInput(): Boolean
     {
 
+        userNameInputField.isErrorEnabled = false
+        passwordInputField.isErrorEnabled = false
+        fullNameInputField.isErrorEnabled = false
+
         if(userNameInputField.editText!!.text!!.isEmpty()) {
             userNameInputField.requestFocus()
             userNameInputField.error = getString(R.string.username_input_error)
             return false
         }
 
-        else if(passwordInputField.editText!!.text!!.isEmpty())
+        if(!isUserNameUnique())
+        {
+            userNameInputField.requestFocus()
+            userNameInputField.error = getString(R.string.usernametaken)
+            return false
+        }
+
+
+        if(passwordInputField.editText!!.text!!.isEmpty())
         {
             passwordInputField.requestFocus()
             passwordInputField.error = getString(R.string.password_input_error)
             return false
         }
 
-        else if(!phoneNumberInput.isValid)
+        if(!phoneNumberInput.isValid)
         {
             phoneNumberInput.requestFocus()
             Snackbar.make(requireView(), getString(R.string.phoneNumberValidationText), Snackbar.LENGTH_LONG).show()
             return false
         }
 
-        else if(fullNameInputField.editText!!.text!!.isEmpty())
+        if(fullNameInputField.editText!!.text!!.isEmpty())
         {
             fullNameInputField.requestFocus()
             fullNameInputField.error = getString(R.string.full_name_input_error)
             return false
         }
         return true
+    }
+
+    @Synchronized
+    private fun isUserNameUnique(): Boolean {
+
+        var unique = true
+
+        val t = thread {
+                val result = AppDatabase.getInstance(requireContext()).jobsearcherDao().getAllJobSearchersWithUsername(userNameInputField.editText!!.text.toString())
+                if(result.size > 0)
+                    unique = false
+
+        }
+
+        t.join()
+
+
+        return unique
+
     }
 
 }

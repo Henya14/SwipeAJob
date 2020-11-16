@@ -12,11 +12,11 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
+import hu.bme.aut.android.swipeajob.Data.Datebase.AppDatabase
 import hu.bme.aut.android.swipeajob.Data.Entities.JobProvider
 import hu.bme.aut.android.swipeajob.Fragments.MainActivityFragments.RegistrationFragmentDirections
 import hu.bme.aut.android.swipeajob.R
 import kotlinx.android.synthetic.main.fragment_job_provider_registration.*
-import kotlinx.android.synthetic.main.fragment_job_searcher_registration.registerButton
 import kotlinx.android.synthetic.main.registration_fragment_common_layout.*
 import java.io.File
 import kotlin.concurrent.thread
@@ -53,8 +53,10 @@ class JobProviderRegistrationFragment : Fragment() {
 
 
     fun registerButtonOnClick(view: View) {
+        registerButton.isEnabled = false
         if(validateInput())
             registerNewJobProvider()
+        registerButton.isEnabled = true
     }
 
     private fun registerNewJobProvider() {
@@ -67,7 +69,7 @@ class JobProviderRegistrationFragment : Fragment() {
 
         thread {
 
-            Database.db.jobproviderDao().insert(jp)
+            AppDatabase.getInstance(requireContext()).jobproviderDao().insert(jp)
             Snackbar.make(requireView(), getString(R.string.successfull_registeration), Snackbar.LENGTH_LONG).show()
 
             val direction = RegistrationFragmentDirections.actionRegistrationFragmentToMainFragment()
@@ -78,28 +80,37 @@ class JobProviderRegistrationFragment : Fragment() {
 
     private fun validateInput(): Boolean {
 
-        // TODO ide kéne egy ellenőrzés, hogy a user nem foglalt-e
+        userNameInputField.isErrorEnabled = false
+        passwordInputField.isErrorEnabled = false
+
         if(userNameInputField.editText!!.text!!.isEmpty()) {
             userNameInputField.requestFocus()
             userNameInputField.error = getString(R.string.username_input_error)
             return false
         }
 
-        else if(passwordInputField.editText!!.text!!.isEmpty())
+        if(!isUserNameUnique())
+        {
+            userNameInputField.requestFocus()
+            userNameInputField.error = getString(R.string.usernametaken)
+            return false
+        }
+
+        if(passwordInputField.editText!!.text!!.isEmpty())
         {
             passwordInputField.requestFocus()
             passwordInputField.error = getString(R.string.password_input_error)
             return false
         }
 
-        else if(!phoneNumberInput.isValid)
+        if(!phoneNumberInput.isValid)
         {
             phoneNumberInput.requestFocus()
             Snackbar.make(requireView(), getString(R.string.phoneNumberValidationText), Snackbar.LENGTH_LONG).show()
             return false
         }
 
-        else if(comapnyNameInputField.editText!!.text!!.isEmpty())
+        if(comapnyNameInputField.editText!!.text!!.isEmpty())
         {
             comapnyNameInputField.requestFocus()
             comapnyNameInputField.error = getString(R.string.company_name_input_error)
@@ -108,6 +119,25 @@ class JobProviderRegistrationFragment : Fragment() {
 
 
         return true
+    }
+
+    @Synchronized
+    private fun isUserNameUnique(): Boolean {
+
+        var unique = true
+
+        val t = thread {
+            val result = AppDatabase.getInstance(requireContext()).jobproviderDao().getAllJobProvidersWithUsername(userNameInputField.editText!!.text.toString())
+            if(result.size > 0)
+                unique = false
+
+        }
+
+        t.join()
+
+
+        return unique
+
     }
 
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {

@@ -54,4 +54,9 @@
     <string name="full_name_input_error">Please Enter Your Full Name!</string>
     <string name="company_name_input_error">Please Enter Your Company\'s Name</string>
     <string name="successfull_registeration">User Successfully Registered</string>
+    <string name="usernametaken">Username Already Taken! Please Choose an Another One!</string>
+    <string name="jobsearcher">Jobsearcher</string>
+    <string name="jobprovider">Jobprovider</string>
+    <string name="i_am_looking_for_a_password_of_a">I Am Looking For a Password Of A:</string>
+    <string name="username_cannot_be_empty">Username Can Not Be Empty</string>
 </resources>
