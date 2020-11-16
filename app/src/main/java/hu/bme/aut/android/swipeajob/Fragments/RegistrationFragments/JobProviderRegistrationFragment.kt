@@ -24,11 +24,7 @@ import kotlin.concurrent.thread
 class JobProviderRegistrationFragment : Fragment() {
 
 
-    override fun onCreate(savedInstanceState: Bundle?) {
-        super.onCreate(savedInstanceState)
-
-    }
-
+    var pictureUri: String? = null
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -51,6 +47,23 @@ class JobProviderRegistrationFragment : Fragment() {
         registerButton.setOnClickListener(::registerButtonOnClick)
     }
 
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (resultCode == Activity.RESULT_OK) {
+            //Image Uri will not be null for RESULT_OK
+            val fileUri = data?.data
+            pictureUri = fileUri.toString()
+            uploadedImage.setImageURI(fileUri)
+            uploadedImage.scaleType = ImageView.ScaleType.FIT_XY
+
+        } else if (resultCode == ImagePicker.RESULT_ERROR) {
+            Toast.makeText(requireContext(), ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+        } else {
+            Toast.makeText(requireContext(), "Task Cancelled", Toast.LENGTH_SHORT).show()
+        }
+    }
+
 
     fun registerButtonOnClick(view: View) {
         registerButton.isEnabled = false
@@ -63,6 +76,7 @@ class JobProviderRegistrationFragment : Fragment() {
 
         val jp = JobProvider(id = null,
         userName = userNameInputField.editText!!.text.toString(),
+            pictureUri = pictureUri,
         password = passwordInputField.editText!!.text.toString(),
         phoneNumber = phoneNumberInput.number,
         companyname = comapnyNameInputField.editText!!.text.toString())
@@ -140,27 +154,7 @@ class JobProviderRegistrationFragment : Fragment() {
 
     }
 
-    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
-        super.onActivityResult(requestCode, resultCode, data)
 
-        if (resultCode == Activity.RESULT_OK) {
-            //Image Uri will not be null for RESULT_OK
-            val fileUri = data?.data
-            uploadedImage.setImageURI(fileUri)
-
-            uploadedImage.scaleType = ImageView.ScaleType.FIT_XY
-
-            //You can get File object from intent
-            val file: File = ImagePicker.getFile(data)!!
-
-            //You can also get File Path from intent
-            val filePath:String = ImagePicker.getFilePath(data)!!
-        } else if (resultCode == ImagePicker.RESULT_ERROR) {
-            Toast.makeText(requireContext(), ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(requireContext(), "Task Cancelled", Toast.LENGTH_SHORT).show()
-        }
-    }
 
     companion object{
         const val PAGE_TITLE = "Job Provider"

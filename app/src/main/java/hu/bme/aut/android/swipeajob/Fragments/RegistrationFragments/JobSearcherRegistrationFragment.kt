@@ -41,7 +41,7 @@ class JobSearcherRegistrationFragment : Fragment(),
     NewExperienceItemDialogFragment.NewExperienceItemDialogListener,
     NewSkillsItemDialogFragment.NewSkillsItemDialogListener{
 
-
+    var pictureUri: String? = null
     private lateinit var educationRecyclerViewAdapter: EducationRecyclerViewAdapter
     private lateinit var experienceRecyclerViewAdapter: ExperienceRecyclerViewAdapter
     private lateinit var skillsRecyclerViewAdapter: SkillsRecyclerViewAdapter
@@ -99,15 +99,10 @@ class JobSearcherRegistrationFragment : Fragment(),
         if (resultCode == Activity.RESULT_OK) {
             //Image Uri will not be null for RESULT_OK
             val fileUri = data?.data
+            pictureUri = fileUri.toString()
             uploadedImage.setImageURI(fileUri)
-
             uploadedImage.scaleType = ImageView.ScaleType.FIT_XY
 
-            //You can get File object from intent
-            val file: File = ImagePicker.getFile(data)!!
-
-            //You can also get File Path from intent
-            val filePath:String = ImagePicker.getFilePath(data)!!
         } else if (resultCode == ImagePicker.RESULT_ERROR) {
             Toast.makeText(requireContext(), ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
         } else {
@@ -145,6 +140,7 @@ class JobSearcherRegistrationFragment : Fragment(),
 
         val js  = JobSearcher(
             jobsearcherId = null,
+            pictureUri = pictureUri,
             userName = userNameInputField.editText!!.text.toString(),
             password = passwordInputField.editText!!.text.toString(),
             phoneNumber = phoneNumberInput.number,

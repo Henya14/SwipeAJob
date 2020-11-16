@@ -11,7 +11,8 @@ import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.Education
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.ExperienceItem
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.SkillItem
 
-@Database(entities = arrayOf(JobSearcher::class, JobProvider::class, EducationItem::class, ExperienceItem::class, SkillItem::class), version = 1)
+@Database(entities = arrayOf(JobSearcher::class, JobProvider::class, EducationItem::class, ExperienceItem::class, SkillItem::class),
+    version = 2)
 abstract class AppDatabase : RoomDatabase()
 {
 
