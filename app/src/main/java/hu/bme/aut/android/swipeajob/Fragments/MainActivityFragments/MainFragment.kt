@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.dd.processbutton.iml.ActionProcessButton
 import com.google.android.material.snackbar.Snackbar
-import hu.bme.aut.android.swipeajob.Activities.JobSwiperActivity_jobprovider
-import hu.bme.aut.android.swipeajob.Activities.JobSwiperActivity_jobsearcher
+import hu.bme.aut.android.swipeajob.Activities.JobSwiperActivityJobprovider
+import hu.bme.aut.android.swipeajob.Activities.JobSwiperActivityJobsearcher
 import hu.bme.aut.android.swipeajob.Data.Database.AppDatabase
 import hu.bme.aut.android.swipeajob.Data.Entities.JobProvider
 import hu.bme.aut.android.swipeajob.Data.Entities.JobSearcher
@@ -26,7 +26,7 @@ class MainFragment : Fragment() {
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
-        return inflater.inflate(R.layout.fragment_main, container, false);
+        return inflater.inflate(R.layout.fragment_main, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -66,13 +66,13 @@ class MainFragment : Fragment() {
                 var intent = Intent()
                 if (userTypeForLoginToggle.isChecked) {
 
-                    intent = Intent(requireActivity(), JobSwiperActivity_jobsearcher::class.java)
-                    intent.putExtra(JobSwiperActivity_jobsearcher.KEY_USER_NAME, userNameInputField.editText!!.text.toString())
+                    intent = Intent(requireActivity(), JobSwiperActivityJobsearcher::class.java)
+                    intent.putExtra(JobSwiperActivityJobsearcher.KEY_USER_NAME, userNameInputField.editText!!.text.toString())
                 }
                 else {
 
-                    intent = Intent(requireActivity(), JobSwiperActivity_jobprovider::class.java)
-                    intent.putExtra(JobSwiperActivity_jobprovider.KEY_USER_NAME, userNameInputField.editText!!.text.toString())
+                    intent = Intent(requireActivity(), JobSwiperActivityJobprovider::class.java)
+                    intent.putExtra(JobSwiperActivityJobprovider.KEY_USER_NAME, userNameInputField.editText!!.text.toString())
                 }
 
 
@@ -189,6 +189,8 @@ fun registerButtonOnClick(v: View) {
 
 
 fun forgottenPasswordButtonOnClick(v: View) {
+    loadingProgressBar.visibility = View.VISIBLE
+    greyLoadingScreen.visibility = View.VISIBLE
     val action = MainFragmentDirections.actionMainFragmentToForgottenPasswordFragment()
     findNavController().navigate(action)
 }

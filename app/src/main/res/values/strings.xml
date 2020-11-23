@@ -1,7 +1,6 @@
 <resources>
     <string name="app_name">SwipeAJob</string>
     <string name="swipeajob_title">SwipeAJob</string>
-    <string name="e_mail">E-Mail</string>
     <string name="password">Password</string>
     <string name="button_success">Success</string>
     <string name="button_error">Login</string>
@@ -12,17 +11,12 @@
     <string name="button_forgot_password">Forgot Password?</string>
     <string name="button_logging_in">Logging you in</string>
 
-    <string name="registration_fragment">Registration</string>
     <string name="title_activity_job_swiper">JobSwiperActivity</string>
-    <!-- Strings used for fragments for navigation -->
-    <string name="first_fragment_label">First Fragment</string>
-    <string name="second_fragment_label">Second Fragment</string>
-    <string name="next">Next</string>
-    <string name="previous">Previous</string>
 
-    <string name="hello_first_fragment">Hello first fragment</string>
-    <string name="hello_second_fragment">Hello second fragment. Arg: %1$s</string>
-    <string name="title_activity_job_swiper__job_provider">JobSwiperActivity_JobProvider</string>
+
+
+
+
     <string name="username">Username</string>
     <string name="company_name">Company Name</string>
     <string name="full_name">Full Name</string>
@@ -45,7 +39,7 @@
     <string name="ending_date">Ending Date</string>
     <string name="graduation_date">Graduation Date</string>
     <string name="add_new_education_item">Add New Education Item</string>
-    <string name="ok_text">Ok</string>
+    <string name="ok_text">OK</string>
     <string name="add_new_experience_item">Add New Experience Item</string>
     <string name="add_new_skill_item">Add New Skill Item</string>
     <string name="phoneNumberValidationText">Please Enter a Valid Phone Number</string>

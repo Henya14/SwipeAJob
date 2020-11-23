@@ -19,7 +19,7 @@ import hu.bme.aut.android.swipeajob.Data.JobSwiperData.Spot
 import hu.bme.aut.android.swipeajob.R
 import kotlinx.android.synthetic.main.fragment_job_swiper_common_layout.*
 
-class JobSwiperFragment_jobprovider : Fragment() , CardStackListener {
+class JobSwiperFragmentJobprovider : Fragment() , CardStackListener {
 
 
     private val manager by lazy { CardStackLayoutManager(context, this) }

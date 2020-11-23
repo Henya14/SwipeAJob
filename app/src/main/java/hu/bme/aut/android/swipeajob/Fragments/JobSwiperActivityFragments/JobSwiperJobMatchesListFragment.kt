@@ -17,11 +17,6 @@ class JobSwiperJobMatchesListFragment : Fragment() {
         return inflater.inflate(R.layout.fragment_job_swiper_job_matches_list, container, false)
     }
 
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-    }
-
     companion object{
         const val PAGE_TITLE = "Matches"
     }

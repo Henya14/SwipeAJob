@@ -29,6 +29,7 @@
 
 
     <TextView
+        android:id="@+id/togglebuttonTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/app_padding"
@@ -55,7 +56,7 @@
         android:padding="@dimen/paddingEditText"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/userTypeForLoginToggle">
+        app:layout_constraintTop_toBottomOf="@+id/togglebuttonTextView">
 
         <com.google.android.material.textfield.TextInputEditText
             android:layout_width="match_parent"
@@ -128,7 +129,7 @@
         android:text="@string/button_forgot_password"
         android:textColor="@color/white"
         android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/greyLoadingScreen"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 

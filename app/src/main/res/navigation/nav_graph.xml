@@ -20,7 +20,8 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_mainFragment_to_forgottenPasswordFragment"
-            app:destination="@id/forgottenPasswordFragment" />
+            app:destination="@id/forgottenPasswordFragment"
+            app:popUpToInclusive="true" />
     </fragment>
     <fragment
         android:id="@+id/registrationFragment"
@@ -30,11 +31,6 @@
         <action
             android:id="@+id/action_registrationFragment_to_mainFragment"
             app:destination="@id/mainFragment"
-            app:enterAnim="@android:anim/slide_in_left"
-            app:exitAnim="@android:anim/slide_out_right"
-            app:popEnterAnim="@anim/fragment_fade_enter"
-            app:popExitAnim="@anim/fragment_fade_exit"
-            app:popUpTo="@id/registrationFragment"
             app:popUpToInclusive="true" />
     </fragment>
     <fragment
@@ -44,6 +40,7 @@
         tools:layout="@layout/fragment_forgotten_password">
         <action
             android:id="@+id/action_forgottenPasswordFragment_to_mainFragment"
-            app:destination="@id/mainFragment" />
+            app:destination="@id/mainFragment"
+            app:popUpToInclusive="true" />
     </fragment>
 </navigation>

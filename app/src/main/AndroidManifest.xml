@@ -13,11 +13,11 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.SwipeAJob">
         <activity
-            android:name=".Activities.JobSwiperActivity_jobprovider"
+            android:name=".Activities.JobSwiperActivityJobprovider"
             android:label="@string/title_activity_job_swiper_jobprovider"
-            android:theme="@style/Theme.SwipeAJob.NoActionBar"></activity>
+            android:theme="@style/Theme.SwipeAJob.NoActionBar"/>
         <activity
-            android:name=".Activities.JobSwiperActivity_jobsearcher"
+            android:name=".Activities.JobSwiperActivityJobsearcher"
             android:label="@string/title_activity_job_swiper"
             android:theme="@style/Theme.SwipeAJob.NoActionBar" />
         <activity android:name=".Activities.MainActivity">
