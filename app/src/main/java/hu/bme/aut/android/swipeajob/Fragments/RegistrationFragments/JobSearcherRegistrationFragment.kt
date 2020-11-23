@@ -11,13 +11,12 @@ import android.widget.ImageView
 import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
-import androidx.room.Database
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
 import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.EducationRecyclerViewAdapter
 import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.ExperienceRecyclerViewAdapter
 import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.SkillsRecyclerViewAdapter
-import hu.bme.aut.android.swipeajob.Data.Datebase.AppDatabase
+import hu.bme.aut.android.swipeajob.Data.Database.AppDatabase
 import hu.bme.aut.android.swipeajob.Data.Entities.JobSearcher
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.EducationItem
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.ExperienceItem
@@ -32,7 +31,6 @@ import kotlinx.android.synthetic.main.experience_list_layout.*
 import kotlinx.android.synthetic.main.fragment_job_searcher_registration.*
 import kotlinx.android.synthetic.main.registration_fragment_common_layout.*
 import kotlinx.android.synthetic.main.skills_list_layout.*
-import java.io.File
 import kotlin.concurrent.thread
 
 
@@ -149,7 +147,7 @@ class JobSearcherRegistrationFragment : Fragment(),
         thread {
 
 
-            //TODO ez threadbe es vissza a fomenube esetleg egy snackbar, hogy sikeres reg plusz loading icon
+            //TODO loading icon
             val jobsearcherId =  AppDatabase.getInstance(requireContext()).jobsearcherDao().insert(js)
 
             for (edi in educationRecyclerViewAdapter.items) {

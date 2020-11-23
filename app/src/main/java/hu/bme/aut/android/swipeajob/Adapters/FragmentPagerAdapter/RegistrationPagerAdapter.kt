@@ -3,8 +3,6 @@ package hu.bme.aut.android.swipeajob.Adapters.FragmentPagerAdapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
 import androidx.viewpager2.adapter.FragmentStateAdapter
-import hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments.JobSwiperFragment
-import hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments.JobSwiperJobMatchesListFragment
 import hu.bme.aut.android.swipeajob.Fragments.RegistrationFragments.JobProviderRegistrationFragment
 import hu.bme.aut.android.swipeajob.Fragments.RegistrationFragments.JobSearcherRegistrationFragment
 

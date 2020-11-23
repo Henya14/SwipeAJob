@@ -4,7 +4,6 @@ import androidx.room.ColumnInfo
 import androidx.room.Embedded
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-//TODO kép tárolása
 @Entity(tableName = "jobsearcher")
 data class JobSearcher(
     @ColumnInfo(name = "jobsearcherid") @PrimaryKey(autoGenerate = true) val jobsearcherId: Long?,

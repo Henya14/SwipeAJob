@@ -6,7 +6,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import com.google.android.material.snackbar.Snackbar
-import hu.bme.aut.android.swipeajob.Data.Datebase.AppDatabase
+import hu.bme.aut.android.swipeajob.Data.Database.AppDatabase
 import hu.bme.aut.android.swipeajob.R
 import kotlinx.android.synthetic.main.fragment_forgotten_password.*
 import kotlin.concurrent.thread

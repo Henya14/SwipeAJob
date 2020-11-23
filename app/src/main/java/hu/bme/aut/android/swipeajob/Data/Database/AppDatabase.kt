@@ -1,4 +1,4 @@
-package hu.bme.aut.android.swipeajob.Data.Datebase
+package hu.bme.aut.android.swipeajob.Data.Database
 
 import android.content.Context
 import androidx.room.Database
@@ -34,6 +34,8 @@ abstract class AppDatabase : RoomDatabase()
                 INSTANCE = Room.databaseBuilder(
                     context.applicationContext,
                     AppDatabase::class.java, "jobswiperdb").build()
+
+
             }
 
             return INSTANCE!!
@@ -44,5 +46,6 @@ abstract class AppDatabase : RoomDatabase()
             INSTANCE = null
         }
     }
+    
 
 }

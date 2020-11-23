@@ -12,13 +12,12 @@ import android.widget.Toast
 import androidx.navigation.fragment.findNavController
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
-import hu.bme.aut.android.swipeajob.Data.Datebase.AppDatabase
+import hu.bme.aut.android.swipeajob.Data.Database.AppDatabase
 import hu.bme.aut.android.swipeajob.Data.Entities.JobProvider
 import hu.bme.aut.android.swipeajob.Fragments.MainActivityFragments.RegistrationFragmentDirections
 import hu.bme.aut.android.swipeajob.R
 import kotlinx.android.synthetic.main.fragment_job_provider_registration.*
 import kotlinx.android.synthetic.main.registration_fragment_common_layout.*
-import java.io.File
 import kotlin.concurrent.thread
 
 class JobProviderRegistrationFragment : Fragment() {

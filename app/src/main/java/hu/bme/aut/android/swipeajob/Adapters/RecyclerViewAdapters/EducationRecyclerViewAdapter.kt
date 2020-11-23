@@ -46,7 +46,6 @@ class EducationRecyclerViewAdapter : RecyclerView.Adapter<EducationRecyclerViewA
             deleteButton.setOnClickListener{
                 item?.let {
                     removeItem(it)
-                    //TODO: onItemDeleted
                 }
             }
 

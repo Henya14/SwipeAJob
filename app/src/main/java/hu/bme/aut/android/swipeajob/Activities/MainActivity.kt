@@ -2,9 +2,7 @@ package hu.bme.aut.android.swipeajob.Activities
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import androidx.room.Database
-import androidx.room.Room
-import hu.bme.aut.android.swipeajob.Data.Datebase.AppDatabase
+import hu.bme.aut.android.swipeajob.Data.Database.AppDatabase
 import hu.bme.aut.android.swipeajob.R
 
 

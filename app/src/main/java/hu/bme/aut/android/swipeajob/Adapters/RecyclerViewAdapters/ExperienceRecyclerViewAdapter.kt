@@ -44,7 +44,6 @@ class ExperienceRecyclerViewAdapter : RecyclerView.Adapter<ExperienceRecyclerVie
             deleteButton.setOnClickListener{
                 item?.let {
                     removeItem(it)
-                    //TODO: onItemDeleted
                 }
             }
 

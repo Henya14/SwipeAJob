@@ -2,7 +2,6 @@ package hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -10,6 +9,7 @@ import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DiffUtil
 import com.yuyakaido.android.cardstackview.*
@@ -17,10 +17,9 @@ import hu.bme.aut.android.swipeajob.Adapters.CardStackViewAdapter.CardStackAdapt
 import hu.bme.aut.android.swipeajob.Adapters.CardStackViewAdapter.SpotDiffCallback
 import hu.bme.aut.android.swipeajob.Data.JobSwiperData.Spot
 import hu.bme.aut.android.swipeajob.R
-import kotlinx.android.synthetic.main.fragment_job_swiper.*
+import kotlinx.android.synthetic.main.fragment_job_swiper_common_layout.*
 
-
-class JobSwiperFragment : Fragment() ,CardStackListener{
+class JobSwiperFragment_jobprovider : Fragment() , CardStackListener {
 
 
     private val manager by lazy { CardStackLayoutManager(context, this) }
@@ -31,7 +30,7 @@ class JobSwiperFragment : Fragment() ,CardStackListener{
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_job_swiper, container, false)
+        return inflater.inflate(R.layout.fragment_job_swiper_common_layout, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {

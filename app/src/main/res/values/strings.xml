@@ -4,7 +4,7 @@
     <string name="e_mail">E-Mail</string>
     <string name="password">Password</string>
     <string name="button_success">Success</string>
-    <string name="button_error">Error</string>
+    <string name="button_error">Login</string>
     <string name="button_login">Login</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
@@ -59,4 +59,9 @@
     <string name="jobprovider">Jobprovider</string>
     <string name="i_am_looking_for_a_password_of_a">I Am Looking For a Password Of A:</string>
     <string name="username_cannot_be_empty">Username Can Not Be Empty</string>
+    <string name="password_login_input_error">Please Enter Your Password!</string>
+    <string name="incorrect_password_error">Incorrect Password!</string>
+    <string name="title_activity_job_swiper_jobprovider">JobSwiperActivity_jobprovider</string>
+    <string name="nousername_exception">I didn\'t get a username! :\'(</string>
+    <string name="i_want_to_sign_in_as_a">I Want to Sign In As A:</string>
 </resources>
