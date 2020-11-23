@@ -3,15 +3,15 @@
 
     <item
         android:id="@+id/action_modify_data"
-        android:icon="@drawable/baseline_settings_black_18dp"
+        android:icon="@android:drawable/ic_menu_edit"
         android:title="Modify User Data" />
     <item
         android:id="@+id/action_remove_job"
-        android:icon="@drawable/baseline_delete_black_18dp"
+        android:icon="@android:drawable/ic_menu_delete"
         android:title="Remove a Job" />
     <item
         android:id="@+id/action_post_new_job"
-        android:icon="@drawable/baseline_add_black_18dp"
+        android:icon="@android:drawable/ic_menu_add"
         android:title="Post New Job"/>
 
 

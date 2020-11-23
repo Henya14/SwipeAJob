@@ -22,4 +22,7 @@ interface JobSearcherDao{
 
     @Query("SELECT * FROM jobsearcher WHERE user_name = :username")
     fun getAllJobSearchersWithUsername(username: String): List<JobSearcher>
+
+    @Query("SELECT * FROM jobsearcher WHERE jobsearcherid = :id")
+    fun getJobSearchersWithID(id: Long): JobSearcher
 }

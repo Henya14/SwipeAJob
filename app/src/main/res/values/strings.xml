@@ -58,4 +58,9 @@
     <string name="title_activity_job_swiper_jobprovider">JobSwiperActivity_jobprovider</string>
     <string name="nousername_exception">I didn\'t get a username! :\'(</string>
     <string name="i_want_to_sign_in_as_a">I Want to Sign In As A:</string>
+    <string name="log_out">Log Out</string>
+    <string name="job_s_name">Job\'s Name:</string>
+    <string name="description">Description</string>
+    <string name="post_new_job">Post New Job</string>
+    <string name="new_job_enter_name_error">Please Enter The Job\'s Name</string>
 </resources>

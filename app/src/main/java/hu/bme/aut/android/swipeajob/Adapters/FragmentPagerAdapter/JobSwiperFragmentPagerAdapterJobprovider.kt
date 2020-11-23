@@ -7,7 +7,7 @@ import hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments.JobSwip
 import hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments.JobSwiperFragmentJobsearcher
 import hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments.JobSwiperJobMatchesListFragment
 
-class JobSwiperFragmentPagerAdapterJobprovider(fm: FragmentActivity) :  FragmentStateAdapter(fm)
+class JobSwiperFragmentPagerAdapterJobprovider(fm: FragmentActivity, val username: String) :  FragmentStateAdapter(fm)
 {
     companion object{
         const val NUM_PAGES = 2
@@ -23,9 +23,9 @@ class JobSwiperFragmentPagerAdapterJobprovider(fm: FragmentActivity) :  Fragment
     override fun getItemCount(): Int  = NUM_PAGES
 
     override fun createFragment(position: Int): Fragment = when(position) {
-        0 -> JobSwiperFragmentJobprovider()
+        0 -> JobSwiperFragmentJobprovider( username )
         1 -> JobSwiperJobMatchesListFragment()
-        else ->  JobSwiperFragmentJobsearcher()
+        else ->  JobSwiperFragmentJobprovider(username)
     }
 
 

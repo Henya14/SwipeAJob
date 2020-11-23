@@ -12,18 +12,25 @@ import android.widget.TextView
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
 import androidx.recyclerview.widget.DiffUtil
+import androidx.room.Room
+import androidx.room.RoomDatabase
 import com.yuyakaido.android.cardstackview.*
-import hu.bme.aut.android.swipeajob.Adapters.CardStackViewAdapter.CardStackAdapter
-import hu.bme.aut.android.swipeajob.Adapters.CardStackViewAdapter.SpotDiffCallback
+import hu.bme.aut.android.swipeajob.Adapters.CardStackViewAdapter.CardStackAdapterJobProvider
+
+import hu.bme.aut.android.swipeajob.Data.Database.AppDatabase
+import hu.bme.aut.android.swipeajob.Data.Entities.JobProvider
+import hu.bme.aut.android.swipeajob.Data.Entities.JobProviderWithJobs
+import hu.bme.aut.android.swipeajob.Data.Entities.JobSearcher
 import hu.bme.aut.android.swipeajob.Data.JobSwiperData.Spot
 import hu.bme.aut.android.swipeajob.R
 import kotlinx.android.synthetic.main.fragment_job_swiper_common_layout.*
+import kotlin.concurrent.thread
 
-class JobSwiperFragmentJobprovider : Fragment() , CardStackListener {
+class JobSwiperFragmentJobprovider(val username: String) : Fragment() , CardStackListener {
 
 
     private val manager by lazy { CardStackLayoutManager(context, this) }
-    private val adapter by lazy { CardStackAdapter(createSpots()) }
+    private val adapter by lazy { CardStackAdapterJobProvider() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -37,11 +44,32 @@ class JobSwiperFragmentJobprovider : Fragment() , CardStackListener {
         super.onViewCreated(view, savedInstanceState)
 
         cardStackView.layoutManager = CardStackLayoutManager(context)
-        cardStackView.adapter = CardStackAdapter(createSpots())
+        loadJobSearchers()
         //setupNavigation()
         setupCardStackView()
         setupButton()
     }
+
+    private fun loadJobSearchers()
+    {
+        var searchers = mutableListOf<JobSearcher>()
+        val t = thread {
+
+            val swipedjobs = AppDatabase.getInstance(requireContext()).jobDao().getJobSearchersThatSwippedAJob()
+            val jobsandproviders = AppDatabase.getInstance(requireContext()).jobproviderDao().getJobProviderWithJobs()
+
+            val provider = jobsandproviders.find { it.jobProvider.userName ==  username}
+
+            for( j in provider!!.jobs)
+            {
+                val jobThatWasSwiped =  swipedjobs.find { it.job.id == j.id}
+                searchers.addAll(jobThatWasSwiped?.jobsearchersThatSwipedRight ?: listOf<JobSearcher>())
+            }
+            adapter.setJobSearchers(searchers)
+        }
+
+    }
+
 
 
 
@@ -57,9 +85,7 @@ class JobSwiperFragmentJobprovider : Fragment() , CardStackListener {
 
     override fun onCardSwiped(direction: Direction) {
         Log.d("CardStackView", "onCardSwiped: p = ${manager.topPosition}, d = $direction")
-        if (manager.topPosition == adapter.itemCount - 5) {
-            paginate()
-        }
+
     }
 
     override fun onCardRewound() {
@@ -95,6 +121,7 @@ class JobSwiperFragmentJobprovider : Fragment() , CardStackListener {
                 .setInterpolator(AccelerateInterpolator())
                 .build()
             manager.setSwipeAnimationSetting(setting)
+
             cardStackView.swipe()
         }
 
@@ -140,119 +167,11 @@ class JobSwiperFragmentJobprovider : Fragment() , CardStackListener {
         }
     }
 
-    private fun paginate() {
-        val old = adapter.getSpots()
-        val new = old.plus(createSpots())
-        val callback = SpotDiffCallback(old, new)
-        val result = DiffUtil.calculateDiff(callback)
-        adapter.setSpots(new)
-        result.dispatchUpdatesTo(adapter)
-    }
 
-    private fun reload() {
-        val old = adapter.getSpots()
-        val new = createSpots()
-        val callback = SpotDiffCallback(old, new)
-        val result = DiffUtil.calculateDiff(callback)
-        adapter.setSpots(new)
-        result.dispatchUpdatesTo(adapter)
-    }
 
-    private fun addFirst(size: Int) {
-        val old = adapter.getSpots()
-        val new = mutableListOf<Spot>().apply {
-            addAll(old)
-            for (i in 0 until size) {
-                add(manager.topPosition, createSpot())
-            }
-        }
-        val callback = SpotDiffCallback(old, new)
-        val result = DiffUtil.calculateDiff(callback)
-        adapter.setSpots(new)
-        result.dispatchUpdatesTo(adapter)
-    }
 
-    private fun addLast(size: Int) {
-        val old = adapter.getSpots()
-        val new = mutableListOf<Spot>().apply {
-            addAll(old)
-            addAll(List(size) { createSpot() })
-        }
-        val callback = SpotDiffCallback(old, new)
-        val result = DiffUtil.calculateDiff(callback)
-        adapter.setSpots(new)
-        result.dispatchUpdatesTo(adapter)
-    }
 
-    private fun removeFirst(size: Int) {
-        if (adapter.getSpots().isEmpty()) {
-            return
-        }
 
-        val old = adapter.getSpots()
-        val new = mutableListOf<Spot>().apply {
-            addAll(old)
-            for (i in 0 until size) {
-                removeAt(manager.topPosition)
-            }
-        }
-        val callback = SpotDiffCallback(old, new)
-        val result = DiffUtil.calculateDiff(callback)
-        adapter.setSpots(new)
-        result.dispatchUpdatesTo(adapter)
-    }
-
-    private fun removeLast(size: Int) {
-        if (adapter.getSpots().isEmpty()) {
-            return
-        }
-
-        val old = adapter.getSpots()
-        val new = mutableListOf<Spot>().apply {
-            addAll(old)
-            for (i in 0 until size) {
-                removeAt(this.size - 1)
-            }
-        }
-        val callback = SpotDiffCallback(old, new)
-        val result = DiffUtil.calculateDiff(callback)
-        adapter.setSpots(new)
-        result.dispatchUpdatesTo(adapter)
-    }
-
-    private fun replace() {
-        val old = adapter.getSpots()
-        val new = mutableListOf<Spot>().apply {
-            addAll(old)
-            removeAt(manager.topPosition)
-            add(manager.topPosition, createSpot())
-        }
-        adapter.setSpots(new)
-        adapter.notifyItemChanged(manager.topPosition)
-    }
-
-    private fun swap() {
-        val old = adapter.getSpots()
-        val new = mutableListOf<Spot>().apply {
-            addAll(old)
-            val first = removeAt(manager.topPosition)
-            val last = removeAt(this.size - 1)
-            add(manager.topPosition, last)
-            add(first)
-        }
-        val callback = SpotDiffCallback(old, new)
-        val result = DiffUtil.calculateDiff(callback)
-        adapter.setSpots(new)
-        result.dispatchUpdatesTo(adapter)
-    }
-
-    private fun createSpot(): Spot {
-        return Spot(
-            name = "Yasaka Shrine",
-            city = "Kyoto",
-            url = "https://source.unsplash.com/Xq1ntWruZQI/600x800"
-        )
-    }
 
     private fun createSpots(): List<Spot> {
         val spots = ArrayList<Spot>()

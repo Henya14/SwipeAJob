@@ -1,6 +1,9 @@
 package hu.bme.aut.android.swipeajob.Activities
 
+import android.content.Intent
 import android.os.Bundle
+import android.view.Menu
+import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.floatingactionbutton.FloatingActionButton
@@ -23,13 +26,17 @@ class JobSwiperActivityJobsearcher : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         userName = this.intent.getStringExtra(KEY_USER_NAME) ?:  throw Exception(getString(R.string.nousername_exception))
 
         setContentView(R.layout.activity_job_swiper_jobsearcher)
         setSupportActionBar(findViewById(R.id.toolbar))
 
 
-        pager.adapter = JobSwiperFragmentPagerAdapterJobsearcher(this)
+        title = "SwipeAJob"
+
+
+        pager.adapter = JobSwiperFragmentPagerAdapterJobsearcher(this, userName)
 
 
         TabLayoutMediator(tab_layout, pager) { tab, position ->
@@ -50,6 +57,21 @@ class JobSwiperActivityJobsearcher : AppCompatActivity() {
                 .setAction("Action", null).show()
         }
 
+    }
+
+    override fun onCreateOptionsMenu(menu: Menu?): Boolean {
+        menuInflater.inflate(R.menu.jobswipermenu, menu)
+        return true
+    }
+
+    override fun onOptionsItemSelected(item: MenuItem): Boolean = when(item.itemId){
+        R.id.LogOut -> {
+            intent = Intent(this, MainActivity::class.java)
+            startActivity(intent)
+            this.finish()
+            true
+        }
+        else ->  super.onOptionsItemSelected(item)
     }
 
     class TabLayoutOnPageChangeCallbackForNormalFab(val fab: FloatingActionButton) :

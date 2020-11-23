@@ -7,7 +7,7 @@ import androidx.room.PrimaryKey
 
 @Entity(tableName = "jobprovider")
 data class JobProvider(
-    @ColumnInfo(name = "id") @PrimaryKey(autoGenerate = true) val id: Long?,
+    @ColumnInfo(name = "jobproviderid") @PrimaryKey(autoGenerate = true) val id: Long?,
     @ColumnInfo(name = "pictureuri") val pictureUri: String?,
     @ColumnInfo(name = "user_name") val userName: String,
     @ColumnInfo(name = "password") val password: String,

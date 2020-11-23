@@ -39,7 +39,8 @@
             android:backgroundTint="@android:color/white"
             android:src="@drawable/rewind_blue_24dp"
             app:fabSize="mini"
-            app:rippleColor="#225BC9FA" />
+            app:rippleColor="#225BC9FA"
+            android:visibility="invisible"/>
 
         <com.google.android.material.floatingactionbutton.FloatingActionButton
             android:id="@+id/like_button"
