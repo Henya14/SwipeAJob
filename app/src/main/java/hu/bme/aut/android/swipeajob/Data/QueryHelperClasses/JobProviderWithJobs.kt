@@ -1,7 +1,9 @@
-package hu.bme.aut.android.swipeajob.Data.Entities
+package hu.bme.aut.android.swipeajob.Data.QueryHelperClasses
 
 import androidx.room.Embedded
 import androidx.room.Relation
+import hu.bme.aut.android.swipeajob.Data.Entities.Job
+import hu.bme.aut.android.swipeajob.Data.Entities.JobProvider
 
 
 data class JobProviderWithJobs(

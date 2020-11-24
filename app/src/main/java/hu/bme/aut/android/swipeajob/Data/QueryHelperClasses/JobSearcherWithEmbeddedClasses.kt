@@ -1,7 +1,8 @@
-package hu.bme.aut.android.swipeajob.Data.Entities
+package hu.bme.aut.android.swipeajob.Data.QueryHelperClasses
 
 import androidx.room.Embedded
 import androidx.room.Relation
+import hu.bme.aut.android.swipeajob.Data.Entities.JobSearcher
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.EducationItem
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.ExperienceItem
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.SkillItem

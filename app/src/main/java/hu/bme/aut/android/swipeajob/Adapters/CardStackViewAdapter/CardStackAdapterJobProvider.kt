@@ -8,12 +8,11 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import hu.bme.aut.android.swipeajob.Data.Entities.JobSearcher
-import hu.bme.aut.android.swipeajob.Data.JobSearcherWithJobName
-import hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments.DialogFragments.JobSearcherDetailsDialogFragment
+import hu.bme.aut.android.swipeajob.Data.QueryHelperClasses.JobSearcherWithJobNameAndId
 import hu.bme.aut.android.swipeajob.R
 
 class CardStackAdapterJobProvider(val listener: JobSearcherItemClickedListener,
-    private var jobsearchers: MutableList<JobSearcherWithJobName> = mutableListOf<JobSearcherWithJobName>()
+    private var jobsearchers: MutableList<JobSearcherWithJobNameAndId> = mutableListOf<JobSearcherWithJobNameAndId>()
 ) : RecyclerView.Adapter<CardStackAdapterJobProvider.ViewHolder>() {
 
     interface JobSearcherItemClickedListener
@@ -45,18 +44,18 @@ class CardStackAdapterJobProvider(val listener: JobSearcherItemClickedListener,
         return jobsearchers.size
     }
 
-    fun setJobSearchers(jobsearchers: List<JobSearcherWithJobName>) {
-        val list : MutableList<JobSearcherWithJobName> = mutableListOf<JobSearcherWithJobName>()
+    fun setJobSearchers(jobsearchers: List<JobSearcherWithJobNameAndId>) {
+        val list : MutableList<JobSearcherWithJobNameAndId> = mutableListOf<JobSearcherWithJobNameAndId>()
         list.addAll(jobsearchers)
         this.jobsearchers = list
         notifyDataSetChanged()
     }
 
-    fun getJobSearchers(): List<JobSearcherWithJobName> {
+    fun getJobSearchers(): List<JobSearcherWithJobNameAndId> {
         return jobsearchers
     }
 
-    fun getJobSearcher(index : Int): JobSearcherWithJobName{
+    fun getJobSearcher(index : Int): JobSearcherWithJobNameAndId {
         return jobsearchers[index]
     }
 

@@ -10,7 +10,8 @@ import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.Education
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.ExperienceItem
 import hu.bme.aut.android.swipeajob.R
 
-class ExperienceRecyclerViewAdapter(val withButtons : Boolean = true) : RecyclerView.Adapter<ExperienceRecyclerViewAdapter.ExperienceViewHolder>() {
+class ExperienceRecyclerViewAdapter(val withButtons : Boolean = true)
+    :RecyclerView.Adapter<ExperienceRecyclerViewAdapter.ExperienceViewHolder>() {
 
     val items = mutableListOf<ExperienceItem>()
 

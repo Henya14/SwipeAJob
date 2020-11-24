@@ -64,4 +64,5 @@
     <string name="post_new_job">Post New Job</string>
     <string name="new_job_enter_name_error">Please Enter The Job\'s Name</string>
     <string name="jobsearcher_s_image">Jobsearcher\'s Image</string>
+    <string name="name">Name</string>
 </resources>

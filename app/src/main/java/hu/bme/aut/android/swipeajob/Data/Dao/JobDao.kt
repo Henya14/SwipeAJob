@@ -5,7 +5,7 @@ import androidx.room.Insert
 import androidx.room.Query
 import androidx.room.Transaction
 import hu.bme.aut.android.swipeajob.Data.Entities.Job
-import hu.bme.aut.android.swipeajob.Data.Entities.JobsThatWereSwiped
+import hu.bme.aut.android.swipeajob.Data.QueryHelperClasses.JobsThatWereSwiped
 
 @Dao
 interface JobDao{

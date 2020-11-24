@@ -1,10 +1,12 @@
-package hu.bme.aut.android.swipeajob.Data.Entities
+package hu.bme.aut.android.swipeajob.Data.QueryHelperClasses
 
 import androidx.room.Embedded
 import androidx.room.Junction
 import androidx.room.Relation
 import hu.bme.aut.android.swipeajob.Data.CrossReferences.JobSwiperJobLeftSwipeCrossRef
 import hu.bme.aut.android.swipeajob.Data.CrossReferences.JobSwiperJobRightSwipeCrossRef
+import hu.bme.aut.android.swipeajob.Data.Entities.Job
+import hu.bme.aut.android.swipeajob.Data.Entities.JobSearcher
 
 data class JobsThatWereSwiped (
     @Embedded val job: Job,

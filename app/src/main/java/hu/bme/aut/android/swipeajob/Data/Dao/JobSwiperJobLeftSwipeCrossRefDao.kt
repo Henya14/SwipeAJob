@@ -9,7 +9,7 @@ import hu.bme.aut.android.swipeajob.Data.CrossReferences.JobSwiperJobLeftSwipeCr
 interface JobSwiperJobLeftSwipeCrossRefDao {
 
     @Insert
-    fun insert(jobSwiperJobLeftSwipeCrossRef: JobSwiperJobLeftSwipeCrossRef): Long
+    fun insert(jobSwiperJobLeftSwipeCrossRef: JobSwiperJobLeftSwipeCrossRef)
 
     @Delete
     fun delete(jobSwiperJobLeftSwipeCrossRef: JobSwiperJobLeftSwipeCrossRef)

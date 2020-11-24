@@ -84,7 +84,6 @@ class JobSearcherDetailsDialogFragment(val jobsearcher : JobSearcher): DialogFra
             }
 
         }
-
     }
 
 

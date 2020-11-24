@@ -23,7 +23,7 @@ class JobSwiperFragmentPagerAdapterJobsearcher(fm: FragmentActivity, val usernam
 
     override fun createFragment(position: Int): Fragment = when(position) {
         0 -> JobSwiperFragmentJobSearcher(username)
-        1 -> JobSwiperJobMatchesListFragment()
+        1 -> JobSwiperJobMatchesListFragment(username)
         else ->  JobSwiperFragmentJobSearcher(username)
     }
 

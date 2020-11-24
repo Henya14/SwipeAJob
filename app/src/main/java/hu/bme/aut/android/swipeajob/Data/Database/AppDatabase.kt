@@ -6,6 +6,8 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import hu.bme.aut.android.swipeajob.Data.CrossReferences.JobSwiperJobLeftSwipeCrossRef
 import hu.bme.aut.android.swipeajob.Data.CrossReferences.JobSwiperJobRightSwipeCrossRef
+import hu.bme.aut.android.swipeajob.Data.CrossReferences.LeftSwipedJobSearchersCrossRef
+import hu.bme.aut.android.swipeajob.Data.CrossReferences.RightSwipedJobSearchersCrossRef
 import hu.bme.aut.android.swipeajob.Data.Dao.*
 import hu.bme.aut.android.swipeajob.Data.Entities.Job
 import hu.bme.aut.android.swipeajob.Data.Entities.JobProvider
@@ -21,8 +23,10 @@ import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.SkillItem
     SkillItem::class,
     Job::class,
     JobSwiperJobRightSwipeCrossRef::class,
-    JobSwiperJobLeftSwipeCrossRef::class),
-    version = 4,
+    JobSwiperJobLeftSwipeCrossRef::class,
+    RightSwipedJobSearchersCrossRef::class,
+    LeftSwipedJobSearchersCrossRef::class),
+    version = 5,
     )
 abstract class AppDatabase : RoomDatabase()
 {
@@ -37,6 +41,9 @@ abstract class AppDatabase : RoomDatabase()
 
     abstract fun jobswiperJobRightSwipeCrossRefDao(): JobSwiperJobRightSwipeCrossRefDao
     abstract fun jobswiperJobLeftSwipeCrossRefDao(): JobSwiperJobLeftSwipeCrossRefDao
+
+    abstract fun rightswipedjobsearcherscrosssrefDao(): RightSwipedJobSearchersCrossRefDao
+    abstract fun leftswipedjobsearcherscrossrefDao(): LeftSwipedJobSearchersCrossRefDao
 
 
 

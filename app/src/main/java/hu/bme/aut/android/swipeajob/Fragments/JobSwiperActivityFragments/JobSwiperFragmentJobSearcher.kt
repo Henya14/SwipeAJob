@@ -15,7 +15,6 @@ import hu.bme.aut.android.swipeajob.Adapters.CardStackViewAdapter.CardStackAdapt
 import hu.bme.aut.android.swipeajob.Data.CrossReferences.JobSwiperJobLeftSwipeCrossRef
 import hu.bme.aut.android.swipeajob.Data.CrossReferences.JobSwiperJobRightSwipeCrossRef
 import hu.bme.aut.android.swipeajob.Data.Database.AppDatabase
-import hu.bme.aut.android.swipeajob.Data.JobSwiperData.Spot
 import hu.bme.aut.android.swipeajob.R
 import kotlinx.android.synthetic.main.fragment_job_swiper_common_layout.*
 import kotlin.concurrent.thread
@@ -121,7 +120,6 @@ class JobSwiperFragmentJobSearcher(val username: String) : Fragment() ,CardStack
             manager.setSwipeAnimationSetting(setting)
             cardStackView.swipe()
 
-            leftSwipe()
 
         }
 
@@ -137,18 +135,15 @@ class JobSwiperFragmentJobSearcher(val username: String) : Fragment() ,CardStack
             cardStackView.swipe()
 
 
-            rightSwipe()
         }
     }
 
-    private fun leftSwipe() {
+    private fun leftSwipe(topPosistionOffset : Int = 1) {
+
+        val jobid = adapter.getJob(manager.topPosition - topPosistionOffset).id
+        adapter.removeJob(manager.topPosition - topPosistionOffset)
+
         thread {
-
-            val jobid = adapter.getJob(manager.topPosition - 1).id
-            requireActivity().runOnUiThread{
-                adapter.removeJob(manager.topPosition - 1)
-            }
-
             val jobSearcherid = AppDatabase.getInstance(requireContext()).jobsearcherDao()
                 .getAllJobSearchersWithUsername(username)[0].jobsearcherId
             val jobswiperJobLeftSwipeCrossRef =
@@ -158,15 +153,12 @@ class JobSwiperFragmentJobSearcher(val username: String) : Fragment() ,CardStack
         }
     }
 
-    private fun rightSwipe() {
+    private fun rightSwipe(topPosistionOffset : Int = 1) {
+
+        val jobid = adapter.getJob(manager.topPosition - topPosistionOffset).id
+        adapter.removeJob(manager.topPosition - topPosistionOffset)
+
         thread {
-
-            val jobid = adapter.getJob(manager.topPosition - 1).id
-
-            requireActivity().runOnUiThread {
-                adapter.removeJob(manager.topPosition - 1)
-            }
-
             val jobSearcherid = AppDatabase.getInstance(requireContext()).jobsearcherDao()
                 .getAllJobSearchersWithUsername(username)[0].jobsearcherId
             val jobswiperJobRightSwipeCrossRef = JobSwiperJobRightSwipeCrossRef(jobsearcherid = jobSearcherid!!, jobid = jobid!!)
@@ -193,38 +185,6 @@ class JobSwiperFragmentJobSearcher(val username: String) : Fragment() ,CardStack
                 supportsChangeAnimations = false
             }
         }
-    }
-
-
-
-
-
-
-
-
-
-
-    private fun createSpot(): Spot {
-        return Spot(
-            name = "Yasaka Shrine",
-            city = "Kyoto",
-            url = "https://source.unsplash.com/Xq1ntWruZQI/600x800"
-        )
-    }
-
-    private fun createSpots(): List<Spot> {
-        val spots = ArrayList<Spot>()
-        spots.add(Spot(name = "Yasaka Shrine", city = "Kyoto", url = "https://source.unsplash.com/Xq1ntWruZQI/600x800"))
-        spots.add(Spot(name = "Fushimi Inari Shrine", city = "Kyoto", url = "https://source.unsplash.com/NYyCqdBOKwc/600x800"))
-        spots.add(Spot(name = "Bamboo Forest", city = "Kyoto", url = "https://source.unsplash.com/buF62ewDLcQ/600x800"))
-        spots.add(Spot(name = "Brooklyn Bridge", city = "New York", url = "https://source.unsplash.com/THozNzxEP3g/600x800"))
-        spots.add(Spot(name = "Empire State Building", city = "New York", url = "https://source.unsplash.com/USrZRcRS2Lw/600x800"))
-        spots.add(Spot(name = "The statue of Liberty", city = "New York", url = "https://source.unsplash.com/PeFk7fzxTdk/600x800"))
-        spots.add(Spot(name = "Louvre Museum", city = "Paris", url = "https://source.unsplash.com/LrMWHKqilUw/600x800"))
-        spots.add(Spot(name = "Eiffel Tower", city = "Paris", url = "https://source.unsplash.com/HN-5Z6AmxrM/600x800"))
-        spots.add(Spot(name = "Big Ben", city = "London", url = "https://source.unsplash.com/CdVAUADdqEc/600x800"))
-        spots.add(Spot(name = "Great Wall of China", city = "China", url = "https://source.unsplash.com/AWh9C-QjhE4/600x800"))
-        return spots
     }
 
 

@@ -1,9 +1,10 @@
 package hu.bme.aut.android.swipeajob.Data.Dao
 
 import androidx.room.*
-import hu.bme.aut.android.swipeajob.Data.Entities.JobSearcher
-import hu.bme.aut.android.swipeajob.Data.Entities.JobSearcherWithEmbeddedClasses
-import hu.bme.aut.android.swipeajob.Data.Entities.JobSearchersThatSwipedJobs
+import hu.bme.aut.android.swipeajob.Data.Entities.*
+import hu.bme.aut.android.swipeajob.Data.QueryHelperClasses.JobSearcherWithEmbeddedClasses
+import hu.bme.aut.android.swipeajob.Data.QueryHelperClasses.JobSearchersThatSwipedJobs
+import hu.bme.aut.android.swipeajob.Data.QueryHelperClasses.MatchesForJobSearcher
 
 @Dao
 interface JobSearcherDao{
@@ -30,4 +31,12 @@ interface JobSearcherDao{
     @Transaction
     @Query("SELECT * FROM jobsearcher")
     fun getJobSearchersThatSwipedJobs(): List<JobSearchersThatSwipedJobs>
+
+    @Transaction
+    @Query("SELECT * FROM jobsearcher WHERE jobsearcherid = :id")
+    fun getMatchedJobProvidersForJobSearcherWithId(id: Long): MatchesForJobSearcher
+
+    @Transaction
+    @Query("SELECT * FROM jobsearcher WHERE user_name = :username")
+    fun getMatchedJobProvidersForJobSearcherWithUsername(username: String): MatchesForJobSearcher
 }

@@ -10,7 +10,6 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.internal.NavigationMenu
 import com.google.android.material.tabs.TabLayoutMediator
 import hu.bme.aut.android.swipeajob.Adapters.FragmentPagerAdapter.JobSwiperFragmentPagerAdapterJobprovider
-import hu.bme.aut.android.swipeajob.Adapters.FragmentPagerAdapter.JobSwiperFragmentPagerAdapterJobsearcher
 import hu.bme.aut.android.swipeajob.Data.Database.AppDatabase
 import hu.bme.aut.android.swipeajob.Data.Entities.Job
 import hu.bme.aut.android.swipeajob.Data.Entities.JobProvider
@@ -42,7 +41,7 @@ class JobSwiperActivityJobprovider : AppCompatActivity(), NewJobDialogFragment.N
         userName = this.intent.getStringExtra(KEY_USER_NAME)?: throw Exception(getString(R.string.nousername_exception))
 
         thread {
-            jobProvider = AppDatabase.getInstance(this).jobproviderDao().getJobProviderIdForUsername(userName)
+            jobProvider = AppDatabase.getInstance(this).jobproviderDao().getJobProviderForUsername(userName)
         }
 
         setContentView(R.layout.activity_job_swiper_jobprovider)
@@ -55,7 +54,7 @@ class JobSwiperActivityJobprovider : AppCompatActivity(), NewJobDialogFragment.N
 
 
         TabLayoutMediator(tab_layout, pager) { tab, position ->
-            tab.text = JobSwiperFragmentPagerAdapterJobsearcher.getTabTextByPosition(position)
+            tab.text = JobSwiperFragmentPagerAdapterJobprovider.getTabTextByPosition(position)
         }.attach()
 
         pager.isUserInputEnabled = false
