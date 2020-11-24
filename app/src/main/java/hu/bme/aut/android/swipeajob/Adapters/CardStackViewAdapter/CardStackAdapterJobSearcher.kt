@@ -12,7 +12,7 @@ import hu.bme.aut.android.swipeajob.Data.Entities.JobSearcher
 import hu.bme.aut.android.swipeajob.R
 
 class CardStackAdapterJobSearcher (
-    private var jobs: List<Job> = emptyList()
+    private var jobs: MutableList<Job> = mutableListOf<Job>()
 ) : RecyclerView.Adapter<CardStackAdapterJobSearcher.ViewHolder>()
 {
 
@@ -38,7 +38,10 @@ class CardStackAdapterJobSearcher (
     }
 
     fun setJobs(jobs: List<Job>) {
-        this.jobs = jobs
+        val list : MutableList<Job> = mutableListOf<Job>()
+        list.addAll(jobs)
+        this.jobs = list
+        notifyDataSetChanged()
     }
 
     fun getJobs(): List<Job> {
@@ -47,6 +50,12 @@ class CardStackAdapterJobSearcher (
 
     fun getJob(index : Int): Job {
         return jobs[index]
+    }
+
+    fun removeJob(index : Int) {
+
+        jobs.removeAt(index)
+        notifyItemRemoved(index)
     }
 
     class ViewHolder(view: View):RecyclerView.ViewHolder(view)

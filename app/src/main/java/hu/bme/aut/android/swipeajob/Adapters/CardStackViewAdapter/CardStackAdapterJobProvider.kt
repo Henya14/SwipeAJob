@@ -5,14 +5,13 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.ImageView
 import android.widget.TextView
-import android.widget.Toast
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
-import hu.bme.aut.android.swipeajob.Data.Entities.JobSearcher
+import hu.bme.aut.android.swipeajob.Data.JobSearcherWithJobName
 import hu.bme.aut.android.swipeajob.R
 
 class CardStackAdapterJobProvider(
-    private var jobsearchers: List<JobSearcher> = emptyList()
+    private var jobsearchers: MutableList<JobSearcherWithJobName> = mutableListOf<JobSearcherWithJobName>()
 ) : RecyclerView.Adapter<CardStackAdapterJobProvider.ViewHolder>() {
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -23,9 +22,10 @@ class CardStackAdapterJobProvider(
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val jobsearcher = jobsearchers[position]
-        holder.name.text = "${jobsearcher.fullname}"
+        holder.name.text = "Name: ${jobsearcher.jobsearcher.fullname}"
+        holder.jobName.text = "Applied For: ${jobsearcher.jobName}"
         Glide.with(holder.image)
-            .load(jobsearcher.pictureUri)
+            .load(jobsearcher.jobsearcher.pictureUri)
             .into(holder.image)
         holder.itemView.setOnClickListener { v ->
             TODO("JobsearcherDetails")
@@ -36,16 +36,29 @@ class CardStackAdapterJobProvider(
         return jobsearchers.size
     }
 
-    fun setJobSearchers(jobsearchers: List<JobSearcher>) {
-        this.jobsearchers = jobsearchers
+    fun setJobSearchers(jobsearchers: List<JobSearcherWithJobName>) {
+        val list : MutableList<JobSearcherWithJobName> = mutableListOf<JobSearcherWithJobName>()
+        list.addAll(jobsearchers)
+        this.jobsearchers = list
+        notifyDataSetChanged()
     }
 
-    fun getJobSearchers(): List<JobSearcher> {
+    fun getJobSearchers(): List<JobSearcherWithJobName> {
         return jobsearchers
     }
 
+    fun getJobSearcher(index : Int): JobSearcherWithJobName{
+        return jobsearchers[index]
+    }
+
+    fun removeJobSearcher(index : Int){
+        jobsearchers.removeAt(index)
+        notifyItemRemoved(index)
+    }
+
     class ViewHolder(view: View) : RecyclerView.ViewHolder(view) {
-        val name: TextView = view.findViewById(R.id.item_name)
+        val name: TextView = view.findViewById(R.id.jobsearcher_name)
+        val jobName: TextView = view.findViewById(R.id.job_name)
         var image: ImageView = view.findViewById(R.id.item_image)
     }
 

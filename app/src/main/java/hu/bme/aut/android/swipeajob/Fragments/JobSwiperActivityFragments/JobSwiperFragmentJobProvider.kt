@@ -2,32 +2,28 @@ package hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments
 
 import android.os.Bundle
 import android.util.Log
-import androidx.fragment.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
 import android.view.animation.DecelerateInterpolator
 import android.view.animation.LinearInterpolator
-import android.widget.TextView
+import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.DefaultItemAnimator
-import androidx.recyclerview.widget.DiffUtil
 import com.yuyakaido.android.cardstackview.*
 import hu.bme.aut.android.swipeajob.Adapters.CardStackViewAdapter.CardStackAdapterJobProvider
-import hu.bme.aut.android.swipeajob.Adapters.CardStackViewAdapter.CardStackAdapterJobSearcher
-import hu.bme.aut.android.swipeajob.Data.CrossReferences.JobSwiperJobLeftSwipeCrossRef
 import hu.bme.aut.android.swipeajob.Data.Database.AppDatabase
+import hu.bme.aut.android.swipeajob.Data.JobSearcherWithJobName
 import hu.bme.aut.android.swipeajob.Data.JobSwiperData.Spot
 import hu.bme.aut.android.swipeajob.R
 import kotlinx.android.synthetic.main.fragment_job_swiper_common_layout.*
 import kotlin.concurrent.thread
 
-
-class JobSwiperFragmentJobsearcher(val username: String) : Fragment() ,CardStackListener{
+class JobSwiperFragmentJobProvider(val username: String) : Fragment() , CardStackListener {
 
 
     private val manager by lazy { CardStackLayoutManager(context, this) }
-    private val adapter by lazy { CardStackAdapterJobSearcher() }
+    private val adapter by lazy { CardStackAdapterJobProvider() }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -41,25 +37,45 @@ class JobSwiperFragmentJobsearcher(val username: String) : Fragment() ,CardStack
         super.onViewCreated(view, savedInstanceState)
 
         cardStackView.layoutManager = CardStackLayoutManager(context)
-        cardStackView.adapter = CardStackAdapterJobSearcher()
-        loadJobs()
+        loadJobSearchers()
         //setupNavigation()
         setupCardStackView()
         setupButton()
     }
 
-    private fun loadJobs() {
-        //TODO itt kivenni a jobbbra és balra húzott jobokat
-        val t = thread {
-            val result = AppDatabase.getInstance(requireContext()).jobDao().getAllJobs()
-            adapter.setJobs(result)
+    private fun loadJobSearchers()
+    {
+        var searchers = mutableListOf<JobSearcherWithJobName>()
+
+        thread {
+
+            val swipedjobs = AppDatabase.getInstance(requireContext()).jobDao().getJobsThatWereSwipped()
+            val jobsandproviders = AppDatabase.getInstance(requireContext()).jobproviderDao().getJobProviderWithJobs()
+
+            val provider = jobsandproviders.find { it.jobProvider.userName == username}
+
+            for( j in provider!!.jobs)
+            {
+                val jobThatWasSwiped =  swipedjobs.find { it.job.id == j.id}
+
+                jobThatWasSwiped?.jobsearchersThatSwipedRightTheJob?.forEach{
+                    searchers.add(JobSearcherWithJobName(jobsearcher = it, jobName = j.name))
+                }
+
+            }
+            requireActivity().runOnUiThread{
+                adapter.setJobSearchers(searchers)
+            }
+
         }
-        t.join()
+
     }
 
 
+
+
     companion object{
-        const val PAGE_TITLE = "Jobs"
+        const val PAGE_TITLE = "Applicants"
     }
 
 
@@ -82,13 +98,12 @@ class JobSwiperFragmentJobsearcher(val username: String) : Fragment() ,CardStack
     }
 
     override fun onCardAppeared(view: View, position: Int) {
-        //val textView = view.findViewById<TextView>(R.id.)
-        //Log.d("CardStackView", "onCardAppeared: ($position) ${textView.text}")
+
+
     }
 
     override fun onCardDisappeared(view: View, position: Int) {
-       // val textView = view.findViewById<TextView>(R.id.item_name)
-        //Log.d("CardStackView", "onCardDisappeared: ($position) ${textView.text}")
+
     }
 
 
@@ -106,16 +121,8 @@ class JobSwiperFragmentJobsearcher(val username: String) : Fragment() ,CardStack
                 .setInterpolator(AccelerateInterpolator())
                 .build()
             manager.setSwipeAnimationSetting(setting)
+
             cardStackView.swipe()
-
-            //TODO ezt átrakni, hogy swipra is működjön
-            thread {
-                val jobid = adapter.getJob(manager.topPosition).id
-                val jobSearcherid =  AppDatabase.getInstance(requireContext()).jobsearcherDao().getAllJobSearchersWithUsername(username)[0].jobsearcherId
-                val jobswiperJobLeftSwipeCrossRef: JobSwiperJobLeftSwipeCrossRef = JobSwiperJobLeftSwipeCrossRef(jobsearcherid = jobSearcherid!!, jobid = jobid!!)
-                AppDatabase.getInstance(requireContext()).jobswiperJobLeftSwipeCrossRefDao().insert(jobswiperJobLeftSwipeCrossRef)
-            }
-
         }
 
         rewind_button.setOnClickListener {
@@ -126,7 +133,6 @@ class JobSwiperFragmentJobsearcher(val username: String) : Fragment() ,CardStack
                 .build()
             manager.setRewindAnimationSetting(setting)
             cardStackView.rewind()
-
         }
 
         like_button.setOnClickListener {
@@ -166,17 +172,6 @@ class JobSwiperFragmentJobsearcher(val username: String) : Fragment() ,CardStack
 
 
 
-
-
-
-
-    private fun createSpot(): Spot {
-        return Spot(
-            name = "Yasaka Shrine",
-            city = "Kyoto",
-            url = "https://source.unsplash.com/Xq1ntWruZQI/600x800"
-        )
-    }
 
     private fun createSpots(): List<Spot> {
         val spots = ArrayList<Spot>()

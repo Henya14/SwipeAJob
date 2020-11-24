@@ -27,7 +27,15 @@
         android:background="@drawable/gradation_black">
 
         <TextView
-            android:id="@+id/item_name"
+            android:id="@+id/jobsearcher_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textStyle="bold"
+            android:textColor="@android:color/white"
+            android:textSize="26sp"/>
+
+        <TextView
+            android:id="@+id/job_name"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textStyle="bold"

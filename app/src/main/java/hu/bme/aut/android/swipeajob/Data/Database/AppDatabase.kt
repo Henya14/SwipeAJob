@@ -43,6 +43,7 @@ abstract class AppDatabase : RoomDatabase()
     companion object{
         private var INSTANCE : AppDatabase? = null
 
+        @Synchronized
         fun getInstance(context :Context): AppDatabase
         {
             if(INSTANCE == null)
