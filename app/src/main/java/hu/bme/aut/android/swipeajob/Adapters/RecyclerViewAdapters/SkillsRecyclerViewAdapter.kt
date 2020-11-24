@@ -6,14 +6,17 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.ExperienceItem
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.SkillItem
 import hu.bme.aut.android.swipeajob.R
 
-class SkillsRecyclerViewAdapter : RecyclerView.Adapter<SkillsRecyclerViewAdapter.SkillsViewHolder>() {
+class SkillsRecyclerViewAdapter(val withButtons : Boolean = true) : RecyclerView.Adapter<SkillsRecyclerViewAdapter.SkillsViewHolder>() {
 
     val items = mutableListOf<SkillItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SkillsViewHolder {
+
+
         val itemView :View = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.item_skills_list, parent, false)
@@ -38,6 +41,10 @@ class SkillsRecyclerViewAdapter : RecyclerView.Adapter<SkillsRecyclerViewAdapter
 
             skillText = itemView.findViewById(R.id.skillTextView)
             deleteButton = itemView.findViewById(R.id.skillItemRemoveButton)
+            if(!withButtons)
+            {
+                deleteButton.visibility = View.INVISIBLE
+            }
             deleteButton.setOnClickListener{
                 item?.let {
                     removeItem(it)
@@ -53,6 +60,12 @@ class SkillsRecyclerViewAdapter : RecyclerView.Adapter<SkillsRecyclerViewAdapter
     {
         items.add(item)
         notifyItemInserted(items.size - 1)
+    }
+
+    fun addItems(itemslist: List<SkillItem>)
+    {
+        items.addAll(itemslist)
+        notifyDataSetChanged()
     }
 
     fun removeItem(item: SkillItem) {

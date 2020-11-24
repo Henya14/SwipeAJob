@@ -7,12 +7,19 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import hu.bme.aut.android.swipeajob.Data.Entities.JobSearcher
 import hu.bme.aut.android.swipeajob.Data.JobSearcherWithJobName
+import hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments.DialogFragments.JobSearcherDetailsDialogFragment
 import hu.bme.aut.android.swipeajob.R
 
-class CardStackAdapterJobProvider(
+class CardStackAdapterJobProvider(val listener: JobSearcherItemClickedListener,
     private var jobsearchers: MutableList<JobSearcherWithJobName> = mutableListOf<JobSearcherWithJobName>()
 ) : RecyclerView.Adapter<CardStackAdapterJobProvider.ViewHolder>() {
+
+    interface JobSearcherItemClickedListener
+    {
+        fun JobSearcherClicked(jobsearcher: JobSearcher)
+    }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val inflater = LayoutInflater.from(parent.context)
@@ -28,7 +35,9 @@ class CardStackAdapterJobProvider(
             .load(jobsearcher.jobsearcher.pictureUri)
             .into(holder.image)
         holder.itemView.setOnClickListener { v ->
-            TODO("JobsearcherDetails")
+
+            val jobsearcherThatWasClicked = jobsearcher.jobsearcher
+            listener.JobSearcherClicked(jobsearcherThatWasClicked)
         }
     }
 

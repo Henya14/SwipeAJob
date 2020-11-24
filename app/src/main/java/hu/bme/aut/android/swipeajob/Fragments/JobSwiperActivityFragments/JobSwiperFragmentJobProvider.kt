@@ -13,17 +13,20 @@ import androidx.recyclerview.widget.DefaultItemAnimator
 import com.yuyakaido.android.cardstackview.*
 import hu.bme.aut.android.swipeajob.Adapters.CardStackViewAdapter.CardStackAdapterJobProvider
 import hu.bme.aut.android.swipeajob.Data.Database.AppDatabase
+import hu.bme.aut.android.swipeajob.Data.Entities.JobSearcher
 import hu.bme.aut.android.swipeajob.Data.JobSearcherWithJobName
 import hu.bme.aut.android.swipeajob.Data.JobSwiperData.Spot
+import hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments.DialogFragments.JobSearcherDetailsDialogFragment
 import hu.bme.aut.android.swipeajob.R
 import kotlinx.android.synthetic.main.fragment_job_swiper_common_layout.*
 import kotlin.concurrent.thread
 
-class JobSwiperFragmentJobProvider(val username: String) : Fragment() , CardStackListener {
+class JobSwiperFragmentJobProvider(val username: String) : Fragment() , CardStackListener,
+    CardStackAdapterJobProvider.JobSearcherItemClickedListener {
 
 
     private val manager by lazy { CardStackLayoutManager(context, this) }
-    private val adapter by lazy { CardStackAdapterJobProvider() }
+    private val adapter by lazy { CardStackAdapterJobProvider(this) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -188,6 +191,9 @@ class JobSwiperFragmentJobProvider(val username: String) : Fragment() , CardStac
         return spots
     }
 
+    override fun JobSearcherClicked(jobsearcher: JobSearcher) {
+        JobSearcherDetailsDialogFragment(jobsearcher).show(requireActivity().supportFragmentManager,JobSearcherDetailsDialogFragment.TAG)
+    }
 
 
 }

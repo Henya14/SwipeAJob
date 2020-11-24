@@ -6,14 +6,17 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
+import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.EducationItem
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.ExperienceItem
 import hu.bme.aut.android.swipeajob.R
 
-class ExperienceRecyclerViewAdapter : RecyclerView.Adapter<ExperienceRecyclerViewAdapter.ExperienceViewHolder>() {
+class ExperienceRecyclerViewAdapter(val withButtons : Boolean = true) : RecyclerView.Adapter<ExperienceRecyclerViewAdapter.ExperienceViewHolder>() {
 
     val items = mutableListOf<ExperienceItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExperienceViewHolder {
+
+
         val itemView :View = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.item_experience_list, parent, false)
@@ -41,6 +44,10 @@ class ExperienceRecyclerViewAdapter : RecyclerView.Adapter<ExperienceRecyclerVie
             startEndText = itemView.findViewById(R.id.startEndTextView)
             companyName = itemView.findViewById(R.id.companyNameTextView)
             deleteButton = itemView.findViewById(R.id.experienceItemRemoveButton)
+            if(!withButtons)
+            {
+                deleteButton.visibility = View.INVISIBLE
+            }
             deleteButton.setOnClickListener{
                 item?.let {
                     removeItem(it)
@@ -55,6 +62,12 @@ class ExperienceRecyclerViewAdapter : RecyclerView.Adapter<ExperienceRecyclerVie
     {
         items.add(item)
         notifyItemInserted(items.size - 1)
+    }
+
+    fun addItems(itemslist: List<ExperienceItem>)
+    {
+        items.addAll(itemslist)
+        notifyDataSetChanged()
     }
 
     fun removeItem(item: ExperienceItem) {

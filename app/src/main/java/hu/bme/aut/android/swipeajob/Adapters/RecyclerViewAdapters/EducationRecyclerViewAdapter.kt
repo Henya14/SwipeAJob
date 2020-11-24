@@ -9,11 +9,12 @@ import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.EducationItem
 import hu.bme.aut.android.swipeajob.R
 
-class EducationRecyclerViewAdapter : RecyclerView.Adapter<EducationRecyclerViewAdapter.EducationViewHolder>() {
+class EducationRecyclerViewAdapter(val withButtons : Boolean = true) : RecyclerView.Adapter<EducationRecyclerViewAdapter.EducationViewHolder>() {
 
     val items = mutableListOf<EducationItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EducationViewHolder {
+
         val itemView :View = LayoutInflater
             .from(parent.context)
             .inflate(R.layout.item_education_list, parent, false)
@@ -43,6 +44,10 @@ class EducationRecyclerViewAdapter : RecyclerView.Adapter<EducationRecyclerViewA
             graduationYear = itemView.findViewById(R.id.graduationYearTextView)
             schoolName = itemView.findViewById(R.id.schoolNameTextView)
             deleteButton = itemView.findViewById(R.id.educationItemRemoveButton)
+            if(!withButtons)
+            {
+                deleteButton.visibility = View.INVISIBLE
+            }
             deleteButton.setOnClickListener{
                 item?.let {
                     removeItem(it)
@@ -58,6 +63,12 @@ class EducationRecyclerViewAdapter : RecyclerView.Adapter<EducationRecyclerViewA
     {
         items.add(item)
         notifyItemInserted(items.size - 1)
+    }
+
+    fun addItems(itemslist: List<EducationItem>)
+    {
+        items.addAll(itemslist)
+        notifyDataSetChanged()
     }
 
     fun removeItem(item: EducationItem) {
