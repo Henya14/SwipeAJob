@@ -1,4 +1,4 @@
-package hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments
+package hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments.JobSearcher
 
 import android.os.Bundle
 import android.util.Log
@@ -7,7 +7,6 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.view.animation.AccelerateInterpolator
-import android.view.animation.DecelerateInterpolator
 import android.view.animation.LinearInterpolator
 import androidx.recyclerview.widget.DefaultItemAnimator
 import com.yuyakaido.android.cardstackview.*

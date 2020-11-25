@@ -1,4 +1,4 @@
-package hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments
+package hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments.JobProvider
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -6,6 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
+import hu.bme.aut.android.swipeajob.Activities.JobSwiperActivityJobprovider
 import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.MatchesJobProviderRecyclerViewAdapter
 import hu.bme.aut.android.swipeajob.Data.Database.AppDatabase
 import hu.bme.aut.android.swipeajob.Data.QueryHelperClasses.Match
@@ -13,8 +14,11 @@ import hu.bme.aut.android.swipeajob.R
 import kotlinx.android.synthetic.main.fragment_job_swiper_job_matches_list.*
 import kotlin.concurrent.thread
 
-class JobSwiperApplicantMatchesListFragment(val username: String) : Fragment() {
+class JobSwiperApplicantMatchesListFragment(val username: String, jobSwiperActivityJobprovider: JobSwiperActivityJobprovider) : Fragment() , OnMatchesTabSelectedListener{
 
+    init {
+        jobSwiperActivityJobprovider.onMatchesTabSelectedListener = this
+    }
     private lateinit var adapter: MatchesJobProviderRecyclerViewAdapter
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -28,11 +32,14 @@ class JobSwiperApplicantMatchesListFragment(val username: String) : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+
         adapter = MatchesJobProviderRecyclerViewAdapter(requireContext())
         matchesRecyclerView.adapter = adapter
         matchesRecyclerView.layoutManager = LinearLayoutManager(requireContext())
         loadMatches()
     }
+
+
 
     private fun loadMatches() {
 
@@ -66,16 +73,14 @@ class JobSwiperApplicantMatchesListFragment(val username: String) : Fragment() {
 
     }
 
-    override fun onHiddenChanged(hidden: Boolean) {
-        super.onHiddenChanged(hidden)
-        when (hidden)
-        {
-            false -> loadMatches()
-            else -> return
-        }
-    }
+
+
 
     companion object {
         const val PAGE_TITLE = "Matches"
+    }
+
+    override fun matchesTabWasSelected() {
+        loadMatches()
     }
 }

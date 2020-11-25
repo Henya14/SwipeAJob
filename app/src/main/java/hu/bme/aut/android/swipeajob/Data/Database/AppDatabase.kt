@@ -26,7 +26,7 @@ import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.SkillItem
     JobSwiperJobLeftSwipeCrossRef::class,
     RightSwipedJobSearchersCrossRef::class,
     LeftSwipedJobSearchersCrossRef::class),
-    version = 5,
+    version = 6,
     )
 abstract class AppDatabase : RoomDatabase()
 {

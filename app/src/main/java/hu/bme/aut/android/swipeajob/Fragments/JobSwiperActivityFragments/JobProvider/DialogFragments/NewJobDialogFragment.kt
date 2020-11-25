@@ -1,8 +1,7 @@
-package hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments.DialogFragments
+package hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments.JobProvider.DialogFragments
 
 import android.app.AlertDialog
 import android.app.Dialog
-import android.opengl.ETC1.isValid
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -10,7 +9,6 @@ import android.widget.EditText
 import androidx.fragment.app.DialogFragment
 import hu.bme.aut.android.swipeajob.Data.Entities.Job
 import hu.bme.aut.android.swipeajob.R
-import kotlinx.android.synthetic.main.cardstack_item_jobsearcher.*
 
 class NewJobDialogFragment(val listener: NewJobItemDialogListener,val pictureUri: String?): DialogFragment()
 {

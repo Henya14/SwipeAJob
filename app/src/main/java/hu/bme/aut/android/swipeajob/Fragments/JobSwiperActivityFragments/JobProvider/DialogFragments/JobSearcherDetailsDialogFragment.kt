@@ -1,4 +1,4 @@
-package hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments.DialogFragments
+package hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments.JobProvider.DialogFragments
 
 import android.app.AlertDialog
 import android.app.Dialog

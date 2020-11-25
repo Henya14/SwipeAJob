@@ -1,11 +1,11 @@
 package hu.bme.aut.android.swipeajob.Activities
 
-import android.app.Dialog
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
+import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.internal.NavigationMenu
 import com.google.android.material.tabs.TabLayoutMediator
@@ -13,7 +13,8 @@ import hu.bme.aut.android.swipeajob.Adapters.FragmentPagerAdapter.JobSwiperFragm
 import hu.bme.aut.android.swipeajob.Data.Database.AppDatabase
 import hu.bme.aut.android.swipeajob.Data.Entities.Job
 import hu.bme.aut.android.swipeajob.Data.Entities.JobProvider
-import hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments.DialogFragments.NewJobDialogFragment
+import hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments.JobProvider.DialogFragments.NewJobDialogFragment
+import hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments.JobProvider.OnMatchesTabSelectedListener
 import hu.bme.aut.android.swipeajob.R
 import io.github.yavski.fabspeeddial.FabSpeedDial
 import kotlinx.android.synthetic.main.activity_job_swiper_common_layout.*
@@ -33,6 +34,7 @@ class JobSwiperActivityJobprovider : AppCompatActivity(), NewJobDialogFragment.N
 
     lateinit var userName: String
     lateinit var jobProvider: JobProvider
+    public var onMatchesTabSelectedListener :OnMatchesTabSelectedListener? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -50,7 +52,7 @@ class JobSwiperActivityJobprovider : AppCompatActivity(), NewJobDialogFragment.N
 
         title = "SwipeAJob"
 
-        pager.adapter = JobSwiperFragmentPagerAdapterJobprovider(this, userName)
+        pager.adapter = JobSwiperFragmentPagerAdapterJobprovider(this, userName, this)
 
 
         TabLayoutMediator(tab_layout, pager) { tab, position ->
@@ -59,7 +61,7 @@ class JobSwiperActivityJobprovider : AppCompatActivity(), NewJobDialogFragment.N
 
         pager.isUserInputEnabled = false
         pager.registerOnPageChangeCallback(
-            TabLayoutOnPageChangeCallbackForSpeedDial(fab_Job_Provider)
+            TabLayoutOnPageChangeCallback(fab_Job_Provider)
         )
 
         fab_Job_Provider.setMenuListener(FabMenuListener(this))
@@ -106,7 +108,7 @@ class JobSwiperActivityJobprovider : AppCompatActivity(), NewJobDialogFragment.N
     }
 
 
-    class TabLayoutOnPageChangeCallbackForSpeedDial(val fab: io.github.yavski.fabspeeddial.FabSpeedDial) :
+    inner class TabLayoutOnPageChangeCallback(val fab: io.github.yavski.fabspeeddial.FabSpeedDial) :
         ViewPager2.OnPageChangeCallback() {
         override fun onPageScrolled(
             position: Int,
@@ -116,7 +118,9 @@ class JobSwiperActivityJobprovider : AppCompatActivity(), NewJobDialogFragment.N
 
             when (position) {
                 0 -> fab.show()
-                1 -> fab.hide()
+                1 -> {fab.hide()
+                        onMatchesTabSelectedListener?.matchesTabWasSelected()
+                        }
                 else -> fab.show()
             }
         }

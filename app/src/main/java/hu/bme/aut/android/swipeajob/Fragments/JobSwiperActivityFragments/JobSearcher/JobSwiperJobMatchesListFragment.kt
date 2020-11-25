@@ -1,4 +1,4 @@
-package hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments
+package hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments.JobSearcher
 
 import android.os.Bundle
 import androidx.fragment.app.Fragment

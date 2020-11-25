@@ -29,6 +29,13 @@ data class SwipedJobSearchersForJobProvider (
     entityColumn = "jobsearcherid",
     associateBy = Junction(LeftSwipedJobSearchersCrossRef::class)
     )
-    val jobsearchersThatWereSwipedLeft: List<JobSearcher>
+    val jobsearchersThatWereSwipedLeft: List<JobSearcher>,
+
+    @Relation(
+        parentColumn = "jobproviderid",
+        entityColumn = "jobid",
+        associateBy = Junction(LeftSwipedJobSearchersCrossRef::class)
+    )
+    val jobsThatAreAssociatedWithJobSearchersThatWereSwipedLeft: List<Job>
 
 )
