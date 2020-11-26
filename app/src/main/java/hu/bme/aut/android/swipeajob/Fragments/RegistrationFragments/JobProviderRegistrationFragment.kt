@@ -15,9 +15,10 @@ import com.google.android.material.snackbar.Snackbar
 import hu.bme.aut.android.swipeajob.Data.Database.AppDatabase
 import hu.bme.aut.android.swipeajob.Data.Entities.JobProvider
 import hu.bme.aut.android.swipeajob.Fragments.MainActivityFragments.RegistrationFragmentDirections
+import hu.bme.aut.android.swipeajob.Globals.Consts
 import hu.bme.aut.android.swipeajob.R
-import kotlinx.android.synthetic.main.fragment_job_provider_registration.*
 import kotlinx.android.synthetic.main.registration_fragment_common_layout.*
+import kotlinx.android.synthetic.main.registration_fragment_job_provider.*
 import kotlin.concurrent.thread
 
 class JobProviderRegistrationFragment : Fragment() {
@@ -29,7 +30,7 @@ class JobProviderRegistrationFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_job_provider_registration, container, false)
+        return inflater.inflate(R.layout.registration_fragment_job_provider, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -38,7 +39,7 @@ class JobProviderRegistrationFragment : Fragment() {
             ImagePicker.with(this)
                 .crop()
                 .compress(1024)
-                .maxResultSize(1080, 1080)
+                .maxResultSize(Consts.IMAGE_PICKER_MAX_WIDTH, Consts.IMAGE_PICKER_MAX_HEIGHT)
                 .start()
         }
 
@@ -74,11 +75,11 @@ class JobProviderRegistrationFragment : Fragment() {
     private fun registerNewJobProvider() {
 
         val jp = JobProvider(id = null,
-        userName = userNameInputField.editText!!.text.toString(),
-            pictureUri = pictureUri,
-        password = passwordInputField.editText!!.text.toString(),
-        phoneNumber = phoneNumberInput.number,
-        companyname = comapnyNameInputField.editText!!.text.toString())
+            userName = userNameInputField.editText!!.text.toString(),
+            pictureUri = (pictureUri ?: ""),
+            password = passwordInputField.editText!!.text.toString(),
+            phoneNumber = phoneNumberInput.number,
+            companyname = comapnyNameInputField.editText!!.text.toString())
 
         thread {
 

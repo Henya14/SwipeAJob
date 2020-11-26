@@ -1,18 +1,17 @@
-package hu.bme.aut.android.swipeajob.Activities
+package hu.bme.aut.android.swipeajob.Activities.JobProvider
 
 import android.content.Intent
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
-import androidx.viewpager2.adapter.FragmentStateAdapter
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.internal.NavigationMenu
 import com.google.android.material.tabs.TabLayoutMediator
+import hu.bme.aut.android.swipeajob.Activities.MainActivity
 import hu.bme.aut.android.swipeajob.Adapters.FragmentPagerAdapter.JobSwiperFragmentPagerAdapterJobprovider
 import hu.bme.aut.android.swipeajob.Data.Database.AppDatabase
 import hu.bme.aut.android.swipeajob.Data.Entities.Job
-import hu.bme.aut.android.swipeajob.Data.Entities.JobProvider
 import hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments.JobProvider.DialogFragments.NewJobDialogFragment
 import hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments.JobProvider.OnMatchesTabSelectedListener
 import hu.bme.aut.android.swipeajob.R
@@ -23,9 +22,11 @@ import kotlin.concurrent.thread
 interface fabClickedListener
 {
     fun postNewJobClicked()
+    fun modifyInfoClicked()
 }
 
-class JobSwiperActivityJobprovider : AppCompatActivity(), NewJobDialogFragment.NewJobItemDialogListener, fabClickedListener {
+class JobSwiperActivityJobProvider : AppCompatActivity(), NewJobDialogFragment.NewJobItemDialogListener,
+    fabClickedListener {
 
 
     companion object{
@@ -33,18 +34,16 @@ class JobSwiperActivityJobprovider : AppCompatActivity(), NewJobDialogFragment.N
     }
 
     lateinit var userName: String
-    lateinit var jobProvider: JobProvider
     public var onMatchesTabSelectedListener :OnMatchesTabSelectedListener? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
+
         userName = this.intent.getStringExtra(KEY_USER_NAME)?: throw Exception(getString(R.string.nousername_exception))
 
-        thread {
-            jobProvider = AppDatabase.getInstance(this).jobproviderDao().getJobProviderForUsername(userName)
-        }
+
 
         setContentView(R.layout.activity_job_swiper_jobprovider)
         setSupportActionBar(findViewById(R.id.toolbar))
@@ -81,6 +80,13 @@ class JobSwiperActivityJobprovider : AppCompatActivity(), NewJobDialogFragment.N
                     listener.postNewJobClicked()
                     return true
                 }
+
+                R.id.action_modify_data ->
+                {
+                    listener.modifyInfoClicked()
+                    return true
+                }
+                //TODO utolso gombot implementalni dialog fragmentnek
 
                 else -> return false
             }
@@ -128,12 +134,23 @@ class JobSwiperActivityJobprovider : AppCompatActivity(), NewJobDialogFragment.N
 
     override fun onJobItemCreated(newJob: Job) {
         thread {
-            newJob.jobproviderId = jobProvider.id
-            AppDatabase.getInstance(this).jobDao().insert(newJob)
+            val db =  AppDatabase.getInstance(this)
+            db.runInTransaction {
+                val jobProvider = db.jobproviderDao().getJobProviderForUsername(userName)
+                newJob.jobproviderId = jobProvider.id
+                db.jobDao().insert(newJob)
+            }
+
         }
     }
 
     override fun postNewJobClicked() {
-        NewJobDialogFragment(this, jobProvider.pictureUri).show(this.supportFragmentManager,NewJobDialogFragment.TAG)
+        NewJobDialogFragment(this).show(this.supportFragmentManager,NewJobDialogFragment.TAG)
+    }
+
+    override fun modifyInfoClicked() {
+        val intent = Intent(this, ChangeInfoJobProviderActivity::class.java)
+        intent.putExtra(ChangeInfoJobProviderActivity.KEY_USER_NAME, userName)
+        startActivity(intent)
     }
 }

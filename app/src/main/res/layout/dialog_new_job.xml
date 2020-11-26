@@ -1,19 +1,33 @@
 <?xml version="1.0" encoding="utf-8"?>
-<androidx.constraintlayout.widget.ConstraintLayout
+<ScrollView
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
+    android:layout_height="wrap_content">
+<androidx.constraintlayout.widget.ConstraintLayout
+    android:layout_width="match_parent"
     android:layout_height="match_parent">
+
+    <ImageButton
+        android:id="@+id/jobUploadImageButton"
+        android:layout_width="250dp"
+        android:layout_height="400dp"
+        android:contentDescription="Upload Image"
+        android:src="@drawable/baseline_account_box_black_18dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/jobnametextview"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_margin="@dimen/app_margin"
         android:padding="@dimen/app_padding"
+        android:text="@string/job_s_name"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:text="@string/job_s_name"/>
+        app:layout_constraintTop_toBottomOf="@+id/jobUploadImageButton" />
 
     <EditText
         android:id="@+id/jobnameEditText"
@@ -29,6 +43,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="@dimen/app_padding"
+        android:layout_margin="@dimen/app_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/jobnameEditText"
@@ -44,3 +59,4 @@
         app:layout_constraintTop_toBottomOf="@+id/jobdescriptionTextView" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
+</ScrollView>

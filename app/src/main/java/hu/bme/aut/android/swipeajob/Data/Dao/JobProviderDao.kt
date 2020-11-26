@@ -1,9 +1,11 @@
 package hu.bme.aut.android.swipeajob.Data.Dao
 
 import androidx.room.*
+import com.google.i18n.phonenumbers.Phonenumber
 import hu.bme.aut.android.swipeajob.Data.Entities.JobProvider
 import hu.bme.aut.android.swipeajob.Data.QueryHelperClasses.JobProviderWithJobs
 import hu.bme.aut.android.swipeajob.Data.QueryHelperClasses.SwipedJobSearchersForJobProvider
+import java.io.PrintStream
 
 @Dao
 interface JobProviderDao{
@@ -38,4 +40,7 @@ interface JobProviderDao{
     @Transaction
     @Query("SELECT * FROM jobprovider WHERE user_name = :username")
     fun getSwipedJobSearchersForJobProviderWithUsername(username: String): SwipedJobSearchersForJobProvider
+
+    @Query("UPDATE jobprovider SET pictureuri = :pictureUri, password = :password, phone_number = :phoneNumber,  companyname = :companyName WHERE user_name = :username")
+    fun updateJobProviderWithUsername(username: String, pictureUri: String, password: String, phoneNumber: String, companyName: String)
 }

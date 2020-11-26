@@ -25,11 +25,12 @@ import hu.bme.aut.android.swipeajob.Fragments.MainActivityFragments.Registration
 import hu.bme.aut.android.swipeajob.Fragments.RegistrationFragments.DialogFragments.NewEducationItemDialogFragment
 import hu.bme.aut.android.swipeajob.Fragments.RegistrationFragments.DialogFragments.NewExperienceItemDialogFragment
 import hu.bme.aut.android.swipeajob.Fragments.RegistrationFragments.DialogFragments.NewSkillsItemDialogFragment
+import hu.bme.aut.android.swipeajob.Globals.Consts
 import hu.bme.aut.android.swipeajob.R
 import kotlinx.android.synthetic.main.education_list_layout.*
 import kotlinx.android.synthetic.main.experience_list_layout.*
-import kotlinx.android.synthetic.main.fragment_job_searcher_registration.*
 import kotlinx.android.synthetic.main.registration_fragment_common_layout.*
+import kotlinx.android.synthetic.main.registration_fragment_job_searcher.*
 import kotlinx.android.synthetic.main.skills_list_layout.*
 import kotlin.concurrent.thread
 
@@ -48,7 +49,7 @@ class JobSearcherRegistrationFragment : Fragment(),
         savedInstanceState: Bundle?
     ): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_job_searcher_registration, container, false)
+        return inflater.inflate(R.layout.registration_fragment_job_searcher, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,7 +58,7 @@ class JobSearcherRegistrationFragment : Fragment(),
             ImagePicker.with(this)
                 .crop()
                 .compress(1024)
-                .maxResultSize(1080, 1080)
+                .maxResultSize(Consts.IMAGE_PICKER_MAX_WIDTH, Consts.IMAGE_PICKER_MAX_HEIGHT)
                 .start()
         }
 
@@ -72,9 +73,15 @@ class JobSearcherRegistrationFragment : Fragment(),
     }
 
     private fun initAddButtonOnClickListeners() {
-        addEducationButton.setOnClickListener { NewEducationItemDialogFragment(this).show(requireActivity().supportFragmentManager, NewEducationItemDialogFragment.TAG) }
-        addExperienceButton.setOnClickListener { NewExperienceItemDialogFragment(this).show(requireActivity().supportFragmentManager, NewExperienceItemDialogFragment.TAG) }
-        addSkillButton.setOnClickListener{NewSkillsItemDialogFragment(this).show(requireActivity().supportFragmentManager, NewSkillsItemDialogFragment.TAG)}
+        addEducationButton.setOnClickListener { NewEducationItemDialogFragment(this)
+            .show(requireActivity().supportFragmentManager, NewEducationItemDialogFragment.TAG) }
+
+        addExperienceButton.setOnClickListener { NewExperienceItemDialogFragment(this)
+            .show(requireActivity().supportFragmentManager, NewExperienceItemDialogFragment.TAG) }
+
+        addSkillButton.setOnClickListener{NewSkillsItemDialogFragment(this)
+            .show(requireActivity().supportFragmentManager, NewSkillsItemDialogFragment.TAG)}
+
     }
 
     private fun initRecyclerViews() {
@@ -134,44 +141,6 @@ class JobSearcherRegistrationFragment : Fragment(),
         registerButton.isEnabled = true
     }
 
-    private fun registerNewJobSearcher() {
-
-        val js  = JobSearcher(
-            jobsearcherId = null,
-            pictureUri = pictureUri,
-            userName = userNameInputField.editText!!.text.toString(),
-            password = passwordInputField.editText!!.text.toString(),
-            phoneNumber = phoneNumberInput.number,
-            fullname = fullNameInputField.editText!!.text.toString()
-        )
-        thread {
-
-
-            //TODO loading icon
-            val jobsearcherId =  AppDatabase.getInstance(requireContext()).jobsearcherDao().insert(js)
-
-            for (edi in educationRecyclerViewAdapter.items) {
-                edi.jobsearcherId = jobsearcherId
-                AppDatabase.getInstance(requireContext()).educationitemDao().insert(edi)
-            }
-
-            for (exi in experienceRecyclerViewAdapter.items) {
-                exi.jobsearcherId = jobsearcherId
-                AppDatabase.getInstance(requireContext()).experienceitemDao().insert(exi)
-            }
-
-            for (si in skillsRecyclerViewAdapter.items) {
-                si.jobsearcherId = jobsearcherId
-                AppDatabase.getInstance(requireContext()).skillitemDao().insert(si)
-            }
-
-            Snackbar.make(requireView(), getString(R.string.successfull_registeration), Snackbar.LENGTH_LONG).show()
-
-            val direction = RegistrationFragmentDirections.actionRegistrationFragmentToMainFragment()
-            findNavController().navigate(direction)
-        }
-    }
-
     private fun validateInput(): Boolean
     {
 
@@ -215,6 +184,51 @@ class JobSearcherRegistrationFragment : Fragment(),
         }
         return true
     }
+
+    private fun registerNewJobSearcher() {
+
+        val js  = JobSearcher(
+            jobsearcherId = null,
+            pictureUri = pictureUri?: "",
+            userName = userNameInputField.editText!!.text.toString(),
+            password = passwordInputField.editText!!.text.toString(),
+            phoneNumber = phoneNumberInput.number,
+            fullname = fullNameInputField.editText!!.text.toString()
+        )
+        thread {
+
+            val db = AppDatabase.getInstance(requireContext())
+            db.runInTransaction {
+
+                //TODO loading icon
+                val jobsearcherId =  AppDatabase.getInstance(requireContext()).jobsearcherDao().insert(js)
+
+                educationRecyclerViewAdapter.items.forEach {
+                    it.jobsearcherId = jobsearcherId
+                    db.educationitemDao().insert(it)
+                }
+
+                experienceRecyclerViewAdapter.items.forEach {
+                    it.jobsearcherId = jobsearcherId
+                    db.experienceitemDao().insert(it)
+                }
+
+                skillsRecyclerViewAdapter.items.forEach {
+                    it.jobsearcherId = jobsearcherId
+                    db.skillitemDao().insert(it)
+                }
+
+            }
+
+
+            Snackbar.make(requireView(), getString(R.string.successfull_registeration), Snackbar.LENGTH_LONG).show()
+
+            val direction = RegistrationFragmentDirections.actionRegistrationFragmentToMainFragment()
+            findNavController().navigate(direction)
+        }
+    }
+
+
 
     @Synchronized
     private fun isUserNameUnique(): Boolean {

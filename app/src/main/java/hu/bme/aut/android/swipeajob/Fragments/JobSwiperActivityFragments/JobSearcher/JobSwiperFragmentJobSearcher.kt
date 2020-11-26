@@ -14,6 +14,8 @@ import hu.bme.aut.android.swipeajob.Adapters.CardStackViewAdapter.CardStackAdapt
 import hu.bme.aut.android.swipeajob.Data.CrossReferences.JobSwiperJobLeftSwipeCrossRef
 import hu.bme.aut.android.swipeajob.Data.CrossReferences.JobSwiperJobRightSwipeCrossRef
 import hu.bme.aut.android.swipeajob.Data.Database.AppDatabase
+import hu.bme.aut.android.swipeajob.Data.Entities.Job
+import hu.bme.aut.android.swipeajob.Data.QueryHelperClasses.JobSearchersThatSwipedJobs
 import hu.bme.aut.android.swipeajob.R
 import kotlinx.android.synthetic.main.fragment_job_swiper_common_layout.*
 import kotlin.concurrent.thread
@@ -45,14 +47,19 @@ class JobSwiperFragmentJobSearcher(val username: String) : Fragment() ,CardStack
     }
 
     private fun loadJobs() {
-        val t = thread {
-            val result = AppDatabase.getInstance(requireContext()).jobDao().getAllJobs()
-            val swipedJobsForJobSearcher = AppDatabase.getInstance(requireContext()).jobsearcherDao().getJobSearchersThatSwipedJobs().filter { it.jobSearcher.userName == username }[0]
-
+        thread {
+            val db = AppDatabase.getInstance(requireContext())
+            var result = listOf<Job>()
+            var swipedJobsForJobSearcher :JobSearchersThatSwipedJobs? = null
             val swipedJobsIDs = mutableListOf<Long>()
+            db.runInTransaction {
+                result = db.jobDao().getAllJobs()
+                swipedJobsForJobSearcher = db.jobsearcherDao().getJobSearchersThatSwipedJobs().filter { it.jobSearcher.userName == username }[0]
 
-            swipedJobsForJobSearcher.jobsThatTheSearcherSwipedRight.forEach{ swipedJobsIDs.add(it.id!!) }
-            swipedJobsForJobSearcher.jobsThatTheSearcherSwipedLeft.forEach{ swipedJobsIDs.add(it.id!!) }
+            }
+
+            swipedJobsForJobSearcher!!.jobsThatTheSearcherSwipedRight.forEach{ swipedJobsIDs.add(it.id!!) }
+            swipedJobsForJobSearcher!!.jobsThatTheSearcherSwipedLeft.forEach{ swipedJobsIDs.add(it.id!!) }
 
             val notSwipedJobs = result.filter { !(it.id in swipedJobsIDs) }
             requireActivity().runOnUiThread{
@@ -143,12 +150,19 @@ class JobSwiperFragmentJobSearcher(val username: String) : Fragment() ,CardStack
         adapter.removeJob(manager.topPosition - topPosistionOffset)
 
         thread {
-            val jobSearcherid = AppDatabase.getInstance(requireContext()).jobsearcherDao()
-                .getAllJobSearchersWithUsername(username)[0].jobsearcherId
-            val jobswiperJobLeftSwipeCrossRef =
-                JobSwiperJobLeftSwipeCrossRef(jobsearcherid = jobSearcherid!!, jobid = jobid!!)
-            AppDatabase.getInstance(requireContext()).jobswiperJobLeftSwipeCrossRefDao()
-                .insert(jobswiperJobLeftSwipeCrossRef)
+            val db = AppDatabase.getInstance(requireContext())
+            db.runInTransaction {
+
+                val jobSearcherid = db.jobsearcherDao()
+                    .getAllJobSearchersWithUsername(username)[0].jobsearcherId
+
+                val jobswiperJobLeftSwipeCrossRef =
+                    JobSwiperJobLeftSwipeCrossRef(jobsearcherid = jobSearcherid!!, jobid = jobid!!)
+
+               db.jobswiperJobLeftSwipeCrossRefDao()
+                    .insert(jobswiperJobLeftSwipeCrossRef)
+            }
+
         }
     }
 
@@ -158,10 +172,16 @@ class JobSwiperFragmentJobSearcher(val username: String) : Fragment() ,CardStack
         adapter.removeJob(manager.topPosition - topPosistionOffset)
 
         thread {
-            val jobSearcherid = AppDatabase.getInstance(requireContext()).jobsearcherDao()
-                .getAllJobSearchersWithUsername(username)[0].jobsearcherId
-            val jobswiperJobRightSwipeCrossRef = JobSwiperJobRightSwipeCrossRef(jobsearcherid = jobSearcherid!!, jobid = jobid!!)
-            AppDatabase.getInstance(requireContext()).jobswiperJobRightSwipeCrossRefDao().insert(jobswiperJobRightSwipeCrossRef)
+            val db =  AppDatabase.getInstance(requireContext())
+            db.runInTransaction {
+                val jobSearcherid = db.jobsearcherDao()
+                    .getAllJobSearchersWithUsername(username)[0].jobsearcherId
+
+                val jobswiperJobRightSwipeCrossRef = JobSwiperJobRightSwipeCrossRef(jobsearcherid = jobSearcherid!!, jobid = jobid!!)
+
+                db.jobswiperJobRightSwipeCrossRefDao().insert(jobswiperJobRightSwipeCrossRef)
+            }
+
         }
     }
 

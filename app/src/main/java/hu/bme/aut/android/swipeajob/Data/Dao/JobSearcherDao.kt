@@ -19,8 +19,8 @@ interface JobSearcherDao{
     fun delete(jobSearcher: JobSearcher)
 
     @Transaction
-    @Query("SELECT * FROM jobsearcher")
-    fun getJobSearcherWithEmbeddedClases() : List<JobSearcherWithEmbeddedClasses>
+    @Query("SELECT * FROM jobsearcher WHERE user_name= :username")
+    fun getJobSearcherWithEmbeddedClasesWithUserName(username: String) : JobSearcherWithEmbeddedClasses
 
     @Query("SELECT * FROM jobsearcher WHERE user_name = :username")
     fun getAllJobSearchersWithUsername(username: String): List<JobSearcher>
@@ -39,4 +39,11 @@ interface JobSearcherDao{
     @Transaction
     @Query("SELECT * FROM jobsearcher WHERE user_name = :username")
     fun getMatchedJobProvidersForJobSearcherWithUsername(username: String): MatchesForJobSearcher
+
+
+    @Query("UPDATE jobsearcher SET pictureuri = :pictureUri, password = :password, phonenumber = :phoneNumber, fullname = :fullName WHERE user_name = :username")
+    fun updateJobSearcherWithUserName(username: String, pictureUri : String,  password : String, phoneNumber : String, fullName : String)
+
+    @Query("SELECT jobsearcherid FROM jobsearcher WHERE user_name = :username")
+    fun getJobSearcherIdForUserName(username: String): Long
 }

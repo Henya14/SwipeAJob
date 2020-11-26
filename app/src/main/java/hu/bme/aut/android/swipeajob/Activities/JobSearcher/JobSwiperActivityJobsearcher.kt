@@ -1,4 +1,4 @@
-package hu.bme.aut.android.swipeajob.Activities
+package hu.bme.aut.android.swipeajob.Activities.JobSearcher
 
 import android.content.Intent
 import android.os.Bundle
@@ -9,6 +9,8 @@ import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
+import hu.bme.aut.android.swipeajob.Activities.JobProvider.ChangeInfoJobProviderActivity
+import hu.bme.aut.android.swipeajob.Activities.MainActivity
 import hu.bme.aut.android.swipeajob.Adapters.FragmentPagerAdapter.JobSwiperFragmentPagerAdapterJobsearcher
 import hu.bme.aut.android.swipeajob.R
 import kotlinx.android.synthetic.main.activity_job_swiper_common_layout.*
@@ -52,9 +54,10 @@ class JobSwiperActivityJobsearcher : AppCompatActivity() {
             )
         )
 
-        fab_Job_Searcher.setOnClickListener { view ->
-            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                .setAction("Action", null).show()
+        fab_Job_Searcher.setOnClickListener {
+            val intent = Intent(this, ChangeInfoJobSearcherActivity::class.java)
+            intent.putExtra(ChangeInfoJobSearcherActivity.KEY_USER_NAME, userName)
+            startActivity(intent)
         }
 
     }

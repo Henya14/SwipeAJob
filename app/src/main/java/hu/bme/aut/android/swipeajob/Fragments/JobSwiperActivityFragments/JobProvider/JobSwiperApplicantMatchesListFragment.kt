@@ -6,7 +6,7 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.recyclerview.widget.LinearLayoutManager
-import hu.bme.aut.android.swipeajob.Activities.JobSwiperActivityJobprovider
+import hu.bme.aut.android.swipeajob.Activities.JobProvider.JobSwiperActivityJobProvider
 import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.MatchesJobProviderRecyclerViewAdapter
 import hu.bme.aut.android.swipeajob.Data.Database.AppDatabase
 import hu.bme.aut.android.swipeajob.Data.QueryHelperClasses.Match
@@ -14,7 +14,7 @@ import hu.bme.aut.android.swipeajob.R
 import kotlinx.android.synthetic.main.fragment_job_swiper_job_matches_list.*
 import kotlin.concurrent.thread
 
-class JobSwiperApplicantMatchesListFragment(val username: String, jobSwiperActivityJobprovider: JobSwiperActivityJobprovider) : Fragment() , OnMatchesTabSelectedListener{
+class JobSwiperApplicantMatchesListFragment(val username: String, jobSwiperActivityJobprovider: JobSwiperActivityJobProvider) : Fragment() , OnMatchesTabSelectedListener{
 
     init {
         jobSwiperActivityJobprovider.onMatchesTabSelectedListener = this

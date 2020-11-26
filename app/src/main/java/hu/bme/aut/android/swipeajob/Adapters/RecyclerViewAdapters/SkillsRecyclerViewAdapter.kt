@@ -10,8 +10,13 @@ import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.Experienc
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.SkillItem
 import hu.bme.aut.android.swipeajob.R
 
-class SkillsRecyclerViewAdapter(val withButtons : Boolean = true) : RecyclerView.Adapter<SkillsRecyclerViewAdapter.SkillsViewHolder>() {
+class SkillsRecyclerViewAdapter(val withButtons : Boolean = true,
+    val skillItemRemovedListener: SkillItemRemovedListener? = null)
+    : RecyclerView.Adapter<SkillsRecyclerViewAdapter.SkillsViewHolder>() {
 
+    interface SkillItemRemovedListener {
+        fun skillItemRemoved(skillItem: SkillItem)
+    }
     val items = mutableListOf<SkillItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): SkillsViewHolder {
@@ -47,6 +52,7 @@ class SkillsRecyclerViewAdapter(val withButtons : Boolean = true) : RecyclerView
             }
             deleteButton.setOnClickListener{
                 item?.let {
+                    skillItemRemovedListener?.skillItemRemoved(it)
                     removeItem(it)
                 }
             }

@@ -9,8 +9,13 @@ import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.EducationItem
 import hu.bme.aut.android.swipeajob.R
 
-class EducationRecyclerViewAdapter(val withButtons : Boolean = true) : RecyclerView.Adapter<EducationRecyclerViewAdapter.EducationViewHolder>() {
+class EducationRecyclerViewAdapter(val withButtons : Boolean = true,
+                                   val educationItemRemovedListener: EducationItemRemovedListener? = null)
+: RecyclerView.Adapter<EducationRecyclerViewAdapter.EducationViewHolder>() {
 
+    interface EducationItemRemovedListener {
+        fun educationItemRemoved(educationItem: EducationItem)
+    }
     val items = mutableListOf<EducationItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): EducationViewHolder {
@@ -50,6 +55,7 @@ class EducationRecyclerViewAdapter(val withButtons : Boolean = true) : RecyclerV
             }
             deleteButton.setOnClickListener{
                 item?.let {
+                    educationItemRemovedListener?.educationItemRemoved(it)
                     removeItem(it)
                 }
             }

@@ -13,4 +13,7 @@
     <dimen name="app_padding">20dp</dimen>
     <dimen name="app_margin">20dp</dimen>
     <dimen name="titlescreen_app_name_size">36sp</dimen>
+    <dimen name="registration_info_change_button_height_padding_value">40dp</dimen>
+
+
 </resources>

@@ -33,6 +33,7 @@ class MatchesJobSearcherRecyclerViewAdapter(val context: Context)
             holder.image.setImageURI(Uri.parse(match.imageUri))
         }
         holder.name.text = match.jobname
+        holder.item = match
     }
 
     override fun getItemCount(): Int = matches.size

@@ -10,9 +10,13 @@ import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.Education
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.ExperienceItem
 import hu.bme.aut.android.swipeajob.R
 
-class ExperienceRecyclerViewAdapter(val withButtons : Boolean = true)
+class ExperienceRecyclerViewAdapter(val withButtons : Boolean = true,
+                                    val experienceItemRemovedListener: ExperienceItemRemovedListener? = null)
     :RecyclerView.Adapter<ExperienceRecyclerViewAdapter.ExperienceViewHolder>() {
 
+    interface ExperienceItemRemovedListener{
+        fun experienceItemRemoved(experienceItem: ExperienceItem)
+    }
     val items = mutableListOf<ExperienceItem>()
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ExperienceViewHolder {
@@ -51,6 +55,7 @@ class ExperienceRecyclerViewAdapter(val withButtons : Boolean = true)
             }
             deleteButton.setOnClickListener{
                 item?.let {
+                    experienceItemRemovedListener?.experienceItemRemoved(it)
                     removeItem(it)
                 }
             }

@@ -9,8 +9,8 @@ import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.findNavController
 import com.dd.processbutton.iml.ActionProcessButton
 import com.google.android.material.snackbar.Snackbar
-import hu.bme.aut.android.swipeajob.Activities.JobSwiperActivityJobprovider
-import hu.bme.aut.android.swipeajob.Activities.JobSwiperActivityJobsearcher
+import hu.bme.aut.android.swipeajob.Activities.JobProvider.JobSwiperActivityJobProvider
+import hu.bme.aut.android.swipeajob.Activities.JobSearcher.JobSwiperActivityJobsearcher
 import hu.bme.aut.android.swipeajob.Data.Database.AppDatabase
 import hu.bme.aut.android.swipeajob.Data.Entities.JobProvider
 import hu.bme.aut.android.swipeajob.Data.Entities.JobSearcher
@@ -71,8 +71,8 @@ class MainFragment : Fragment() {
                 }
                 else {
 
-                    intent = Intent(requireActivity(), JobSwiperActivityJobprovider::class.java)
-                    intent.putExtra(JobSwiperActivityJobprovider.KEY_USER_NAME, userNameInputField.editText!!.text.toString())
+                    intent = Intent(requireActivity(), JobSwiperActivityJobProvider::class.java)
+                    intent.putExtra(JobSwiperActivityJobProvider.KEY_USER_NAME, userNameInputField.editText!!.text.toString())
                 }
 
 

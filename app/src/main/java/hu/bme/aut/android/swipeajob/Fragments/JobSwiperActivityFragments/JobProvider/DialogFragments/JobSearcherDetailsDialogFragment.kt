@@ -76,7 +76,7 @@ class JobSearcherDetailsDialogFragment(val jobsearcher : JobSearcher): DialogFra
 
     private fun loadData() {
         thread {
-            val jobSearcherWithEmbeddedClasses = AppDatabase.getInstance(requireContext()).jobsearcherDao().getJobSearcherWithEmbeddedClases().find { it.jobSearcher.jobsearcherId == jobsearcher.jobsearcherId }
+            val jobSearcherWithEmbeddedClasses = AppDatabase.getInstance(requireContext()).jobsearcherDao().getJobSearcherWithEmbeddedClasesWithUserName(jobsearcher.userName)
             requireActivity().runOnUiThread{
                 educationRecyclerViewAdapter.addItems(jobSearcherWithEmbeddedClasses?.educations ?: emptyList())
                 experienceRecyclerViewAdapter.addItems(jobSearcherWithEmbeddedClasses?.experiences ?: emptyList())
