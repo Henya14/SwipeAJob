@@ -45,6 +45,7 @@
     </LinearLayout>
 
     <FrameLayout
+        android:id="@+id/left_overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/overlay_black">
@@ -59,6 +60,7 @@
     </FrameLayout>
 
     <FrameLayout
+        android:id="@+id/right_overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:background="@drawable/overlay_black">
@@ -74,11 +76,13 @@
     </FrameLayout>
 
     <FrameLayout
+        android:id="@+id/top_overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </FrameLayout>
 
     <FrameLayout
+        android:id="@+id/bottom_overlay"
         android:layout_width="match_parent"
         android:layout_height="match_parent">
     </FrameLayout>

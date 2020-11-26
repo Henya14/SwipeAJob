@@ -20,10 +20,10 @@
 
             <ImageView
                 android:id="@+id/jobsearcher_image"
-                android:layout_width="250dp"
-                android:layout_height="400dp"
+                android:layout_width="@dimen/image_button_image_width"
+                android:layout_height="@dimen/image_button_image_height"
                 android:contentDescription="@string/jobsearcher_s_image"
-                android:src="@drawable/baseline_account_box_black_18dp"
+                android:src="@drawable/baseline_account_box_black_18"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toTopOf="parent" />

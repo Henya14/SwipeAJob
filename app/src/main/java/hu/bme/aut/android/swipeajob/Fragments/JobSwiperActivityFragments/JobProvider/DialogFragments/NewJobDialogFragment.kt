@@ -76,8 +76,8 @@ class NewJobDialogFragment(private val listener: NewJobItemDialogListener): Dial
 
                 val fileUri = data?.data
                 pictureUri = fileUri.toString()
-                uploadedImage.setImageURI(fileUri)
-                uploadedImage.scaleType = ImageView.ScaleType.FIT_XY
+                jobUploadImageButton.setImageURI(fileUri)
+                jobUploadImageButton.scaleType = ImageView.ScaleType.FIT_XY
 
             }
 
