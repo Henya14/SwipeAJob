@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.ExperienceItem
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.SkillItem
 import hu.bme.aut.android.swipeajob.R
 
@@ -39,13 +38,11 @@ class SkillsRecyclerViewAdapter(val withButtons : Boolean = true,
 
     inner class SkillsViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView)
     {
-        val skillText: TextView
-        val deleteButton: ImageButton
+        val skillText: TextView = itemView.findViewById(R.id.skillTextView)
+        private val deleteButton: ImageButton  = itemView.findViewById(R.id.skillItemRemoveButton)
         var item: SkillItem? = null
         init {
 
-            skillText = itemView.findViewById(R.id.skillTextView)
-            deleteButton = itemView.findViewById(R.id.skillItemRemoveButton)
             if(!withButtons)
             {
                 deleteButton.visibility = View.INVISIBLE

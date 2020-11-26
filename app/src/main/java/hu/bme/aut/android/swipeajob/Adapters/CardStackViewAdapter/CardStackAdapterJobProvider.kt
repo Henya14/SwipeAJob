@@ -1,5 +1,6 @@
 package hu.bme.aut.android.swipeajob.Adapters.CardStackViewAdapter
 
+import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -11,13 +12,13 @@ import hu.bme.aut.android.swipeajob.Data.Entities.JobSearcher
 import hu.bme.aut.android.swipeajob.Data.QueryHelperClasses.JobSearcherWithJobNameAndId
 import hu.bme.aut.android.swipeajob.R
 
-class CardStackAdapterJobProvider(val listener: JobSearcherItemClickedListener,
-    private var jobsearchers: MutableList<JobSearcherWithJobNameAndId> = mutableListOf<JobSearcherWithJobNameAndId>()
+class CardStackAdapterJobProvider(private val listener: JobSearcherItemClickedListener,
+    private var jobsearchers: MutableList<JobSearcherWithJobNameAndId> = mutableListOf(), val context : Context
 ) : RecyclerView.Adapter<CardStackAdapterJobProvider.ViewHolder>() {
 
     interface JobSearcherItemClickedListener
     {
-        fun JobSearcherClicked(jobsearcher: JobSearcher)
+        fun jobSearcherClicked(jobsearcher: JobSearcher)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
@@ -28,15 +29,15 @@ class CardStackAdapterJobProvider(val listener: JobSearcherItemClickedListener,
 
     override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val jobsearcher = jobsearchers[position]
-        holder.name.text = "Name: ${jobsearcher.jobsearcher.fullname}"
-        holder.jobName.text = "Applied For: ${jobsearcher.jobName}"
+        holder.name.text = context.getString(R.string.jobsearcher_name_on_cardstackview,  jobsearcher.jobsearcher.fullname)
+        holder.jobName.text =context.getString(R.string.jobsearcher_applied_for_on_cardstackview, jobsearcher.jobName)
         Glide.with(holder.image)
             .load(jobsearcher.jobsearcher.pictureUri)
             .into(holder.image)
         holder.itemView.setOnClickListener { v ->
 
             val jobsearcherThatWasClicked = jobsearcher.jobsearcher
-            listener.JobSearcherClicked(jobsearcherThatWasClicked)
+            listener.jobSearcherClicked(jobsearcherThatWasClicked)
         }
     }
 
@@ -45,7 +46,7 @@ class CardStackAdapterJobProvider(val listener: JobSearcherItemClickedListener,
     }
 
     fun setJobSearchers(jobsearchers: List<JobSearcherWithJobNameAndId>) {
-        val list : MutableList<JobSearcherWithJobNameAndId> = mutableListOf<JobSearcherWithJobNameAndId>()
+        val list : MutableList<JobSearcherWithJobNameAndId> = mutableListOf()
         list.addAll(jobsearchers)
         this.jobsearchers = list
         notifyDataSetChanged()

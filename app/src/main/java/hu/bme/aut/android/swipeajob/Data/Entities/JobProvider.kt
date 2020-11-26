@@ -1,6 +1,5 @@
 package hu.bme.aut.android.swipeajob.Data.Entities
 
-import android.graphics.Picture
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey

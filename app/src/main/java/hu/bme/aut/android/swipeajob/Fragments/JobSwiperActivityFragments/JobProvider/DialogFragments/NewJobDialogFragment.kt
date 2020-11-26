@@ -16,9 +16,9 @@ import com.github.dhaval2404.imagepicker.ImagePicker
 import hu.bme.aut.android.swipeajob.Data.Entities.Job
 import hu.bme.aut.android.swipeajob.Globals.Consts
 import hu.bme.aut.android.swipeajob.R
-import kotlinx.android.synthetic.main.registration_fragment_common_layout.*
+import kotlinx.android.synthetic.main.activity_change_info_common_layout.*
 
-class NewJobDialogFragment(val listener: NewJobItemDialogListener): DialogFragment()
+class NewJobDialogFragment(private val listener: NewJobItemDialogListener): DialogFragment()
 {
 
     interface NewJobItemDialogListener
@@ -53,7 +53,7 @@ class NewJobDialogFragment(val listener: NewJobItemDialogListener): DialogFragme
         val contentView = LayoutInflater
             .from(context)
             .inflate(R.layout.dialog_new_job, null)
-            jobUploadImageButton = contentView.findViewById<ImageButton>(R.id.jobUploadImageButton)
+            jobUploadImageButton = contentView.findViewById(R.id.jobUploadImageButton)
             jobUploadImageButton.setOnClickListener {
                 ImagePicker.with(this)
                     .crop()
@@ -70,17 +70,20 @@ class NewJobDialogFragment(val listener: NewJobItemDialogListener): DialogFragme
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (resultCode == Activity.RESULT_OK) {
-            //Image Uri will not be null for RESULT_OK
-            val fileUri = data?.data
-            pictureUri = fileUri.toString()
-            jobUploadImageButton.setImageURI(fileUri)
-            jobUploadImageButton.scaleType = ImageView.ScaleType.FIT_XY
+        when(resultCode)
+        {
+            Activity.RESULT_OK -> {
 
-        } else if (resultCode == ImagePicker.RESULT_ERROR) {
-            Toast.makeText(requireContext(), ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(requireContext(), "Task Cancelled", Toast.LENGTH_SHORT).show()
+                val fileUri = data?.data
+                pictureUri = fileUri.toString()
+                uploadedImage.setImageURI(fileUri)
+                uploadedImage.scaleType = ImageView.ScaleType.FIT_XY
+
+            }
+
+            ImagePicker.RESULT_ERROR -> Toast.makeText(requireContext(), ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+
+            else -> Toast.makeText(requireContext(), "Task Cancelled", Toast.LENGTH_SHORT).show()
         }
     }
 

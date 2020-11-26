@@ -47,7 +47,7 @@ class JobSearcherDetailsDialogFragment(val jobsearcher : JobSearcher): DialogFra
 
         if(jobsearcher.pictureUri != null) {
             contentView.findViewById<ImageView>(R.id.jobsearcher_image)
-                .setImageURI(Uri.parse(jobsearcher!!.pictureUri))
+                .setImageURI(Uri.parse(jobsearcher.pictureUri))
         }
         contentView.findViewById<TextView>(R.id.jobsearcher_FullName).text = jobsearcher.fullname
         contentView.findViewById<Button>(R.id.addEducationButton).visibility = View.INVISIBLE
@@ -78,9 +78,9 @@ class JobSearcherDetailsDialogFragment(val jobsearcher : JobSearcher): DialogFra
         thread {
             val jobSearcherWithEmbeddedClasses = AppDatabase.getInstance(requireContext()).jobsearcherDao().getJobSearcherWithEmbeddedClasesWithUserName(jobsearcher.userName)
             requireActivity().runOnUiThread{
-                educationRecyclerViewAdapter.addItems(jobSearcherWithEmbeddedClasses?.educations ?: emptyList())
-                experienceRecyclerViewAdapter.addItems(jobSearcherWithEmbeddedClasses?.experiences ?: emptyList())
-                skillsRecyclerViewAdapter.addItems(jobSearcherWithEmbeddedClasses?.skills ?: emptyList())
+                educationRecyclerViewAdapter.addItems(jobSearcherWithEmbeddedClasses.educations )
+                experienceRecyclerViewAdapter.addItems(jobSearcherWithEmbeddedClasses.experiences )
+                skillsRecyclerViewAdapter.addItems(jobSearcherWithEmbeddedClasses.skills )
             }
 
         }

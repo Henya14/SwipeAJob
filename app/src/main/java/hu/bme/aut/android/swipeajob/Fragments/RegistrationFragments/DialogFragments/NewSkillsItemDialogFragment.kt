@@ -10,7 +10,7 @@ import androidx.fragment.app.DialogFragment
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.SkillItem
 import hu.bme.aut.android.swipeajob.R
 
-class NewSkillsItemDialogFragment(val listener: NewSkillsItemDialogListener): DialogFragment()
+class NewSkillsItemDialogFragment(private val listener: NewSkillsItemDialogListener): DialogFragment()
 {
     interface NewSkillsItemDialogListener
     {

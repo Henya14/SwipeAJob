@@ -7,9 +7,7 @@ import android.view.MenuItem
 import androidx.appcompat.app.AppCompatActivity
 import androidx.viewpager2.widget.ViewPager2
 import com.google.android.material.floatingactionbutton.FloatingActionButton
-import com.google.android.material.snackbar.Snackbar
 import com.google.android.material.tabs.TabLayoutMediator
-import hu.bme.aut.android.swipeajob.Activities.JobProvider.ChangeInfoJobProviderActivity
 import hu.bme.aut.android.swipeajob.Activities.MainActivity
 import hu.bme.aut.android.swipeajob.Adapters.FragmentPagerAdapter.JobSwiperFragmentPagerAdapterJobsearcher
 import hu.bme.aut.android.swipeajob.R
@@ -77,7 +75,7 @@ class JobSwiperActivityJobsearcher : AppCompatActivity() {
         else ->  super.onOptionsItemSelected(item)
     }
 
-    class TabLayoutOnPageChangeCallbackForNormalFab(val fab: FloatingActionButton) :
+    class TabLayoutOnPageChangeCallbackForNormalFab(private val fab: FloatingActionButton) :
         ViewPager2.OnPageChangeCallback() {
         override fun onPageScrolled(
             position: Int,

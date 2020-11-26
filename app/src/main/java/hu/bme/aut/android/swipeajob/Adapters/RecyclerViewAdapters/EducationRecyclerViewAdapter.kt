@@ -40,15 +40,13 @@ class EducationRecyclerViewAdapter(val withButtons : Boolean = true,
 
     inner class EducationViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView)
     {
-        val graduationYear: TextView
-        val schoolName: TextView
-        val deleteButton: ImageButton
+        val graduationYear: TextView = itemView.findViewById(R.id.graduationYearTextView)
+        val schoolName: TextView = itemView.findViewById(R.id.schoolNameTextView)
+        private val deleteButton: ImageButton = itemView.findViewById(R.id.educationItemRemoveButton)
         var item: EducationItem? = null
         init {
 
-            graduationYear = itemView.findViewById(R.id.graduationYearTextView)
-            schoolName = itemView.findViewById(R.id.schoolNameTextView)
-            deleteButton = itemView.findViewById(R.id.educationItemRemoveButton)
+
             if(!withButtons)
             {
                 deleteButton.visibility = View.INVISIBLE

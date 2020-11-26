@@ -7,13 +7,13 @@ import androidx.room.PrimaryKey
 import hu.bme.aut.android.swipeajob.Data.Entities.JobSearcher
 
 @Entity(tableName = "experienceitem",
-    foreignKeys = arrayOf(
+    foreignKeys = [
         ForeignKey(
             entity = JobSearcher::class,
             parentColumns = arrayOf("jobsearcherid"),
             childColumns = arrayOf("experience_owner_jobsearcherid"),
             onDelete = ForeignKey.CASCADE
-        ))
+        )]
 )
 data class ExperienceItem (
 

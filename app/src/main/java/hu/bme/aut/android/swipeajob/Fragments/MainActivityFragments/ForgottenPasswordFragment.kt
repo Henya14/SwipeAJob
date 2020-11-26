@@ -43,20 +43,20 @@ class ForgottenPasswordFragment : Fragment() {
                 {
                     val list = AppDatabase.getInstance(requireContext()).jobsearcherDao().getAllJobSearchersWithUsername(userName)
 
-                    if(list.size > 0)
-                        Snackbar.make(requireView(), "The Password For ${userName} is ${list[0].password}", Snackbar.LENGTH_LONG).show()
+                    if(list.isNotEmpty())
+                        Snackbar.make(requireView(), "The Password For $userName is ${list[0].password}", Snackbar.LENGTH_LONG).show()
                     else
-                        Snackbar.make(requireView(), "No Jobsearcher Is Registered With The Username ${userName}", Snackbar.LENGTH_LONG).show()
+                        Snackbar.make(requireView(), "No Jobsearcher Is Registered With The Username $userName", Snackbar.LENGTH_LONG).show()
                 }
                 else
                 {
 
                     val list = AppDatabase.getInstance(requireContext()).jobproviderDao().getAllJobProvidersWithUsername(userName)
 
-                    if(list.size > 0)
-                        Snackbar.make(requireView(), "The Password For ${userName} is ${list[0].password}", Snackbar.LENGTH_LONG).show()
+                    if(list.isNotEmpty())
+                        Snackbar.make(requireView(), "The Password For $userName is ${list[0].password}", Snackbar.LENGTH_LONG).show()
                     else
-                        Snackbar.make(requireView(), "No Jobprovider Is Registered With The Username ${userName}", Snackbar.LENGTH_LONG).show()
+                        Snackbar.make(requireView(), "No Jobprovider Is Registered With The Username $userName", Snackbar.LENGTH_LONG).show()
 
                 }
             }

@@ -61,7 +61,7 @@ class JobSwiperFragmentJobSearcher(val username: String) : Fragment() ,CardStack
             swipedJobsForJobSearcher!!.jobsThatTheSearcherSwipedRight.forEach{ swipedJobsIDs.add(it.id!!) }
             swipedJobsForJobSearcher!!.jobsThatTheSearcherSwipedLeft.forEach{ swipedJobsIDs.add(it.id!!) }
 
-            val notSwipedJobs = result.filter { !(it.id in swipedJobsIDs) }
+            val notSwipedJobs = result.filter { it.id !in swipedJobsIDs }
             requireActivity().runOnUiThread{
                 adapter.setJobs(notSwipedJobs)
             }

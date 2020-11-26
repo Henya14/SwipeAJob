@@ -15,7 +15,7 @@ import hu.bme.aut.android.swipeajob.R
 class MatchesJobSearcherRecyclerViewAdapter(val context: Context)
     : RecyclerView.Adapter<MatchesViewHolder>() {
 
-    val matches = mutableListOf<Match>()
+    private val matches = mutableListOf<Match>()
 
 
 
@@ -51,7 +51,7 @@ class MatchesJobSearcherRecyclerViewAdapter(val context: Context)
     }
 
 
-    fun onMatchClicked(match: Match)
+    private fun onMatchClicked(match: Match)
     {
         val intent = Intent(Intent.ACTION_DIAL)
         intent.data = Uri.parse("tel:" + match.jobproviderPhoneNumber)

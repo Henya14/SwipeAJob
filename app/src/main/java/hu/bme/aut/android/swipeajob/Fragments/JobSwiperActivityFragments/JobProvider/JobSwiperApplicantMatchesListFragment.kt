@@ -50,7 +50,7 @@ class JobSwiperApplicantMatchesListFragment(val username: String, jobSwiperActiv
                 .jobproviderDao()
                 .getSwipedJobSearchersForJobProviderWithUsername(username)
 
-            for (i in 0..swipedApplicants.jobsearchersThatWereSwipedRight.size - 1) {
+            for (i in swipedApplicants.jobsearchersThatWereSwipedRight.indices) {
 
                     matches.add(
                         Match(

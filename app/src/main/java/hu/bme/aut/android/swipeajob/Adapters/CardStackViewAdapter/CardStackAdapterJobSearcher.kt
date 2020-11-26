@@ -8,11 +8,10 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
 import hu.bme.aut.android.swipeajob.Data.Entities.Job
-import hu.bme.aut.android.swipeajob.Data.Entities.JobSearcher
 import hu.bme.aut.android.swipeajob.R
 
 class CardStackAdapterJobSearcher (
-    private var jobs: MutableList<Job> = mutableListOf<Job>()
+    private var jobs: MutableList<Job> = mutableListOf()
 ) : RecyclerView.Adapter<CardStackAdapterJobSearcher.ViewHolder>()
 {
 
@@ -22,7 +21,7 @@ class CardStackAdapterJobSearcher (
             parent, false))
     }
 
-    override fun onBindViewHolder(holder: CardStackAdapterJobSearcher.ViewHolder, position: Int) {
+    override fun onBindViewHolder(holder: ViewHolder, position: Int) {
         val job = jobs[position]
         holder.jobname.text = job.name
         holder.jobDescription.text = job.description
@@ -38,7 +37,7 @@ class CardStackAdapterJobSearcher (
     }
 
     fun setJobs(jobs: List<Job>) {
-        val list : MutableList<Job> = mutableListOf<Job>()
+        val list : MutableList<Job> = mutableListOf()
         list.addAll(jobs)
         this.jobs = list
         notifyDataSetChanged()

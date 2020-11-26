@@ -18,8 +18,8 @@ class MatchesViewHolder(itemView: View, val onClickFunction: (Match)  -> Unit): 
         itemView.setOnClickListener{
             onClickFunction(item!!)
         }
-        image = itemView.findViewById<ImageView>(R.id.jobOrJobsearcher_image)
-        name = itemView.findViewById<TextView>(R.id.nameTextView)
+        image = itemView.findViewById(R.id.jobOrJobsearcher_image)
+        name = itemView.findViewById(R.id.nameTextView)
     }
 
 }

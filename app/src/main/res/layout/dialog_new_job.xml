@@ -6,13 +6,13 @@
     android:layout_height="wrap_content">
 <androidx.constraintlayout.widget.ConstraintLayout
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content">
 
     <ImageButton
         android:id="@+id/jobUploadImageButton"
         android:layout_width="250dp"
         android:layout_height="400dp"
-        android:contentDescription="Upload Image"
+        android:contentDescription="@string/upload_image_button_description"
         android:src="@drawable/baseline_account_box_black_18dp"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
@@ -36,7 +36,9 @@
         android:layout_margin="@dimen/app_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/jobnametextview" />
+        app:layout_constraintTop_toBottomOf="@+id/jobnametextview"
+        android:hint="@string/job_s_name"
+        android:inputType="text"/>
 
     <TextView
         android:id="@+id/jobdescriptionTextView"
@@ -56,7 +58,9 @@
         android:layout_margin="@dimen/app_margin"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/jobdescriptionTextView" />
+        app:layout_constraintTop_toBottomOf="@+id/jobdescriptionTextView"
+        android:hint="@string/description"
+        android:inputType="text"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>
 </ScrollView>

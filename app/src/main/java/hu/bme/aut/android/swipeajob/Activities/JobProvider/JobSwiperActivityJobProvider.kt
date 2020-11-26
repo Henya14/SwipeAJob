@@ -19,22 +19,22 @@ import io.github.yavski.fabspeeddial.FabSpeedDial
 import kotlinx.android.synthetic.main.activity_job_swiper_common_layout.*
 import kotlinx.android.synthetic.main.activity_job_swiper_jobprovider.*
 import kotlin.concurrent.thread
-interface fabClickedListener
+interface FabClickedListener
 {
     fun postNewJobClicked()
     fun modifyInfoClicked()
 }
 
 class JobSwiperActivityJobProvider : AppCompatActivity(), NewJobDialogFragment.NewJobItemDialogListener,
-    fabClickedListener {
+    FabClickedListener {
 
 
     companion object{
         const val KEY_USER_NAME = "KEY_USER_NAME"
     }
 
-    lateinit var userName: String
-    public var onMatchesTabSelectedListener :OnMatchesTabSelectedListener? = null
+    private lateinit var userName: String
+    var onMatchesTabSelectedListener :OnMatchesTabSelectedListener? = null
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -67,7 +67,7 @@ class JobSwiperActivityJobProvider : AppCompatActivity(), NewJobDialogFragment.N
 
     }
 
-    inner class FabMenuListener(val listener: fabClickedListener):FabSpeedDial.MenuListener
+    private inner class FabMenuListener(private val listener: FabClickedListener):FabSpeedDial.MenuListener
     {
         override fun onPrepareMenu(p0: NavigationMenu?): Boolean {
             return true
@@ -114,7 +114,7 @@ class JobSwiperActivityJobProvider : AppCompatActivity(), NewJobDialogFragment.N
     }
 
 
-    inner class TabLayoutOnPageChangeCallback(val fab: io.github.yavski.fabspeeddial.FabSpeedDial) :
+    private inner class TabLayoutOnPageChangeCallback(private val fab: FabSpeedDial) :
         ViewPager2.OnPageChangeCallback() {
         override fun onPageScrolled(
             position: Int,

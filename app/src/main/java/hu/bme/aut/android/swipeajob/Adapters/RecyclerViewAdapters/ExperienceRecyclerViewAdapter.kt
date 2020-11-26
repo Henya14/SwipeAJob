@@ -6,7 +6,6 @@ import android.view.ViewGroup
 import android.widget.ImageButton
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
-import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.EducationItem
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.ExperienceItem
 import hu.bme.aut.android.swipeajob.R
 
@@ -40,15 +39,11 @@ class ExperienceRecyclerViewAdapter(val withButtons : Boolean = true,
 
     inner class ExperienceViewHolder(itemView: View) :RecyclerView.ViewHolder(itemView)
     {
-        val startEndText: TextView
-        val companyName: TextView
-        val deleteButton: ImageButton
+        val startEndText: TextView = itemView.findViewById(R.id.startEndTextView)
+        val companyName: TextView = itemView.findViewById(R.id.companyNameTextView)
+        private val deleteButton: ImageButton = itemView.findViewById(R.id.experienceItemRemoveButton)
         var item: ExperienceItem? = null
         init {
-
-            startEndText = itemView.findViewById(R.id.startEndTextView)
-            companyName = itemView.findViewById(R.id.companyNameTextView)
-            deleteButton = itemView.findViewById(R.id.experienceItemRemoveButton)
             if(!withButtons)
             {
                 deleteButton.visibility = View.INVISIBLE

@@ -16,7 +16,7 @@ import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.Education
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.ExperienceItem
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.SkillItem
 
-@Database(entities = arrayOf(JobSearcher::class,
+@Database(entities = [JobSearcher::class,
     JobProvider::class,
     EducationItem::class,
     ExperienceItem::class,
@@ -25,7 +25,7 @@ import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.SkillItem
     JobSwiperJobRightSwipeCrossRef::class,
     JobSwiperJobLeftSwipeCrossRef::class,
     RightSwipedJobSearchersCrossRef::class,
-    LeftSwipedJobSearchersCrossRef::class),
+    LeftSwipedJobSearchersCrossRef::class],
     version = 7
     )
 abstract class AppDatabase : RoomDatabase()

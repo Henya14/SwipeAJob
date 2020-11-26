@@ -5,7 +5,6 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.text.Editable
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
@@ -14,13 +13,11 @@ import com.google.android.material.snackbar.Snackbar
 import hu.bme.aut.android.swipeajob.Data.Database.AppDatabase
 import hu.bme.aut.android.swipeajob.Globals.Consts
 import hu.bme.aut.android.swipeajob.R
-import kotlinx.android.synthetic.main.activity_change_info_common_layout.*
 import kotlinx.android.synthetic.main.activity_change_info_common_layout.passwordInputField
 import kotlinx.android.synthetic.main.activity_change_info_common_layout.phoneNumberInput
 import kotlinx.android.synthetic.main.activity_change_info_common_layout.uploadedImage
 import kotlinx.android.synthetic.main.activity_change_info_jobprovider.*
 import kotlinx.android.synthetic.main.activity_change_info_jobprovider.comapnyNameInputField
-import kotlinx.android.synthetic.main.registration_fragment_common_layout.*
 import kotlin.concurrent.thread
 
 class ChangeInfoJobProviderActivity : AppCompatActivity() {
@@ -153,18 +150,23 @@ class ChangeInfoJobProviderActivity : AppCompatActivity() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (resultCode == Activity.RESULT_OK) {
+        when(resultCode)
+        {
+            Activity.RESULT_OK -> {
 
-            val fileUri = data?.data
-            pictureUri = fileUri.toString()
-            uploadedImage.setImageURI(fileUri)
-            uploadedImage.scaleType = ImageView.ScaleType.FIT_XY
+                val fileUri = data?.data
+                pictureUri = fileUri.toString()
+                uploadedImage.setImageURI(fileUri)
+                uploadedImage.scaleType = ImageView.ScaleType.FIT_XY
 
-        } else if (resultCode == ImagePicker.RESULT_ERROR) {
-            Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show()
+            }
+
+            ImagePicker.RESULT_ERROR -> Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+
+            else -> Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show()
         }
+
+
     }
 
 

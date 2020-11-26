@@ -45,7 +45,7 @@ class JobSwiperJobMatchesListFragment(val username: String) : Fragment() {
                 .getMatchedJobProvidersForJobSearcherWithUsername(username)
 
 
-            for ( i in 0..matchedJobs.jobproviderMatches.size - 1)
+            for ( i in matchedJobs.jobproviderMatches.indices)
             {
                 requireActivity().runOnUiThread{
                     adapter.addItem(

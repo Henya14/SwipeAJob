@@ -1,11 +1,9 @@
 package hu.bme.aut.android.swipeajob.Data.Dao
 
 import androidx.room.*
-import com.google.i18n.phonenumbers.Phonenumber
 import hu.bme.aut.android.swipeajob.Data.Entities.JobProvider
 import hu.bme.aut.android.swipeajob.Data.QueryHelperClasses.JobProviderWithJobs
 import hu.bme.aut.android.swipeajob.Data.QueryHelperClasses.SwipedJobSearchersForJobProvider
-import java.io.PrintStream
 
 @Dao
 interface JobProviderDao{

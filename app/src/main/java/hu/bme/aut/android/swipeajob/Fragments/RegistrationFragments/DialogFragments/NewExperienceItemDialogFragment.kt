@@ -12,7 +12,7 @@ import hu.bme.aut.android.swipeajob.Globals.Consts
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.ExperienceItem
 import hu.bme.aut.android.swipeajob.R
 
-class NewExperienceItemDialogFragment(val listener: NewExperienceItemDialogListener): DialogFragment()
+class NewExperienceItemDialogFragment(private val listener: NewExperienceItemDialogListener): DialogFragment()
 {
     interface NewExperienceItemDialogListener
     {

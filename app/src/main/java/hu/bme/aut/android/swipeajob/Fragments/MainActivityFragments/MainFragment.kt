@@ -42,7 +42,7 @@ class MainFragment : Fragment() {
     }
 
 
-    fun loginButtonOnClick(v: View) {
+    private fun loginButtonOnClick(v: View) {
 
 
         registerButton.isEnabled = false
@@ -67,12 +67,17 @@ class MainFragment : Fragment() {
                 if (userTypeForLoginToggle.isChecked) {
 
                     intent = Intent(requireActivity(), JobSwiperActivityJobsearcher::class.java)
-                    intent.putExtra(JobSwiperActivityJobsearcher.KEY_USER_NAME, userNameInputField.editText!!.text.toString())
-                }
-                else {
+                    intent.putExtra(
+                        JobSwiperActivityJobsearcher.KEY_USER_NAME,
+                        userNameInputField.editText!!.text.toString()
+                    )
+                } else {
 
                     intent = Intent(requireActivity(), JobSwiperActivityJobProvider::class.java)
-                    intent.putExtra(JobSwiperActivityJobProvider.KEY_USER_NAME, userNameInputField.editText!!.text.toString())
+                    intent.putExtra(
+                        JobSwiperActivityJobProvider.KEY_USER_NAME,
+                        userNameInputField.editText!!.text.toString()
+                    )
                 }
 
 
@@ -124,10 +129,10 @@ class MainFragment : Fragment() {
 
             t.join()
 
-            if (list.size < 1) {
+            if (list.isEmpty()) {
                 Snackbar.make(
                     requireView(),
-                    "No Jobsearcher Is Registered With The Username ${userName}",
+                    "No Jobsearcher Is Registered With The Username $userName",
                     Snackbar.LENGTH_LONG
                 ).show()
                 return false
@@ -143,7 +148,6 @@ class MainFragment : Fragment() {
             }
 
 
-
         } else {
 
             var list: List<JobProvider> = listOf()
@@ -154,10 +158,10 @@ class MainFragment : Fragment() {
             }
             t.join()
 
-            if (list.size < 1) {
+            if (list.isEmpty()) {
                 Snackbar.make(
                     requireView(),
-                    "No Jobprovider Is Registered With The Username ${userName}",
+                    "No Jobprovider Is Registered With The Username $userName",
                     Snackbar.LENGTH_LONG
                 ).show()
                 return false
@@ -179,20 +183,19 @@ class MainFragment : Fragment() {
     }
 
 
+    private fun registerButtonOnClick(v: View) {
+        loadingProgressBar.visibility = View.VISIBLE
+        greyLoadingScreen.visibility = View.VISIBLE
+        val action = MainFragmentDirections.actionMainFragmentToRegistrationFragment()
+        findNavController().navigate(action)
+    }
 
-fun registerButtonOnClick(v: View) {
-    loadingProgressBar.visibility = View.VISIBLE
-    greyLoadingScreen.visibility = View.VISIBLE
-    val action = MainFragmentDirections.actionMainFragmentToRegistrationFragment()
-    findNavController().navigate(action)
-}
 
-
-fun forgottenPasswordButtonOnClick(v: View) {
-    loadingProgressBar.visibility = View.VISIBLE
-    greyLoadingScreen.visibility = View.VISIBLE
-    val action = MainFragmentDirections.actionMainFragmentToForgottenPasswordFragment()
-    findNavController().navigate(action)
-}
+    private fun forgottenPasswordButtonOnClick(v: View) {
+        loadingProgressBar.visibility = View.VISIBLE
+        greyLoadingScreen.visibility = View.VISIBLE
+        val action = MainFragmentDirections.actionMainFragmentToForgottenPasswordFragment()
+        findNavController().navigate(action)
+    }
 
 }

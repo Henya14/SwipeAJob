@@ -32,7 +32,8 @@
             android:inputType="text"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/companyNameTextView" />
+            app:layout_constraintTop_toBottomOf="@+id/companyNameTextView"
+            android:hint="@string/comapny_name"/>
 
         <TextView
 

@@ -5,8 +5,7 @@
     <string name="button_success">Success</string>
     <string name="button_error">Login</string>
     <string name="button_login">Login</string>
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+
     <string name="button_register">Register</string>
     <string name="button_forgot_password">Forgot Password?</string>
     <string name="button_logging_in">Logging you in</string>
@@ -57,9 +56,21 @@
     <string name="i_want_to_sign_in_as_a">I Want to Sign In As A:</string>
     <string name="log_out">Log Out</string>
     <string name="job_s_name">Job\'s Name:</string>
-    <string name="description">Description</string>
+    <string name="description">Job\'s Description</string>
     <string name="post_new_job">Post New Job</string>
     <string name="new_job_enter_name_error">Please Enter The Job\'s Name</string>
     <string name="jobsearcher_s_image">Jobsearcher\'s Image</string>
     <string name="name">Name</string>
+    <string name="modify_user_data">Modify User Data</string>
+    <string name="dislike_image_description">Skip Image</string>
+    <string name="like_image_description">Like Image</string>
+    <string name="dislike_button_description">Dislike Button</string>
+    <string name="rewind_button_description">Skip Button</string>
+    <string name="like_button_description">Like Button</string>
+    <string name="delete_button_description">Delete Button</string>
+    <string name="user_image_description">User Image</string>
+    <string name="upload_image_button_description">Upload Image Button</string>
+    <string name="remove_a_job">Remove a Job</string>
+    <string name="jobsearcher_name_on_cardstackview">Name: %1$s</string>
+    <string name="jobsearcher_applied_for_on_cardstackview">Applied For: %1$s</string>
 </resources>

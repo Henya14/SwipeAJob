@@ -30,6 +30,9 @@ import hu.bme.aut.android.swipeajob.R
 import kotlinx.android.synthetic.main.education_list_layout.*
 import kotlinx.android.synthetic.main.experience_list_layout.*
 import kotlinx.android.synthetic.main.registration_fragment_common_layout.*
+import kotlinx.android.synthetic.main.registration_fragment_common_layout.passwordInputField
+import kotlinx.android.synthetic.main.registration_fragment_common_layout.phoneNumberInput
+import kotlinx.android.synthetic.main.registration_fragment_common_layout.uploadedImage
 import kotlinx.android.synthetic.main.registration_fragment_job_searcher.*
 import kotlinx.android.synthetic.main.skills_list_layout.*
 import kotlin.concurrent.thread
@@ -101,17 +104,20 @@ class JobSearcherRegistrationFragment : Fragment(),
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (resultCode == Activity.RESULT_OK) {
-            //Image Uri will not be null for RESULT_OK
-            val fileUri = data?.data
-            pictureUri = fileUri.toString()
-            uploadedImage.setImageURI(fileUri)
-            uploadedImage.scaleType = ImageView.ScaleType.FIT_XY
+        when(resultCode)
+        {
+            Activity.RESULT_OK -> {
 
-        } else if (resultCode == ImagePicker.RESULT_ERROR) {
-            Toast.makeText(requireContext(), ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(requireContext(), "Task Cancelled", Toast.LENGTH_SHORT).show()
+                val fileUri = data?.data
+                pictureUri = fileUri.toString()
+                uploadedImage.setImageURI(fileUri)
+                uploadedImage.scaleType = ImageView.ScaleType.FIT_XY
+
+            }
+
+            ImagePicker.RESULT_ERROR -> Toast.makeText(requireContext(), ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+
+            else -> Toast.makeText(requireContext(), "Task Cancelled", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -133,7 +139,7 @@ class JobSearcherRegistrationFragment : Fragment(),
     }
 
 
-    fun registerButtonOnClick(v : View)
+    private fun registerButtonOnClick(v : View)
     {
         registerButton.isEnabled = false
         if(validateInput())
@@ -237,7 +243,7 @@ class JobSearcherRegistrationFragment : Fragment(),
 
         val t = thread {
                 val result = AppDatabase.getInstance(requireContext()).jobsearcherDao().getAllJobSearchersWithUsername(userNameInputField.editText!!.text.toString())
-                if(result.size > 0)
+                if(result.isNotEmpty())
                     unique = false
 
         }

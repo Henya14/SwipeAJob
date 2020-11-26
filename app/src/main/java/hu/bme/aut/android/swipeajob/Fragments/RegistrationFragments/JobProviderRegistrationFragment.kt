@@ -18,6 +18,9 @@ import hu.bme.aut.android.swipeajob.Fragments.MainActivityFragments.Registration
 import hu.bme.aut.android.swipeajob.Globals.Consts
 import hu.bme.aut.android.swipeajob.R
 import kotlinx.android.synthetic.main.registration_fragment_common_layout.*
+import kotlinx.android.synthetic.main.registration_fragment_common_layout.passwordInputField
+import kotlinx.android.synthetic.main.registration_fragment_common_layout.phoneNumberInput
+import kotlinx.android.synthetic.main.registration_fragment_common_layout.uploadedImage
 import kotlinx.android.synthetic.main.registration_fragment_job_provider.*
 import kotlin.concurrent.thread
 
@@ -50,22 +53,25 @@ class JobProviderRegistrationFragment : Fragment() {
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (resultCode == Activity.RESULT_OK) {
-            //Image Uri will not be null for RESULT_OK
-            val fileUri = data?.data
-            pictureUri = fileUri.toString()
-            uploadedImage.setImageURI(fileUri)
-            uploadedImage.scaleType = ImageView.ScaleType.FIT_XY
+        when(resultCode)
+        {
+            Activity.RESULT_OK -> {
 
-        } else if (resultCode == ImagePicker.RESULT_ERROR) {
-            Toast.makeText(requireContext(), ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(requireContext(), "Task Cancelled", Toast.LENGTH_SHORT).show()
+                val fileUri = data?.data
+                pictureUri = fileUri.toString()
+                uploadedImage.setImageURI(fileUri)
+                uploadedImage.scaleType = ImageView.ScaleType.FIT_XY
+
+            }
+
+            ImagePicker.RESULT_ERROR -> Toast.makeText(requireContext(), ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+
+            else -> Toast.makeText(requireContext(), "Task Cancelled", Toast.LENGTH_SHORT).show()
         }
     }
 
 
-    fun registerButtonOnClick(view: View) {
+    private fun registerButtonOnClick(view: View) {
         registerButton.isEnabled = false
         if(validateInput())
             registerNewJobProvider()
@@ -142,7 +148,7 @@ class JobProviderRegistrationFragment : Fragment() {
 
         val t = thread {
             val result = AppDatabase.getInstance(requireContext()).jobproviderDao().getAllJobProvidersWithUsername(userNameInputField.editText!!.text.toString())
-            if(result.size > 0)
+            if(result.isNotEmpty())
                 unique = false
 
         }

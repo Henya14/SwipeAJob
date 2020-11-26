@@ -15,7 +15,7 @@ import hu.bme.aut.android.swipeajob.R
 class MatchesJobProviderRecyclerViewAdapter(val context: Context)
     : RecyclerView.Adapter<MatchesViewHolder>() {
 
-    var matches = mutableListOf<Match>()
+    private var matches = mutableListOf<Match>()
 
 
 
@@ -32,7 +32,8 @@ class MatchesJobProviderRecyclerViewAdapter(val context: Context)
         if(match.imageUri != null) {
             holder.image.setImageURI(Uri.parse(match.imageUri))
         }
-        holder.name.text = "name: ${match.jobsearchername}\n" + "applied for: ${match.jobname}"
+        holder.name.text = context.getString(R.string.jobsearcher_name_on_cardstackview, match.jobsearchername) +
+         "\n" + context.getString(R.string.jobsearcher_applied_for_on_cardstackview, match.jobname)
         holder.item = match
     }
 
@@ -58,7 +59,7 @@ class MatchesJobProviderRecyclerViewAdapter(val context: Context)
 
 
 
-    fun onMatchClicked(match: Match)
+    private fun onMatchClicked(match: Match)
     {
         val intent = Intent(Intent.ACTION_DIAL)
         intent.data = Uri.parse("tel:" + match.jobsearcherPhoneNumber)

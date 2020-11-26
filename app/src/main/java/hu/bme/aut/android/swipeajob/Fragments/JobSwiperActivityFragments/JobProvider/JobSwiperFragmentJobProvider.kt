@@ -18,7 +18,6 @@ import hu.bme.aut.android.swipeajob.Data.Entities.JobSearcher
 import hu.bme.aut.android.swipeajob.Data.QueryHelperClasses.JobProviderWithJobs
 import hu.bme.aut.android.swipeajob.Data.QueryHelperClasses.JobSearcherWithJobNameAndId
 import hu.bme.aut.android.swipeajob.Data.QueryHelperClasses.JobsThatWereSwiped
-import hu.bme.aut.android.swipeajob.Data.QueryHelperClasses.SwipedJobSearchersForJobProvider
 import hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments.JobProvider.DialogFragments.JobSearcherDetailsDialogFragment
 import hu.bme.aut.android.swipeajob.R
 import kotlinx.android.synthetic.main.fragment_job_swiper_common_layout.*
@@ -29,7 +28,7 @@ class JobSwiperFragmentJobProvider(val username: String) : Fragment() , CardStac
 
 
     private val manager by lazy { CardStackLayoutManager(context, this) }
-    private val adapter by lazy { CardStackAdapterJobProvider(this) }
+    private val adapter by lazy { CardStackAdapterJobProvider(listener = this, context =  requireContext()) }
 
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
@@ -51,7 +50,7 @@ class JobSwiperFragmentJobProvider(val username: String) : Fragment() , CardStac
 
     private fun loadJobSearchers()
     {
-        var searchers = mutableListOf<JobSearcherWithJobNameAndId>()
+        val searchers = mutableListOf<JobSearcherWithJobNameAndId>()
         //TODO tranzakcióba rakni és átírni, hogy melyik jobsearchereket ne lássa és a matches fül nem feltétlenül jó
         thread {
 
@@ -80,19 +79,19 @@ class JobSwiperFragmentJobProvider(val username: String) : Fragment() , CardStac
             val applicantsThatWereSwipedIds = mutableListOf<Long>()
             val applicantsThatWereSwipedJobIDs = mutableListOf<Long>()
 
-            for ( i in 0.. leftSwipedApplicantsIdsAndJobIds.size - 1 ) {
-                applicantsThatWereSwipedIds.add(leftSwipedApplicantsIdsAndJobIds[i].jobsearcherid!!)
-                applicantsThatWereSwipedJobIDs.add(leftSwipedApplicantsIdsAndJobIds[i].jobid!!)
+            for ( i in  leftSwipedApplicantsIdsAndJobIds.indices) {
+                applicantsThatWereSwipedIds.add(leftSwipedApplicantsIdsAndJobIds[i].jobsearcherid)
+                applicantsThatWereSwipedJobIDs.add(leftSwipedApplicantsIdsAndJobIds[i].jobid)
             }
 
             val rightSwipedApplicantsIdsAndJobIds = db
                 .rightswipedjobsearcherscrosssrefDao()
                 .getAllRightSwipedJobSearchersAndJobIdsForJobProviderWithId(providerandjobs!!.jobProvider.id!!)
 
-            for ( i in 0.. rightSwipedApplicantsIdsAndJobIds.size - 1 ) {
+            for ( i in rightSwipedApplicantsIdsAndJobIds.indices) {
 
-                applicantsThatWereSwipedIds.add(rightSwipedApplicantsIdsAndJobIds[i].jobsearcherid!!)
-                applicantsThatWereSwipedJobIDs.add(rightSwipedApplicantsIdsAndJobIds[i].jobid!!)
+                applicantsThatWereSwipedIds.add(rightSwipedApplicantsIdsAndJobIds[i].jobsearcherid)
+                applicantsThatWereSwipedJobIDs.add(rightSwipedApplicantsIdsAndJobIds[i].jobid)
 
             }
 
@@ -101,15 +100,15 @@ class JobSwiperFragmentJobProvider(val username: String) : Fragment() , CardStac
             {
 
                 val jobThatWasSwiped =  swipedjobs.find { it.job.id == j.id}
-                jobThatWasSwiped?.jobsearchersThatSwipedRightTheJob?.forEach{
+                jobThatWasSwiped?.jobsearchersThatSwipedRightTheJob?.forEach{it ->
                     val jobsearcherid = it.jobsearcherId!!
-                    if(applicantsThatWereSwipedIds.find { it == jobsearcherid } == null){
+                    if(applicantsThatWereSwipedIds.find { id -> id == jobsearcherid } == null){
                         searchers.add(JobSearcherWithJobNameAndId(jobsearcher = it, jobName = j.name, jobid = j.id!!))
                     }
                     else
                     {
                         var jobswiperWasSwiped = false
-                        for( i in 0.. applicantsThatWereSwipedIds.size - 1){
+                        for( i in applicantsThatWereSwipedIds.indices){
                             if(applicantsThatWereSwipedIds[i] == it.jobsearcherId )
                             {
                                 if(applicantsThatWereSwipedJobIDs[i] == j.id)
@@ -239,7 +238,7 @@ class JobSwiperFragmentJobProvider(val username: String) : Fragment() , CardStac
             db.runInTransaction{
                 val jobproviderid = db.jobproviderDao().getJobProviderIdForUsername(username)
 
-                val leftSwipedJobSearchersCrossRefRecord = LeftSwipedJobSearchersCrossRef(jobsearcherid = jobsearcherid!!, jobproviderid = jobproviderid!!, jobid!!)
+                val leftSwipedJobSearchersCrossRefRecord = LeftSwipedJobSearchersCrossRef(jobsearcherid = jobsearcherid!!, jobproviderid = jobproviderid, jobid)
                 db.leftswipedjobsearcherscrossrefDao().insert(leftSwipedJobSearchersCrossRefRecord)
             }
 
@@ -270,7 +269,7 @@ class JobSwiperFragmentJobProvider(val username: String) : Fragment() , CardStac
 
 
 
-    override fun JobSearcherClicked(jobsearcher: JobSearcher) {
+    override fun jobSearcherClicked(jobsearcher: JobSearcher) {
         JobSearcherDetailsDialogFragment(jobsearcher).show(requireActivity().supportFragmentManager,JobSearcherDetailsDialogFragment.TAG)
     }
 

@@ -14,7 +14,7 @@ import hu.bme.aut.android.swipeajob.Globals.Consts
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.EducationItem
 import hu.bme.aut.android.swipeajob.R
 
-class NewEducationItemDialogFragment(val listener: NewEducationItemDialogListener): DialogFragment()
+class NewEducationItemDialogFragment(private val listener: NewEducationItemDialogListener): DialogFragment()
 {
 
     interface NewEducationItemDialogListener

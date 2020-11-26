@@ -61,15 +61,15 @@ class ChangeInfoJobSearcherActivity : AppCompatActivity(),
     private lateinit var experienceRecyclerViewAdapter: ExperienceRecyclerViewAdapter
     private lateinit var skillsRecyclerViewAdapter: SkillsRecyclerViewAdapter
 
-    private lateinit var educations: List<EducationItem>
+
     private val deletedEducationItems = mutableListOf<EducationItem>()
     private val newEducationItems = mutableListOf<EducationItem>()
 
-    private lateinit var experiences: List<ExperienceItem>
+
     private val deletedExperienceItems = mutableListOf<ExperienceItem>()
     private val newExperienceItems = mutableListOf<ExperienceItem>()
 
-    private lateinit var skills: List<SkillItem>
+
     private val deletedSkillItems = mutableListOf<SkillItem>()
     private val newSkillItems = mutableListOf<SkillItem>()
 
@@ -274,17 +274,20 @@ class ChangeInfoJobSearcherActivity : AppCompatActivity(),
     override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
         super.onActivityResult(requestCode, resultCode, data)
 
-        if (resultCode == Activity.RESULT_OK) {
+        when(resultCode)
+        {
+            Activity.RESULT_OK -> {
 
-            val fileUri = data?.data
-            pictureUri = fileUri.toString()
-            uploadedImage.setImageURI(fileUri)
-            uploadedImage.scaleType = ImageView.ScaleType.FIT_XY
+                val fileUri = data?.data
+                pictureUri = fileUri.toString()
+                uploadedImage.setImageURI(fileUri)
+                uploadedImage.scaleType = ImageView.ScaleType.FIT_XY
 
-        } else if (resultCode == ImagePicker.RESULT_ERROR) {
-            Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
-        } else {
-            Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show()
+            }
+
+            ImagePicker.RESULT_ERROR -> Toast.makeText(this, ImagePicker.getError(data), Toast.LENGTH_SHORT).show()
+
+            else -> Toast.makeText(this, "Task Cancelled", Toast.LENGTH_SHORT).show()
         }
     }
 
@@ -318,4 +321,6 @@ class ChangeInfoJobSearcherActivity : AppCompatActivity(),
     override fun skillItemRemoved(skillItem: SkillItem) {
         deletedSkillItems.add(skillItem)
     }
+
+    //TODO destroy db
 }
