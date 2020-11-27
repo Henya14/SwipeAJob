@@ -2,12 +2,12 @@ package hu.bme.aut.android.swipeajob.Activities.JobProvider
 
 import android.app.Activity
 import android.content.Intent
-import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
+import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
 import hu.bme.aut.android.swipeajob.Data.Database.AppDatabase
@@ -65,7 +65,7 @@ class ChangeInfoJobProviderActivity : AppCompatActivity() {
                 AppDatabase.getInstance(this).jobproviderDao().getJobProviderForUsername(userName)
             runOnUiThread {
                 pictureUri = jobprovider.pictureUri
-                uploadedImage.setImageURI(Uri.parse(pictureUri))
+                Glide.with(this).load(pictureUri).into(uploadedImage)
                 uploadedImage.scaleType = ImageView.ScaleType.FIT_XY
 
                 password = jobprovider.password
@@ -167,6 +167,16 @@ class ChangeInfoJobProviderActivity : AppCompatActivity() {
         }
 
 
+    }
+
+    override fun onResume() {
+        AppDatabase.getInstance(this)
+        super.onResume()
+    }
+
+    override fun onPause() {
+        AppDatabase.destroyInstance()
+        super.onPause()
     }
 
 

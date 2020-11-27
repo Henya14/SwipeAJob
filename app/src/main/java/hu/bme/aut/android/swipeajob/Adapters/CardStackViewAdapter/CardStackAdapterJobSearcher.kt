@@ -7,6 +7,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import com.bumptech.glide.Glide
+import hu.bme.aut.android.swipeajob.Data.Database.AppDatabase
 import hu.bme.aut.android.swipeajob.Data.Entities.Job
 import hu.bme.aut.android.swipeajob.R
 

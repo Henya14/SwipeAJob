@@ -10,6 +10,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import com.google.android.material.tabs.TabLayoutMediator
 import hu.bme.aut.android.swipeajob.Activities.MainActivity
 import hu.bme.aut.android.swipeajob.Adapters.FragmentPagerAdapter.JobSwiperFragmentPagerAdapterJobsearcher
+import hu.bme.aut.android.swipeajob.Data.Database.AppDatabase
 import hu.bme.aut.android.swipeajob.R
 import kotlinx.android.synthetic.main.activity_job_swiper_common_layout.*
 import kotlinx.android.synthetic.main.activity_job_swiper_jobsearcher.*
@@ -89,6 +90,16 @@ class JobSwiperActivityJobsearcher : AppCompatActivity() {
                 else -> fab.show()
             }
         }
+    }
+
+    override fun onResume() {
+        AppDatabase.getInstance(this)
+        super.onResume()
+    }
+
+    override fun onPause() {
+        AppDatabase.destroyInstance()
+        super.onPause()
     }
 
 }

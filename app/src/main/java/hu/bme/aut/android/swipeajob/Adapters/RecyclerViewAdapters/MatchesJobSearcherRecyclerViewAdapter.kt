@@ -7,6 +7,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.ViewHolders.MatchesViewHolder
 import hu.bme.aut.android.swipeajob.Data.QueryHelperClasses.Match
 import hu.bme.aut.android.swipeajob.R
@@ -29,9 +30,10 @@ class MatchesJobSearcherRecyclerViewAdapter(val context: Context)
     override fun onBindViewHolder(holder: MatchesViewHolder, position: Int) {
         val match = matches[position]
 
-        if(match.imageUri != null) {
-            holder.image.setImageURI(Uri.parse(match.imageUri))
-        }
+
+        Glide.with(context).load(match.imageUri).into(holder.image)
+
+
         holder.name.text = match.jobname
         holder.item = match
     }

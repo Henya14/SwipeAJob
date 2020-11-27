@@ -26,7 +26,7 @@
     <string name="registration_appbar_text">Registration</string>
     <string name="forgotten_password_fragment_title">Retrieve Password</string>
     <string name="submit">Submit</string>
-    <string name="comapny_name">Comapny Name</string>
+    <string name="comapny_name">Company Name</string>
     <string name="start_end_year">start-end year</string>
     <string name="graduation_year">Graduation year</string>
     <string name="school_s_name">School\'s Name</string>
@@ -70,7 +70,10 @@
     <string name="delete_button_description">Delete Button</string>
     <string name="user_image_description">User Image</string>
     <string name="upload_image_button_description">Upload Image Button</string>
-    <string name="remove_a_job">Remove a Job</string>
+    <string name="remove_jobs">Remove Jobs</string>
     <string name="jobsearcher_name_on_cardstackview">Name: %1$s</string>
     <string name="jobsearcher_applied_for_on_cardstackview">Applied For: %1$s</string>
+    <string name="jobsearcher_not_found_snackbar">No JobSearcher Is Registered With The Username %1$s</string>
+    <string name="jobprovider_not_found_snackbar">No JobProvider Is Registered With The Username %1$s</string>
+    <string name="jobs_posted_by_you">Jobs Posted By You</string>
 </resources>

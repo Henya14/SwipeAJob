@@ -12,12 +12,14 @@ import android.widget.TextView
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
+import com.bumptech.glide.Glide
 import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.EducationRecyclerViewAdapter
 import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.ExperienceRecyclerViewAdapter
 import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.SkillsRecyclerViewAdapter
 import hu.bme.aut.android.swipeajob.Data.Database.AppDatabase
 import hu.bme.aut.android.swipeajob.Data.Entities.JobSearcher
 import hu.bme.aut.android.swipeajob.R
+import kotlinx.android.synthetic.main.activity_change_info_common_layout.*
 import kotlin.concurrent.thread
 
 class JobSearcherDetailsDialogFragment(val jobsearcher : JobSearcher): DialogFragment()
@@ -46,8 +48,8 @@ class JobSearcherDetailsDialogFragment(val jobsearcher : JobSearcher): DialogFra
 
 
         if(jobsearcher.pictureUri != null) {
-            contentView.findViewById<ImageView>(R.id.jobsearcher_image)
-                .setImageURI(Uri.parse(jobsearcher.pictureUri))
+
+            Glide.with(this).load(jobsearcher.pictureUri).into(contentView.findViewById<ImageView>(R.id.jobsearcher_image))
         }
         contentView.findViewById<TextView>(R.id.jobsearcher_FullName).text = jobsearcher.fullname
         contentView.findViewById<Button>(R.id.addEducationButton).visibility = View.INVISIBLE

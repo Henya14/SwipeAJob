@@ -2,46 +2,52 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    xmlns:app="http://schemas.android.com/apk/res-auto"
-    xmlns:tools="http://schemas.android.com/tools">
+    xmlns:tools="http://schemas.android.com/tools"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
 
-
-    <TextView
-        android:id="@+id/graduationYearTextView"
-        android:layout_width="@dimen/recyclerview_width"
-        android:layout_height="wrap_content"
-        android:layout_margin="@dimen/margin_recycler_view_items"
-        tools:text="2006"
-        android:textSize="@dimen/recycler_view_item_text_size"
+    <ImageView
+        android:id="@+id/jobPicture"
+        android:layout_width="150dp"
+        android:layout_height="250dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
-
     <TextView
-        android:id="@+id/schoolNameTextView"
+        android:id="@+id/jobNameTextView"
         android:layout_width="@dimen/recyclerview_width"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_recycler_view_items"
+        tools:text="JobName"
         android:textSize="@dimen/recycler_view_item_text_size"
-
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintStart_toEndOf="@+id/graduationYearTextView"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:text="School's Name" />
+
+        app:layout_constraintStart_toEndOf="@id/jobPicture"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <TextView
+        android:id="@+id/jobDescriptionTextView"
+        android:layout_width="@dimen/recyclerview_width"
+        android:layout_height="wrap_content"
+        android:layout_margin="@dimen/margin_recycler_view_items"
+        android:textSize="@dimen/recycler_view_item_text_size_small"
+        app:layout_constraintStart_toEndOf="@+id/jobPicture"
+        app:layout_constraintTop_toBottomOf="@+id/jobNameTextView"
+        tools:text="desc" />
+
 
     <ImageButton
-        android:id="@+id/educationItemRemoveButton"
+        android:id="@+id/jobItemRemoveButton"
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="@dimen/recyclerview_remove_button_width"
         android:layout_height="@dimen/recyclerview_remove_button_height"
         android:layout_margin="@dimen/app_margin"
         android:layout_gravity="center_vertical"
-        android:contentDescription="@string/delete_button_description"
         android:scaleType="fitXY"
         android:src="@drawable/ic_delete_grey600_48dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toTopOf="parent"
+        android:contentDescription="@string/delete_button_description"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

@@ -40,6 +40,10 @@ class JobSwiperFragmentJobSearcher(val username: String) : Fragment() ,CardStack
 
         cardStackView.layoutManager = CardStackLayoutManager(context)
         cardStackView.adapter = CardStackAdapterJobSearcher()
+
+        greyLoadingScreen.visibility = View.VISIBLE
+        loadingProgressBar.visibility = View.VISIBLE
+
         loadJobs()
         //setupNavigation()
         setupCardStackView()
@@ -61,9 +65,11 @@ class JobSwiperFragmentJobSearcher(val username: String) : Fragment() ,CardStack
             swipedJobsForJobSearcher!!.jobsThatTheSearcherSwipedRight.forEach{ swipedJobsIDs.add(it.id!!) }
             swipedJobsForJobSearcher!!.jobsThatTheSearcherSwipedLeft.forEach{ swipedJobsIDs.add(it.id!!) }
 
-            val notSwipedJobs = result.filter { it.id !in swipedJobsIDs }
+            val notSwipedJobs = result.filter { (it.id !in swipedJobsIDs && !it.removed) }
             requireActivity().runOnUiThread{
                 adapter.setJobs(notSwipedJobs)
+                greyLoadingScreen.visibility = View.GONE
+                loadingProgressBar.visibility = View.GONE
             }
 
         }

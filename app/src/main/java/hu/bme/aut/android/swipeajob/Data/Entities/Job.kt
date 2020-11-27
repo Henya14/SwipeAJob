@@ -15,7 +15,8 @@ import androidx.room.PrimaryKey
 data class Job(
     @ColumnInfo(name = "jobid") @PrimaryKey(autoGenerate = true) val id: Long?,
     @ColumnInfo(name = "job_owner_jobproviderid") var jobproviderId: Long?,
-    @ColumnInfo(name = "pictureuri") val pictureUri: String?,
+    @ColumnInfo(name = "pictureuri") var pictureUri: String?,
     @ColumnInfo(name = "name") val name: String,
-    @ColumnInfo(name = "description") val description: String
+    @ColumnInfo(name = "description") val description: String,
+    @ColumnInfo(name = "removed") var removed: Boolean = false
 )

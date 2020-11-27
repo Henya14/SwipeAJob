@@ -73,7 +73,7 @@ class ExperienceRecyclerViewAdapter(val withButtons : Boolean = true,
 
     fun removeItem(item: ExperienceItem) {
         val itemIdx: Int = items.indexOf(item)
-        items.remove(item)
+        items.removeAt(itemIdx)
         notifyItemRemoved(itemIdx)
     }
 

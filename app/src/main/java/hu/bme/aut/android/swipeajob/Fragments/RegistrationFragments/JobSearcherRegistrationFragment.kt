@@ -206,7 +206,6 @@ class JobSearcherRegistrationFragment : Fragment(),
             val db = AppDatabase.getInstance(requireContext())
             db.runInTransaction {
 
-                //TODO loading icon
                 val jobsearcherId =  AppDatabase.getInstance(requireContext()).jobsearcherDao().insert(js)
 
                 educationRecyclerViewAdapter.items.forEach {

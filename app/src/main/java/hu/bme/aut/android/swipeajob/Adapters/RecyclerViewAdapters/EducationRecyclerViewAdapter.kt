@@ -9,6 +9,7 @@ import androidx.recyclerview.widget.RecyclerView
 import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.EducationItem
 import hu.bme.aut.android.swipeajob.R
 
+
 class EducationRecyclerViewAdapter(val withButtons : Boolean = true,
                                    val educationItemRemovedListener: EducationItemRemovedListener? = null)
 : RecyclerView.Adapter<EducationRecyclerViewAdapter.EducationViewHolder>() {
@@ -77,7 +78,7 @@ class EducationRecyclerViewAdapter(val withButtons : Boolean = true,
 
     fun removeItem(item: EducationItem) {
         val itemIdx: Int = items.indexOf(item)
-        items.remove(item)
+        items.removeAt(itemIdx)
         notifyItemRemoved(itemIdx)
     }
 

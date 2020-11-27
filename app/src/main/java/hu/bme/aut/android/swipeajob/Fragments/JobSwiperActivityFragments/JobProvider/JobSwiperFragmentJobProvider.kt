@@ -42,6 +42,8 @@ class JobSwiperFragmentJobProvider(val username: String) : Fragment() , CardStac
         super.onViewCreated(view, savedInstanceState)
 
         cardStackView.layoutManager = CardStackLayoutManager(context)
+        greyLoadingScreen.visibility = View.VISIBLE
+        loadingProgressBar.visibility = View.VISIBLE
         loadJobSearchers()
         //setupNavigation()
         setupCardStackView()
@@ -51,8 +53,7 @@ class JobSwiperFragmentJobProvider(val username: String) : Fragment() , CardStac
     private fun loadJobSearchers()
     {
         val searchers = mutableListOf<JobSearcherWithJobNameAndId>()
-        //TODO tranzakcióba rakni és átírni, hogy melyik jobsearchereket ne lássa és a matches fül nem feltétlenül jó
-        thread {
+       thread {
 
             val db = AppDatabase.getInstance(requireContext())
 
@@ -127,6 +128,8 @@ class JobSwiperFragmentJobProvider(val username: String) : Fragment() , CardStac
             }
             requireActivity().runOnUiThread{
                 adapter.setJobSearchers(searchers)
+                greyLoadingScreen.visibility = View.GONE
+                loadingProgressBar.visibility = View.GONE
             }
 
 

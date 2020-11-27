@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
 import com.google.android.material.snackbar.Snackbar
 import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.EducationRecyclerViewAdapter
@@ -113,7 +114,8 @@ class ChangeInfoJobSearcherActivity : AppCompatActivity(),
 
             runOnUiThread {
                 pictureUri = jobsearcherWithEmbeddedclasses.jobSearcher.pictureUri
-                uploadedImage.setImageURI(Uri.parse(pictureUri))
+                Glide.with(this).load(pictureUri).into(uploadedImage)
+                //uploadedImage.setImageURI(Uri.parse(pictureUri))
                 uploadedImage.scaleType = ImageView.ScaleType.FIT_XY
 
                 password = jobsearcherWithEmbeddedclasses.jobSearcher.password
@@ -322,5 +324,13 @@ class ChangeInfoJobSearcherActivity : AppCompatActivity(),
         deletedSkillItems.add(skillItem)
     }
 
-    //TODO destroy db
+    override fun onResume() {
+        AppDatabase.getInstance(this)
+        super.onResume()
+    }
+
+    override fun onPause() {
+        AppDatabase.destroyInstance()
+        super.onPause()
+    }
 }

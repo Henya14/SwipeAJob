@@ -13,6 +13,7 @@ import hu.bme.aut.android.swipeajob.Adapters.FragmentPagerAdapter.JobSwiperFragm
 import hu.bme.aut.android.swipeajob.Data.Database.AppDatabase
 import hu.bme.aut.android.swipeajob.Data.Entities.Job
 import hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments.JobProvider.DialogFragments.NewJobDialogFragment
+import hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments.JobProvider.DialogFragments.RemovePostedJobFragment
 import hu.bme.aut.android.swipeajob.Fragments.JobSwiperActivityFragments.JobProvider.OnMatchesTabSelectedListener
 import hu.bme.aut.android.swipeajob.R
 import io.github.yavski.fabspeeddial.FabSpeedDial
@@ -23,6 +24,7 @@ interface FabClickedListener
 {
     fun postNewJobClicked()
     fun modifyInfoClicked()
+    fun removeJobsClicked()
 }
 
 class JobSwiperActivityJobProvider : AppCompatActivity(), NewJobDialogFragment.NewJobItemDialogListener,
@@ -86,7 +88,10 @@ class JobSwiperActivityJobProvider : AppCompatActivity(), NewJobDialogFragment.N
                     listener.modifyInfoClicked()
                     return true
                 }
-                //TODO utolso gombot implementalni dialog fragmentnek
+                R.id.action_remove_jobs ->{
+                    listener.removeJobsClicked()
+                    return true
+                }
 
                 else -> return false
             }
@@ -136,7 +141,12 @@ class JobSwiperActivityJobProvider : AppCompatActivity(), NewJobDialogFragment.N
         thread {
             val db =  AppDatabase.getInstance(this)
             db.runInTransaction {
+
                 val jobProvider = db.jobproviderDao().getJobProviderForUsername(userName)
+                if(newJob.pictureUri == "")
+                {
+                    newJob.pictureUri = jobProvider.pictureUri
+                }
                 newJob.jobproviderId = jobProvider.id
                 db.jobDao().insert(newJob)
             }
@@ -145,7 +155,15 @@ class JobSwiperActivityJobProvider : AppCompatActivity(), NewJobDialogFragment.N
     }
 
     override fun postNewJobClicked() {
-        NewJobDialogFragment(this).show(this.supportFragmentManager,NewJobDialogFragment.TAG)
+
+        thread {
+            val jobprovider = AppDatabase.getInstance(this).jobproviderDao().getJobProviderForUsername(userName)
+
+            runOnUiThread {
+                NewJobDialogFragment(this,jobprovider).show(this.supportFragmentManager,NewJobDialogFragment.TAG)
+            }
+        }
+
     }
 
     override fun modifyInfoClicked() {
@@ -153,4 +171,22 @@ class JobSwiperActivityJobProvider : AppCompatActivity(), NewJobDialogFragment.N
         intent.putExtra(ChangeInfoJobProviderActivity.KEY_USER_NAME, userName)
         startActivity(intent)
     }
+
+    override fun removeJobsClicked() {
+
+        RemovePostedJobFragment(userName).show(this.supportFragmentManager,RemovePostedJobFragment.TAG)
+
+    }
+
+    override fun onResume() {
+        AppDatabase.getInstance(this)
+        super.onResume()
+    }
+
+    override fun onPause() {
+        AppDatabase.destroyInstance()
+        super.onPause()
+    }
+
+
 }

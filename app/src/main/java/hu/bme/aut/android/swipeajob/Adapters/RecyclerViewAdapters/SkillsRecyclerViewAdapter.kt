@@ -73,7 +73,7 @@ class SkillsRecyclerViewAdapter(val withButtons : Boolean = true,
 
     fun removeItem(item: SkillItem) {
         val itemIdx: Int = items.indexOf(item)
-        items.remove(item)
+        items.removeAt(itemIdx)
         notifyItemRemoved(itemIdx)
     }
 

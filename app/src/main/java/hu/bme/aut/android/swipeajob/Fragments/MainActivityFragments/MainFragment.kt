@@ -132,7 +132,7 @@ class MainFragment : Fragment() {
             if (list.isEmpty()) {
                 Snackbar.make(
                     requireView(),
-                    "No Jobsearcher Is Registered With The Username $userName",
+                    requireContext().getString(R.string.jobsearcher_not_found_snackbar, userName),
                     Snackbar.LENGTH_LONG
                 ).show()
                 return false
@@ -161,7 +161,7 @@ class MainFragment : Fragment() {
             if (list.isEmpty()) {
                 Snackbar.make(
                     requireView(),
-                    "No Jobprovider Is Registered With The Username $userName",
+                    requireContext().getString(R.string.jobprovider_not_found_snackbar, userName),
                     Snackbar.LENGTH_LONG
                 ).show()
                 return false

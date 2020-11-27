@@ -8,7 +8,7 @@ import hu.bme.aut.android.swipeajob.Data.CrossReferences.JobSwiperJobLeftSwipeCr
 import hu.bme.aut.android.swipeajob.Data.CrossReferences.JobSwiperJobRightSwipeCrossRef
 import hu.bme.aut.android.swipeajob.Data.CrossReferences.LeftSwipedJobSearchersCrossRef
 import hu.bme.aut.android.swipeajob.Data.CrossReferences.RightSwipedJobSearchersCrossRef
-import hu.bme.aut.android.swipeajob.Data.Dao.*
+import hu.bme.aut.android.swipeajob.Data.Daos.*
 import hu.bme.aut.android.swipeajob.Data.Entities.Job
 import hu.bme.aut.android.swipeajob.Data.Entities.JobProvider
 import hu.bme.aut.android.swipeajob.Data.Entities.JobSearcher
@@ -26,7 +26,7 @@ import hu.bme.aut.android.swipeajob.Data.RegistrationRecyclerViewsData.SkillItem
     JobSwiperJobLeftSwipeCrossRef::class,
     RightSwipedJobSearchersCrossRef::class,
     LeftSwipedJobSearchersCrossRef::class],
-    version = 7
+    version = 10
     )
 abstract class AppDatabase : RoomDatabase()
 {
@@ -57,7 +57,9 @@ abstract class AppDatabase : RoomDatabase()
             {
                 INSTANCE = Room.databaseBuilder(
                     context.applicationContext,
-                    AppDatabase::class.java, "jobswiperdb").fallbackToDestructiveMigration().build()
+                    AppDatabase::class.java, "jobswiperdb")
+                    .createFromAsset("database/jobswiperdb.db")
+                    .build()
 
 
             }

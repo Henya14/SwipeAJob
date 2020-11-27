@@ -8,6 +8,7 @@
     <dimen name="fab_margin">16dp</dimen>
     <dimen name="margin_recycler_view_items">10dp</dimen>
     <dimen name="recycler_view_item_text_size">20sp</dimen>
+    <dimen name="recycler_view_item_text_size_small">14sp</dimen>
     <dimen name="margin_recycler_view">20dp</dimen>
     <dimen name="recycler_view_first_label_margin_start">20dp</dimen>
     <dimen name="app_padding">20dp</dimen>
@@ -16,6 +17,9 @@
     <dimen name="registration_info_change_button_height_padding_value">40dp</dimen>
     <dimen name="image_button_image_width">300dp</dimen>
     <dimen name="image_button_image_height">400dp</dimen>
+    <dimen name="recyclerview_width">150dp</dimen>
+    <dimen name="recyclerview_remove_button_width">50dp</dimen>
+    <dimen name="recyclerview_remove_button_height">50dp</dimen>
 
 
 </resources>

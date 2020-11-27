@@ -12,13 +12,16 @@ import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.Toast
 import androidx.fragment.app.DialogFragment
+import com.bumptech.glide.Glide
 import com.github.dhaval2404.imagepicker.ImagePicker
+import hu.bme.aut.android.swipeajob.Adapters.FragmentPagerAdapter.JobSwiperFragmentPagerAdapterJobprovider
 import hu.bme.aut.android.swipeajob.Data.Entities.Job
+import hu.bme.aut.android.swipeajob.Data.Entities.JobProvider
 import hu.bme.aut.android.swipeajob.Globals.Consts
 import hu.bme.aut.android.swipeajob.R
 import kotlinx.android.synthetic.main.activity_change_info_common_layout.*
 
-class NewJobDialogFragment(private val listener: NewJobItemDialogListener): DialogFragment()
+class NewJobDialogFragment(private val listener: NewJobItemDialogListener, val jobprovider: JobProvider): DialogFragment()
 {
 
     interface NewJobItemDialogListener
@@ -53,8 +56,14 @@ class NewJobDialogFragment(private val listener: NewJobItemDialogListener): Dial
         val contentView = LayoutInflater
             .from(context)
             .inflate(R.layout.dialog_new_job, null)
-            jobUploadImageButton = contentView.findViewById(R.id.jobUploadImageButton)
-            jobUploadImageButton.setOnClickListener {
+        jobUploadImageButton = contentView.findViewById(R.id.jobUploadImageButton)
+
+        pictureUri = jobprovider.pictureUri
+        Glide.with(this).load(pictureUri).into(jobUploadImageButton)
+
+
+
+        jobUploadImageButton.setOnClickListener {
                 ImagePicker.with(this)
                     .crop()
                     .compress(1024)

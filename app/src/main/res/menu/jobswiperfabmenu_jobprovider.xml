@@ -6,8 +6,9 @@
         android:icon="@android:drawable/ic_menu_edit"
         android:title="@string/modify_user_data" />
     <item
+        android:id="@+id/action_remove_jobs"
         android:icon="@android:drawable/ic_menu_delete"
-        android:title="@string/remove_a_job" />
+        android:title="@string/remove_jobs" />
     <item
         android:id="@+id/action_post_new_job"
         android:icon="@android:drawable/ic_menu_add"

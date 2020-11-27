@@ -1,4 +1,4 @@
-package hu.bme.aut.android.swipeajob.Data.Dao
+package hu.bme.aut.android.swipeajob.Data.Daos
 
 import androidx.room.Dao
 import androidx.room.Delete
