@@ -19,7 +19,7 @@ class JobsRecyclerViewAdapter(val context: Context,
                             val jobItemRemovedListener: JobItemRemovedListener)
     :RecyclerView.Adapter<JobsRecyclerViewAdapter.JobsViewHolder>() {
 
-    var jobs = mutableListOf<Job>()
+    private var jobs = mutableListOf<Job>()
     interface JobItemRemovedListener{
         fun jobItemRemoved(jobItem: Job)
     }
@@ -49,7 +49,7 @@ class JobsRecyclerViewAdapter(val context: Context,
         val jobPicture = itemView.findViewById<ImageView>(R.id.jobPicture)
         val jobName = itemView.findViewById<TextView>(R.id.jobNameTextView)
         val jobDescription = itemView.findViewById<TextView>(R.id.jobDescriptionTextView)
-        val deleteButton = itemView.findViewById<ImageButton>(R.id.jobItemRemoveButton)
+        private val deleteButton = itemView.findViewById<ImageButton>(R.id.jobItemRemoveButton)
         var item : Job? = null
 
         init {

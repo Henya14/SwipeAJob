@@ -9,7 +9,6 @@ import android.widget.ProgressBar
 import androidx.fragment.app.DialogFragment
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.material.internal.ViewUtils.getContentView
 import hu.bme.aut.android.swipeajob.Adapters.RecyclerViewAdapters.JobsRecyclerViewAdapter
 import hu.bme.aut.android.swipeajob.Data.Database.AppDatabase
 import hu.bme.aut.android.swipeajob.Data.Entities.Job
@@ -37,13 +36,13 @@ class RemovePostedJobFragment(val username : String) : DialogFragment(),
             .setView(getContentView())
             .setPositiveButton(getString(R.string.ok_text)){
                 _,_ ->
-                RemoveRemovedJobs()
+                removeRemovedJobs()
             }.setNegativeButton(getString(R.string.action_cancel)){
                 _,_ ->
             }
-            .create();
+            .create()
 
-        return super.onCreateDialog(savedInstanceState)
+
     }
 
     private fun getContentView(): View {
@@ -74,13 +73,13 @@ class RemovePostedJobFragment(val username : String) : DialogFragment(),
                 .getJobProviderWithJobsWithUserName(username = username)
 
             requireActivity().runOnUiThread{
-                jobsRecyclerViewAdapter.setItems(jobproviderWithJobs.jobs)
+                jobsRecyclerViewAdapter.setItems(jobproviderWithJobs.jobs.filter { !it.removed })
                 loadingProgressBar.visibility = View.GONE
             }
         }
     }
 
-    private fun RemoveRemovedJobs()
+    private fun removeRemovedJobs()
     {
         thread {
             val db = AppDatabase.getInstance(requireContext())
