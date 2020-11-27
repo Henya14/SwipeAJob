@@ -7,27 +7,27 @@
 
     <ImageView
         android:id="@+id/jobPicture"
-        android:layout_width="150dp"
-        android:layout_height="250dp"
+        android:layout_width="75dp"
+        android:layout_height="125dp"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent" />
 
     <TextView
         android:id="@+id/jobNameTextView"
-        android:layout_width="@dimen/recyclerview_width"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_recycler_view_items"
-        tools:text="JobName"
         android:textSize="@dimen/recycler_view_item_text_size"
         app:layout_constraintBottom_toBottomOf="parent"
-
         app:layout_constraintStart_toEndOf="@id/jobPicture"
-        app:layout_constraintTop_toTopOf="parent" />
+
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="JobName" />
 
     <TextView
         android:id="@+id/jobDescriptionTextView"
-        android:layout_width="@dimen/recyclerview_width"
+        android:layout_width="100dp"
         android:layout_height="wrap_content"
         android:layout_margin="@dimen/margin_recycler_view_items"
         android:textSize="@dimen/recycler_view_item_text_size_small"
@@ -41,13 +41,15 @@
         style="@style/Widget.AppCompat.Button.Borderless"
         android:layout_width="@dimen/recyclerview_remove_button_width"
         android:layout_height="@dimen/recyclerview_remove_button_height"
-        android:layout_margin="@dimen/app_margin"
         android:layout_gravity="center_vertical"
+        android:layout_margin="@dimen/app_margin"
+        android:layout_marginStart="52dp"
+        android:contentDescription="@string/delete_button_description"
         android:scaleType="fitXY"
-        android:src="@drawable/ic_delete_grey600_48dp"
+        android:src="@android:drawable/ic_menu_delete"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        android:contentDescription="@string/delete_button_description"/>
+        app:layout_constraintStart_toEndOf="@+id/jobNameTextView"
+        app:layout_constraintTop_toTopOf="parent" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
